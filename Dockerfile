@@ -1,4 +1,4 @@
-FROM ruby:3.1
+FROM ruby:2.7.6
 
 ARG RUBYGEMS_VERSION=3.3.20
 
