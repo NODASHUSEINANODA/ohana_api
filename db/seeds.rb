@@ -14,8 +14,7 @@ end
 end
 
 def generateSex()
-    num = Random.rand(1..11)
-    if num.even?
+    if Random.rand(1..11).even?
         return "男性"
     else
         return "女性"
