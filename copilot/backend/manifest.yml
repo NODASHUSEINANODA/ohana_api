@@ -1,0 +1,44 @@
+# The manifest for the "backend" service.
+# Read the full specification for the "Backend Service" type at:
+#  https://aws.github.io/copilot-cli/docs/manifest/backend-service/
+
+# Your service name will be used in naming your resources like log groups, ECS services, etc.
+name: backend
+type: Backend Service
+
+# Your service is reachable at "http://backend.${COPILOT_SERVICE_DISCOVERY_ENDPOINT}:3000" but is not public.
+
+# Configuration for your containers and service.
+image:
+  # Docker build arguments. For additional overrides: https://aws.github.io/copilot-cli/docs/manifest/backend-service/#image-build
+  build: Dockerfile
+  # Port exposed through your container to route traffic to it.
+  port: 3000
+
+cpu: 256       # Number of CPU units for the task.
+memory: 512    # Amount of memory in MiB used by the task.
+platform: linux/x86_64     # See https://aws.github.io/copilot-cli/docs/manifest/backend-service/#platform
+count: 1       # Number of tasks that should be running in your service.
+exec: true     # Enable running commands in your container.
+network:
+  connect: true # Enable Service Connect for intra-environment traffic between services.
+  vpc:
+    security_groups:
+      - from_cfn: ${COPILOT_APPLICATION_NAME}-${COPILOT_ENVIRONMENT_NAME}-onestepgiftdbSecurityGroup
+
+# storage:
+  # readonly_fs: true       # Limit to read-only access to mounted root filesystems.
+
+# Optional fields for more advanced use-cases.
+#
+#variables:                    # Pass environment variables as key value pairs.
+#  LOG_LEVEL: info
+
+secrets:
+  DB_SECRET:
+    from_cfn: ${COPILOT_APPLICATION_NAME}-${COPILOT_ENVIRONMENT_NAME}-onestepgiftdbAuroraSecret
+
+# You can override any of the values defined above by environment.
+environments:
+  dev:
+    count: 1               # Number of tasks to run for the "dev" environment.
