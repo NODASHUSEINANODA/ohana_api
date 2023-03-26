@@ -22,15 +22,7 @@ Parameters:
     Default: ""
 
 Mappings:
-  onestepgiftdbEnvScalingConfigurationMap: 
-    dev:
-      "DBMinCapacity": 0.5 # AllowedValues: from 0.5 through 128
-      "DBMaxCapacity": 8   # AllowedValues: from 0.5 through 128
-    
-    staging:
-      "DBMinCapacity": 0.5 # AllowedValues: from 0.5 through 128
-      "DBMaxCapacity": 8   # AllowedValues: from 0.5 through 128
-    
+  onestepgiftdbEnvScalingConfigurationMap:
     All:
       "DBMinCapacity": 0.5 # AllowedValues: from 0.5 through 128
       "DBMaxCapacity": 8   # AllowedValues: from 0.5 through 128
@@ -42,7 +34,7 @@ Resources:
       DBSubnetGroupDescription: Group of private subnets for Aurora Serverless v2 cluster.
       SubnetIds:
         !Split [',', !Ref PrivateSubnets]
-  
+
   onestepgiftdbWorkloadSecurityGroup:
     Metadata:
       'aws:copilot:description': 'A security group for one or more workloads to access the Aurora Serverless v2 cluster onestepgiftdb'
@@ -64,7 +56,7 @@ Resources:
       Tags:
         - Key: Name
           Value: !Sub 'copilot-${App}-${Env}-Aurora'
-  
+
   onestepgiftdbDBClusterSecurityGroupIngressFromWorkload:
     Type: AWS::EC2::SecurityGroupIngress
     Properties:
@@ -74,7 +66,7 @@ Resources:
       ToPort: 3306
       FromPort: 3306
       SourceSecurityGroupId: !Ref onestepgiftdbWorkloadSecurityGroup
-  
+
   onestepgiftdbAuroraSecret:
     Metadata:
       'aws:copilot:description': 'A Secrets Manager secret to store your DB credentials'
@@ -96,7 +88,7 @@ Resources:
       Family: 'aurora-mysql8.0'
       Parameters:
         character_set_client: 'utf8'
-  
+
   onestepgiftdbDBCluster:
     Metadata:
       'aws:copilot:description': 'The onestepgiftdb Aurora Serverless v2 database cluster'
@@ -118,7 +110,7 @@ Resources:
         # Replace "All" below with "!Ref Env" to set different autoscaling limits per environment.
         MinCapacity: !FindInMap [onestepgiftdbEnvScalingConfigurationMap, All, DBMinCapacity]
         MaxCapacity: !FindInMap [onestepgiftdbEnvScalingConfigurationMap, All, DBMaxCapacity]
-  
+
   onestepgiftdbDBWriterInstance:
     Metadata:
       'aws:copilot:description': 'The onestepgiftdb Aurora Serverless v2 writer instance'
@@ -148,6 +140,6 @@ Outputs:
       Name: !Sub ${App}-${Env}-onestepgiftdbAuroraSecret
   onestepgiftdbSecurityGroup:
     Description: "The security group to attach to the workload."
-    Value: !Ref onestepgiftdbWorkloadSecurityGroup  
+    Value: !Ref onestepgiftdbWorkloadSecurityGroup
     Export:
       Name: !Sub ${App}-${Env}-onestepgiftdbSecurityGroup
