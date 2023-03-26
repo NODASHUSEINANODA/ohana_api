@@ -27,7 +27,7 @@ services:
     # 環境変数
     environment:
       MYSQL_DATABASE: api_development
-      MYSQL_USER: root
+      MYSQL_USER: user
       MYSQL_PASSWORD: password
       MYSQL_ROOT_PASSWORD: password
 
