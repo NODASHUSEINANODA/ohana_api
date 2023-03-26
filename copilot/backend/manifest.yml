@@ -40,5 +40,5 @@ secrets:
 
 # You can override any of the values defined above by environment.
 environments:
-  dev:
-    count: 1               # Number of tasks to run for the "dev" environment.
+  test:
+    count: 1               # Number of tasks to run for the "test" environment.
