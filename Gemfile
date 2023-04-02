@@ -58,3 +58,10 @@ gem "faker", "3.1.1"
 gem "gimei", "1.1.0"
 
 gem "romaji","0.2.4"
+
+# ログイン関連のgem追加
+# Devise
+gem 'devise'
+gem 'devise_token_auth'
+# HTTP通信
+gem 'rack-cors'
