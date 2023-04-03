@@ -26,10 +26,11 @@ services:
       - db-volume:/var/lib/mysql
     # 環境変数
     environment:
-      MYSQL_DATABASE: api_development
-      MYSQL_USER: root
-      MYSQL_PASSWORD: password
-      MYSQL_ROOT_PASSWORD: password
+      MYSQL_HOST: $MYSQL_HOST
+      MYSQL_DATABASE: $MYSQL_DATABASE
+      MYSQL_USER: $MYSQL_USER
+      MYSQL_PASSWORD: $MYSQL_PASSWORD
+      MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
 
       TZ: "Asia/Tokyo"
     ports:
