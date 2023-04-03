@@ -58,3 +58,5 @@ gem "faker", "3.1.1"
 gem "gimei", "1.1.0"
 
 gem "romaji","0.2.4"
+
+gem 'dotenv-rails'
