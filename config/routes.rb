@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+<<<<<<< HEAD
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
@@ -11,5 +12,9 @@ Rails.application.routes.draw do
   # ログインユーザー取得のルーティング
   namespace :auth do
     resources :sessions, only: %i[index]
+  end
+
+  namespace 'api' do
+    get '/healthcheck', to: 'healthcheck#index'
   end
 end

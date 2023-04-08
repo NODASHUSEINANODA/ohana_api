@@ -7,7 +7,7 @@ class CreateEmployees < ActiveRecord::Migration[7.0]
       t.string :address, null: false
       t.integer :work_year, null: false
       t.string :phone_number, null: false
-      t.text :message, null: false
+      t.text :message
       t.references :company, null: false, foreign_key: true
       t.timestamps
     end
