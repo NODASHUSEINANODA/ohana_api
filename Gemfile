@@ -40,6 +40,7 @@ group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
   gem "rspec-rails", "~> 4.0.1"
+  gem 'dotenv-rails' # envファイルを使用する
 end
 
 group :test do
@@ -59,4 +60,12 @@ gem "gimei", "1.1.0"
 
 gem "romaji","0.2.4"
 
+# ログイン関連のgem追加
+# Devise
+gem 'devise'
+gem 'devise_token_auth'
+# HTTP通信
+gem 'rack-cors'
+
+# .envを使えるようにする
 gem 'dotenv-rails'
