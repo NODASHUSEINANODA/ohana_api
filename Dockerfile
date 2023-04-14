@@ -2,6 +2,11 @@ FROM ruby:2.7.6
 
 ARG RUBYGEMS_VERSION=3.3.20
 
+RUN apt-get update -qq && \
+    apt-get install -y vim \
+    --no-install-recommends && \
+    rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/* /tmp/* /var/tmp/*
+
 RUN mkdir /app
 
 WORKDIR /app
