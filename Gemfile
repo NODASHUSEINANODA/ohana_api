@@ -66,3 +66,6 @@ gem 'devise'
 gem 'devise_token_auth'
 # HTTP通信
 gem 'rack-cors'
+
+# .envを使えるようにする
+gem 'dotenv-rails'
