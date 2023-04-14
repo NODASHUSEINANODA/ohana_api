@@ -3,11 +3,11 @@ services:
   web:
     build: .
     # 毎回 rm tmp/pids/server.pid するのも手間であるため、・事前に手元で/tmp/pids/server.pidを削除する
-    command: /bin/sh -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3001 -b '0.0.0.0'"
+    command: /bin/sh -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
     volumes:
       - .:/app
     ports:
-      - 3000:3001
+      - 3000:3000
     depends_on:
       - db
     # railsでpryする用
@@ -29,7 +29,6 @@ services:
       MYSQL_HOST: $MYSQL_HOST
       MYSQL_DATABASE: $MYSQL_DATABASE
       MYSQL_USER: $MYSQL_USER
-      MYSQL_PASSWORD: $MYSQL_PASSWORD
       MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
 
       TZ: "Asia/Tokyo"
