@@ -40,5 +40,13 @@ module App
                 :methods => [:get, :post, :options, :delete, :put]
       end
     end
+
+    # lib配下のクラスも読み込めるように
+    config.paths.add 'lib', eager_load: true
+
+    config.std_logger = ActiveSupport::Logger.new($stdout)
+    config.batch_logger = ActiveSupport::Logger.new(Rails.root.join('log/batch.log'), 5, 10 * 1024 * 1024)
+    config.batch_logger.formatter = ::Logger::Formatter.new
+    config.batch_logger.extend(ActiveSupport::Logger.broadcast(config.std_logger))
   end
 end
