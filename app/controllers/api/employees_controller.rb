@@ -47,7 +47,7 @@ class Api::EmployeesController < ApplicationController
       .where(sex_condition)
       .where(birthday_condition)
       .where(address_condition)
-      .where(work_year_condition)
+      .where(joined_at_condition)
       .where(phone_number_condition)
       .where(message_condition)
       .where(company_condition)
@@ -79,10 +79,11 @@ class Api::EmployeesController < ApplicationController
     Employee.arel_table[:address].matches("%#{params[:address]}%")
   end
 
-  def work_year_condition
-    return nil if params[:work_year].blank?
+  # TODO: 日付単体で検索するユースケースはないと思う。こちらもユースケースに応じた検索方法に変更した方が良いかも(現時点では日付で検索)
+  def joined_at_condition
+    return nil if params[:joined_at].blank?
 
-    { work_year: params[:work_year] }
+    { joined_at: params[:joined_at] }
   end
 
   def phone_number_condition
@@ -105,7 +106,7 @@ class Api::EmployeesController < ApplicationController
   end
 
   def employee_params
-    params.require(:employee).permit(:name, :sex, :birthday, :address, :work_year, :phone_number, :message, :company_id)
+    params.require(:employee).permit(:name, :sex, :birthday, :address, :joined_at, :phone_number, :message, :company_id)
   end
 
 end

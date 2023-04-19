@@ -38,7 +38,7 @@ end
         sex: generateSex,
         birthday: s,
         address: Gimei.unique.address,
-        work_year: Random.rand(1..30),
+        joined_at: s,
         phone_number: "09011112222",
         message: generateText,
         company_id: Random.rand(1..3),
