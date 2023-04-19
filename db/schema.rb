@@ -41,12 +41,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_08_150541) do
     t.string "sex", null: false
     t.datetime "birthday", null: false
     t.string "address", null: false
-    t.integer "work_year", null: false
     t.string "phone_number", null: false
     t.text "message"
     t.bigint "company_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "work_year"
     t.index ["company_id"], name: "index_employees_on_company_id"
   end
 
