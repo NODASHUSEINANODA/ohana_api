@@ -1,8 +1,8 @@
 class Api::EmployeesController < ApplicationController
+  before_action :authenticate_api_company!
+
   def index
-    # TODO: ログインユーザーの情報から会社に絞って社員を取得する(関係ない会社の社員まで取得するとSQL的に無駄な処理が多い)
-    @employees = Employee.all
-    search_condition
+    @employees = search_condition
 
     render json: @employees
   end
@@ -42,7 +42,7 @@ class Api::EmployeesController < ApplicationController
   private
 
   def search_condition
-    @employees = @employees
+    Employee
       .where(name_condition)
       .where(sex_condition)
       .where(birthday_condition)
@@ -98,11 +98,8 @@ class Api::EmployeesController < ApplicationController
     Employee.arel_table[:message].matches("%#{params[:message]}%")
   end
 
-  # TODO: ログインユーザーの会社IDを取得する(@userにはログインユーザーの情報を入れて、どのcontrollerでも使えるようにする)
   def company_condition
-    return nil unless @user
-
-    { company_id: @user.id }
+    { company_id: current_api_company.id }
   end
 
   def employee_params
