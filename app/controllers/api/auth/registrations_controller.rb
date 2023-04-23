@@ -1,4 +1,4 @@
-class Auth::RegistrationsController < DeviseTokenAuth::RegistrationsController
+class Api::Auth::RegistrationsController < DeviseTokenAuth::RegistrationsController
     private
 
     def sign_up_params
