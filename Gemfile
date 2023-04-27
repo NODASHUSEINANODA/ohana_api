@@ -85,3 +85,5 @@ gem 'dotenv-rails'
 # `rubocop`コマンドでlintを走らせて、コードを整形できる(-aオプションで自動修正も可能)
 gem 'rubocop', require:false
 gem 'rubocop-rails', require:false
+
+gem 'bootstrap', '~> 5.0.2'
