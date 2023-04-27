@@ -48,5 +48,7 @@ module App
     config.batch_logger = ActiveSupport::Logger.new(Rails.root.join('log/batch.log'), 5, 10 * 1024 * 1024)
     config.batch_logger.formatter = ::Logger::Formatter.new
     config.batch_logger.extend(ActiveSupport::Logger.broadcast(config.std_logger))
+
+    config.middleware.use ActionDispatch::Flash
   end
 end
