@@ -86,4 +86,7 @@ gem 'dotenv-rails'
 gem 'rubocop', require:false
 gem 'rubocop-rails', require:false
 
+# sassを追加
+gem "sassc-rails"
+
 gem 'bootstrap', '~> 5.0.2'
