@@ -20,6 +20,9 @@ Rails.application.configure do
   # Enable/disable caching. By default caching is disabled.
   # Run rails dev:cache to toggle caching.
   if Rails.root.join("tmp/caching-dev.txt").exist?
+    config.action_controller.perform_caching = true
+    config.action_controller.enable_fragment_cache_logging = true
+
     config.cache_store = :memory_store
     config.public_file_server.headers = {
       "Cache-Control" => "public, max-age=#{2.days.to_i}"
@@ -63,6 +66,9 @@ Rails.application.configure do
   # Uncomment if you wish to allow Action Cable access from any origin.
   # config.action_cable.disable_request_forgery_protection = true
 
+  # Suppress logger output for asset requests.
+  config.assets.quiet = true
+
   # 下記を追加
   config.action_mailer.default_options = { from: ENV['EMAIL_ADDRESS'] }
   # hostにはデフォルトでlocalhost3000になっているので、Railsのポート番号である3000に変更する。
@@ -77,4 +83,7 @@ Rails.application.configure do
     authentication: 'plain',
     enable_starttls_auto: true
   }
+
+  # 通常モードの初期値には無かったから消すかも
+  config.middleware.use Rack::MethodOverride
 end
