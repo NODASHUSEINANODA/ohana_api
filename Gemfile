@@ -90,3 +90,6 @@ gem 'rubocop-rails', require:false
 gem "sassc-rails"
 
 gem 'bootstrap', '~> 5.0.2'
+
+#jquery
+gem 'jquery-rails'
