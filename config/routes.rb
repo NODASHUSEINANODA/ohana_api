@@ -14,7 +14,8 @@ Rails.application.routes.draw do
   end
 
   namespace 'api' do
-    resources :employees
     get '/healthcheck', to: 'healthcheck#index'
   end
+
+  resources :employees
 end
