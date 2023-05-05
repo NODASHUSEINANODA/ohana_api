@@ -1,0 +1,168 @@
+<%# 多分、ここにモーダルが入る %>
+<%= render "delete_modal" %>
+<%= render "edit_modal" %>
+
+<nav class="navbar navbar-expand-lg navbar-light rounded-pill m-2 bg-white">
+  <div class="container-fluid">
+    <a class="navbar-brand px-5" href="#">ここにアイコン</a>
+    <div class="row w-50" id="navbarNav">
+      <!-- 上列 -->
+      <ul class='navbar-nav row mt-1'>
+        <div class='col h-75'>
+          <li class='nav-item text-center border-start'>USER ID</li>
+        </div>
+        <div class='col'>
+          <li class='nav-link text-center border-start border-end py-0' href="#">ログアウト</li>
+        </div>
+      </ul>
+      <!-- 下列 -->
+      <ul class='navbar-nav row my-1'>
+        <div class='col-4'>
+          <li class='nav-item text-center border-start'>2023-01-01 ~ 2023-12-31</li>
+        </div>
+        <div class='col-4'>
+          <li class='nav-item text-center border-start'>株式会社〇〇</li>
+        </div>
+        <div class='col-4'>
+          <li class='nav-link text-center border-start border-end py-0' href="#">設定</li>
+        </div>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  <%= render "new", employee: @employee%>
+
+  <div id="search_condition">
+    <p class="h2">絞り込み検索</p>
+
+    <form class="row mt-2 mb-4 py-3 container rounded shadow bg-white">
+      <div class="col-2">
+        <label for="name" class="form-label">名前</label>
+        <input type="input" class="form-control" id="name">
+      </div>
+      <div class="col-2">
+        <label for="sex" class="form-label">性別</label>
+        <select class="form-select" aria-label="sex">
+          <option defaultValue="invalid" selected disabled>--選択--</option>
+          <option value="male">男性</option>
+          <option value="female">女性</option>
+          <option value="other">無回答</option>
+        </select>
+      </div>
+      <div class="col-2">
+        <label for="birthday" class="form-label">お誕生日</label>
+        <input type="date" class="form-control" id="birthday">
+      </div>
+      <div class="col-2">
+        <label for="address" class="form-label">住所</label>
+        <input type="address" class="form-control" id="address">
+      </div>
+      <div class="col-2">
+        <label for="joined_at" class="form-label">入社日</label>
+        <input type="date" class="form-control" id="joined_at">
+      </div>
+      <div class="col-2">
+        <label for="phone_number" class="form-label">電話番号</label>
+        <input type="tel" class="form-control" id="phone_number">
+      </div>
+      <div class="col-12 mt-4 mb-2 text-center">
+        <button type="submit" class="btn btn-primary px-5">検索</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="row d-flex align-items-end">
+    <div class="col-2">
+      <p class="h2">メンバー 一覧</p>
+    </div>
+    <div class="col-1">
+      <p class="align-text-bottom">現在 <%= @employees.count %>名</p>
+    </div>
+  </div>
+  <table class="table table-striped table-hover">
+    <thead class='bg-white'>
+      <tr>
+        <th>名前</th>
+        <th>性別</th>
+        <th>誕生日</th>
+        <th>年齢</th>
+        <th>住所</th>
+        <th>勤続年数</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @employees.each do |employee| %>
+        <tr>
+          <td class='align-middle small'><%= employee.name %></td>
+          <td class='align-middle small'><%= employee.sex %></td>
+          <td class='align-middle small'><%= employee.birthday %></td>
+          <td class='align-middle small'><%= employee.birthday %>歳</td>
+          <td class='align-middle small'><%= employee.address %></td>
+          <td class='align-middle small'><%= employee.joined_at %>年</td>
+          <td>
+            <button
+              type="button"
+              id="edit-employee-btn"
+              class="btn btn-primary edit-employee-btn"
+              data-bs-toggle="modal"
+              data-bs-target="#editModal"
+              data-employee-id="<%= employee.id %>"
+              data-employee-name="<%= employee.name %>"
+              data-employee-sex="<%= employee.sex %>"
+              data-employee-birthday="<%= employee.birthday %>"
+              data-employee-address="<%= employee.address %>"
+              data-employee-joined_at="<%= employee.joined_at %>"
+              data-employee-phone_number="<%= employee.phone_number %>"
+              data-employee-message="<%= employee.message %>"
+            >
+              編集
+            </button>
+          </td>
+          <td>
+            <button
+              type="button"
+              id="delete-employee-btn"
+              class="btn btn-primary w-100"
+              data-bs-toggle="modal"
+              data-bs-target="#deleteModal"
+              data-employee-id="<%= employee.id %>"
+              data-employee-name="<%= employee.name %>"
+            >
+              削除
+            </button>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<%# ここから下は消すやつ %>
+<%
+=begin%>
+ <p style="color: green"><%= notice %></p>
+
+<!-- 編集モーダル -->
+<%= render "edit_modal", employee: @employee%>
+
+<!-- 削除モーダル -->
+<%= render "delete_modal", employee: @employee%>
+
+<h1>Employees</h1>
+
+<div id="employees">
+  <% @employees.each do |employee| %>
+    <%= render employee %>
+    <p>
+      <%= link_to "Show this employee", employee %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New employee", new_employee_path %>
+<%
+=end%>
