@@ -11,7 +11,9 @@ class EmployeesController < ApplicationController
     # TODO: ログイン機能のviewができるたら、入れ替える
     @employee.company_id = 2
 
-    if @employee.save
+    if @employee.invalid?
+      flash[:danger] = @employee.errors.full_messages.join('、')
+    elsif @employee.save
       flash[:success] = '社員を登録しました'
     else
       flash[:danger] = '社員の登録に失敗しました'
