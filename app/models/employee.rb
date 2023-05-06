@@ -5,4 +5,26 @@ class Employee < ApplicationRecord
     has_many :temporaries, dependent: :destroy
 
     validates :name, :sex, :birthday, :address, :joined_at, :phone_number, :company_id, presence: true
+
+    # YYYY年MM月DD日の形式で誕生日を返す
+    def birthday_format_yyyy_mm_dd
+        birthday.strftime('%Y年%m月%d日')
+    end
+
+    def age
+        now = Date.today.year
+        now - birthday.year
+    end
+
+    # 勤続年数を返す(joined_atから現在までの年数)
+    def working_years
+        now = Date.today
+        diff_years = now.year - joined_at.year
+
+        is_earlier_todays_date = now.month < joined_at.month || (now.month == joined_at.month && now.day < joined_at.day)
+
+        diff_years -= 1 if is_earlier_todays_date
+
+        diff_years
+    end
 end
