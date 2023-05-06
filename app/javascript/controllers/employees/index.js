@@ -54,3 +54,10 @@ $(document).on('click', '#delete-employee-btn', function () {
   modal.find('.modal-content, form').attr("action", url);
   modal.find('.modal-title').html(`${employee_name}さんを削除しますか？`);
 })
+
+// 絞り込み検索で、空文字はparamsとして送信しない
+$(document).on('click', '#search-employee-btn', function () {
+  $('#search_condition, input[type="text"]').filter(function () { return $(this).val() == ""; }).prop('disabled', true)
+  $('#search_condition, input[type="date"]').filter(function () { return $(this).val() == ""; }).prop('disabled', true)
+  $('#search_condition, select').filter(function () { return $(this).val() == "invalid"; }).prop('disabled', true)
+})
