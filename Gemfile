@@ -53,6 +53,9 @@ group :development, :test do
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
   gem "rspec-rails", "~> 4.0.1"
   gem 'dotenv-rails' # envファイルを使用する
+
+  gem 'pry-rails'
+  gem 'pry-byebug'
 end
 
 group :test do
