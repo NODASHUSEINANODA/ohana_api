@@ -1,43 +1,41 @@
 <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-xl">
     <div class="modal-content container bg-light">
-      <div class="row mx-3 py-3 modal-body">
-        <%= form_with(model: Employee, method: :put, remote: true) do |form| %>
-          <div class="col-12 row my-2">
+      <%= form_with(model: Employee, method: :put, remote: true) do |form| %>
+        <div class="row mx-3 py-3 modal-body">
+          <div class="col-2">
             <%= form.label '名前', class: "form-label" %>
             <%= form.text_field :name, class: "form-control", id: "name" %>
           </div>
-          <div class="col-12 row">
-            <div class="col-1 row">
-              <%= form.label '性別', class: "form-label" %>
-              <%= form.select :sex, [["--選択--", "invalid"], ["男性", "男性"], ["女性", "女性"], ["無回答", "無回答"]], {}, class: "form-select", aria: {label: "sex"}, id: "sex" %>
-            </div>
-            <div class="col-2">
-              <%= form.label 'お誕生日', class: "form-label" %>
-              <%= form.date_field :birthday, class: "form-control", id: "birthday" %>
-            </div>
-            <div class="col-4">
-              <%= form.label '住所', class: "form-label" %>
-              <%= form.text_field :address, class: "form-control", id: "address" %>
-            </div>
-            <div class="col-2">
-              <%= form.label '入社日', class: "form-label" %>
-              <%= form.date_field :joined_at, class: "form-control", id: "joined_at" %>
-            </div>
-            <div class="col-2">
-              <%= form.label '電話番号', class: "form-label" %>
-              <%= form.text_field :phone_number, class: "form-control", id: "phone_number" %>
-            </div>
+          <div class="col-1">
+            <%= form.label '性別', class: "form-label" %>
+            <%= form.select :sex, [["--選択--", "invalid"], ["男性", "男性"], ["女性", "女性"], ["無回答", "無回答"]], {}, class: "form-select", aria: {label: "sex"}, id: "sex" %>
           </div>
-          <div class="col-12 my-4">
+          <div class="col-2">
+            <%= form.label 'お誕生日', class: "form-label" %>
+            <%= form.date_field :birthday, class: "form-control", id: "birthday" %>
+          </div>
+          <div class="col-3">
+            <%= form.label '住所', class: "form-label" %>
+            <%= form.text_field :address, class: "form-control", id: "address" %>
+          </div>
+          <div class="col-2">
+            <%= form.label '入社日', class: "form-label" %>
+            <%= form.date_field :joined_at, class: "form-control", id: "joined_at" %>
+          </div>
+          <div class="col-2">
+            <%= form.label '電話番号', class: "form-label" %>
+            <%= form.text_field :phone_number, class: "form-control", id: "phone_number" %>
+          </div>
+          <div class="col-12 mt-2 mb-4">
             <%= form.label '備考', class: "form-label" %>
             <%= form.text_area :message, class: "form-control", id: "message", placeholder: '' %>
           </div>
           <div class="col-12 my-2 text-center">
             <%= form.submit "送信", class: "btn btn-primary px-5" %>
           </div>
-        <% end %>
-      </div>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>

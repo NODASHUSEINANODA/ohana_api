@@ -34,44 +34,7 @@
 <div class="container">
   <%= render "new", employee: @employee%>
 
-  <div id="search_condition">
-    <p class="h2">絞り込み検索</p>
-
-    <form class="row mt-2 mb-4 py-3 container rounded shadow bg-white">
-      <div class="col-2">
-        <label for="name" class="form-label">名前</label>
-        <input type="input" class="form-control" id="name">
-      </div>
-      <div class="col-2">
-        <label for="sex" class="form-label">性別</label>
-        <select class="form-select" aria-label="sex">
-          <option defaultValue="invalid" selected disabled>--選択--</option>
-          <option value="male">男性</option>
-          <option value="female">女性</option>
-          <option value="other">無回答</option>
-        </select>
-      </div>
-      <div class="col-2">
-        <label for="birthday" class="form-label">お誕生日</label>
-        <input type="date" class="form-control" id="birthday">
-      </div>
-      <div class="col-2">
-        <label for="address" class="form-label">住所</label>
-        <input type="address" class="form-control" id="address">
-      </div>
-      <div class="col-2">
-        <label for="joined_at" class="form-label">入社日</label>
-        <input type="date" class="form-control" id="joined_at">
-      </div>
-      <div class="col-2">
-        <label for="phone_number" class="form-label">電話番号</label>
-        <input type="tel" class="form-control" id="phone_number">
-      </div>
-      <div class="col-12 mt-4 mb-2 text-center">
-        <button type="submit" class="btn btn-primary px-5">検索</button>
-      </div>
-    </form>
-  </div>
+  <%= render "search_form" %>
 
   <div class="row d-flex align-items-end">
     <div class="col-2">
@@ -99,15 +62,15 @@
         <tr>
           <td class='align-middle small'><%= employee.name %></td>
           <td class='align-middle small'><%= employee.sex %></td>
-          <td class='align-middle small'><%= employee.birthday %></td>
-          <td class='align-middle small'><%= employee.birthday %>歳</td>
+          <td class='align-middle small'><%= employee.birthday_format_yyyy_mm_dd %></td>
+          <td class='align-middle small'><%= employee.age %>歳</td>
           <td class='align-middle small'><%= employee.address %></td>
-          <td class='align-middle small'><%= employee.joined_at %>年</td>
+          <td class='align-middle small'><%= employee.working_years %>年</td>
           <td>
             <button
               type="button"
               id="edit-employee-btn"
-              class="btn btn-primary edit-employee-btn"
+              class="btn btn-primary w-100"
               data-bs-toggle="modal"
               data-bs-target="#editModal"
               data-employee-id="<%= employee.id %>"
@@ -140,29 +103,3 @@
     </tbody>
   </table>
 </div>
-
-<%# ここから下は消すやつ %>
-<%
-=begin%>
- <p style="color: green"><%= notice %></p>
-
-<!-- 編集モーダル -->
-<%= render "edit_modal", employee: @employee%>
-
-<!-- 削除モーダル -->
-<%= render "delete_modal", employee: @employee%>
-
-<h1>Employees</h1>
-
-<div id="employees">
-  <% @employees.each do |employee| %>
-    <%= render employee %>
-    <p>
-      <%= link_to "Show this employee", employee %>
-    </p>
-  <% end %>
-</div>
-
-<%= link_to "New employee", new_employee_path %>
-<%
-=end%>

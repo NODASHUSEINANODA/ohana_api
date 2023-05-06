@@ -8,7 +8,7 @@
     </div>
     <div class="col-2">
       <%= form.label '性別', class: "form-label" %>
-      <%= form.select :sex, [["--選択--", "invalid"], ["男性", "男性"], ["女性", "女性"], ["無回答", "無回答"]], {}, class: "form-select", aria: {label: "sex"} %>
+      <%= form.select :sex, [["--選択--", "invalid"], ["男性", "男性"], ["女性", "女性"], ["無回答", "無回答"]], {}, class: "form-select", aria: {label: "sex"}, id: "sex" %>
     </div>
     <div class="col-2">
       <%= form.label 'お誕生日', class: "form-label" %>
