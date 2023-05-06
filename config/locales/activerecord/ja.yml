@@ -1,0 +1,17 @@
+ja:
+  activerecord:
+    models:
+      employee: '社員'
+      flower_shop: '花屋'
+      history: ''
+      manager: '管理者'
+      temporary: '一時メール'
+    attributes:
+      employee:
+        name: '名前'
+        sex: '性別'
+        birthday: '誕生日'
+        address: '住所'
+        phone_number: '電話番号'
+        joined_at: '入社日'
+        message: '備考'

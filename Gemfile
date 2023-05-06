@@ -96,3 +96,6 @@ gem 'bootstrap', '~> 5.0.2'
 
 #jquery
 gem 'jquery-rails'
+
+# エラーメッセージの日本語化
+gem 'rails-i18n'
