@@ -33,8 +33,8 @@ class DeviseCreateCompanies < ActiveRecord::Migration[7.0]
       # t.datetime :locked_at
 
       # User Info
-      t.string :name
-      t.string :address
+      t.string :name, null: false
+      t.string :address, null: false
 
 
       t.timestamps null: false
