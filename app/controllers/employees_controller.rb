@@ -38,9 +38,9 @@ class EmployeesController < ApplicationController
     @name = @employee.name
 
     if @employee.destroy
-      flash[:success] = `#{@name}さんを削除しました`
+      flash[:success] = "#{@name}さんを削除しました"
     else
-      flash[:danger] = `#{@name}さんの削除に失敗しました`
+      flash[:danger] = "#{@name}さんの削除に失敗しました"
     end
     redirect_to employees_path
   end
