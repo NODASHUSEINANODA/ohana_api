@@ -1,4 +1,9 @@
 class ApplicationController < ActionController::Base
-        # Cookie や CORS の設定ができるようになる
-        include DeviseTokenAuth::Concerns::SetUserByToken
+    include Devise::Controllers::Helpers
+    
+    protected
+
+    def after_sign_out_path_for(resource_or_scope)
+        new_company_session_path
+    end
 end
