@@ -12,18 +12,20 @@
           <li class='nav-item text-center border-start'>USER ID</li>
         </div>
         <div class='col'>
-          <li class='nav-link text-center border-start border-end py-0' href="#">ログアウト</li>
+          <%= link_to "ログアウト", companies_sign_out_path, class: "nav-link text-center border-start border-end py-0" %>
         </div>
       </ul>
       <!-- 下列 -->
       <ul class='navbar-nav row my-1'>
         <div class='col-4'>
+          <%# TODO: 日付を動的に変更 %>
           <li class='nav-item text-center border-start'>2023-01-01 ~ 2023-12-31</li>
         </div>
         <div class='col-4'>
-          <li class='nav-item text-center border-start'>株式会社〇〇</li>
+          <li class='nav-item text-center border-start'><%= current_company.name %></li>
         </div>
         <div class='col-4'>
+          <%# TODO: 設定画面を作成したら変更 %>
           <li class='nav-link text-center border-start border-end py-0' href="#">設定</li>
         </div>
       </ul>
