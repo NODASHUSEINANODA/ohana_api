@@ -1,8 +1,9 @@
 class Tasks::SendMail::ToFlowerShop < Tasks::AbstBatch
   def self.exec
     execute('花屋さんへメールを送信します') do
-      # TODO: ここにメールを送信する処理を書く
-      puts 'hogehoge'
+      Company.all.each do |company|
+        company.current_month_order_to_flower_shop
+      end
     end
   end
 end
