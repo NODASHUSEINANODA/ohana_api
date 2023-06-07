@@ -1,15 +1,14 @@
 class EmployeesController < ApplicationController
+  before_action :authenticate_company!
+
   def index
-    # TODO: ログインユーザーの情報から会社に絞って社員を取得する(関係ない会社の社員まで取得するとSQL的に無駄な処理が多い)
-    @employees = Employee.all
+    @employees = Employee.where(company_id: current_company.id)
     search_condition
   end
 
   def create
     @employee = Employee.new(employee_params)
-
-    # TODO: ログイン機能のviewができるたら、入れ替える
-    @employee.company_id = 2
+    @employee.company_id = current_company.id
 
     if @employee.invalid?
       flash[:danger] = @employee.errors.full_messages.join('、')
