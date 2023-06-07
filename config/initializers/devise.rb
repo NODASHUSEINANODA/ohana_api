@@ -14,7 +14,7 @@ Devise.setup do |config|
   # confirmation, reset password and unlock tokens in the database.
   # Devise will use the `secret_key_base` as its `secret_key`
   # by default. You can change it below and use your own secret key.
-  # config.secret_key = 'abc4030ec0564f8d5219f2019377158b5185ab3f229dbf3f28fc6664bd951421638626fba3bce06a311e3f02e29e638357a60f3be278ddeac3d959124d9e4db2'
+  # config.secret_key = 'ed30e2ac2422d442fb2f10c0e217eabbc4314a10cca0459be43fbb4d8fc3e6971f53b8fb227a03a26af769a4ef0bfd92c044cf29e54b207275ce090fc41bade3'
 
   # ==> Controller configuration
   # Configure the parent class to the devise controllers.
@@ -24,10 +24,10 @@ Devise.setup do |config|
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class
   # with default "from" parameter.
-  config.mailer_sender = ENV['EMAIL_ADDRESS']
+  config.mailer_sender = 'please-change-me-at-config-initializers-devise@example.com'
 
   # Configure the class responsible to send e-mails.
-  config.mailer = 'Devise::Mailer'
+  # config.mailer = 'Devise::Mailer'
 
   # Configure the parent class responsible to send e-mails.
   # config.parent_mailer = 'ActionMailer::Base'
@@ -126,7 +126,7 @@ Devise.setup do |config|
   config.stretches = Rails.env.test? ? 1 : 12
 
   # Set up a pepper to generate the hashed password.
-  # config.pepper = '71e89dae6c5d833b8647409f427aa8d27920c24739f0a7dd2184275c88a6975fa00bc847d5348fcb13710c34fc20161f67d29e64532fdd3d6b27cf0a1539505a'
+  # config.pepper = '89451e52142944541631402e0c2eeb97bdf92b2363bd65f1593721690e35b1d8b1f929d857d377e64518ebb30b2bbfa82056b61bc14255cb6b7dd580c7bef058'
 
   # Send a notification to the original email when the user's email is changed.
   # config.send_email_changed_notification = false
@@ -188,7 +188,7 @@ Devise.setup do |config|
   # ==> Configuration for :timeoutable
   # The time you want to timeout the user session without activity. After this
   # time the user will be asked for credentials again. Default is 30 minutes.
-  # config.timeout_in = 30.minutes
+  config.timeout_in = 30.minutes
 
   # ==> Configuration for :lockable
   # Defines which strategy will be used to lock an account.
