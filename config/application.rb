@@ -31,5 +31,9 @@ module App
     config.batch_logger = ActiveSupport::Logger.new(Rails.root.join('log/batch.log'), 5, 10 * 1024 * 1024)
     config.batch_logger.formatter = ::Logger::Formatter.new
     config.batch_logger.extend(ActiveSupport::Logger.broadcast(config.std_logger))
+
+    # ロケールを日本に設定
+    config.i18n.default_locale = :ja
+    config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}').to_s]
   end
 end

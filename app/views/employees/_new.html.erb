@@ -1,0 +1,45 @@
+<p class="h2">メンバー 新規追加</p>
+
+<%= form_with(model: Employee.new, remote: true) do |form| %>
+  <div class="row mt-2 mb-4 py-3 container rounded shadow bg-white">
+    <div class="col-2">
+      <%= form.label '名前', class: "form-label" %>
+      <%= form.text_field :name, class: "form-control", id: "name" %>
+    </div>
+    <div class="col-2">
+      <%= form.label '性別', class: "form-label" %>
+      <%= form.select :sex, [["--選択--", "invalid"], ["男性", "男性"], ["女性", "女性"], ["無回答", "無回答"]], {}, class: "form-select", aria: {label: "sex"}, id: "sex" %>
+    </div>
+    <div class="col-2">
+      <%= form.label 'お誕生日', class: "form-label" %>
+      <%= form.date_field :birthday, class: "form-control", id: "birthday" %>
+    </div>
+    <div class="col-2">
+      <%= form.label '住所', class: "form-label" %>
+      <%= form.text_field :address, class: "form-control", id: "address" %>
+    </div>
+    <div class="col-2">
+      <%= form.label '入社日', class: "form-label" %>
+      <%= form.date_field :joined_at, class: "form-control", id: "joined_at" %>
+    </div>
+    <div class="col-2">
+      <%= form.label '電話番号', class: "form-label" %>
+      <%= form.text_field :phone_number, class: "form-control", id: "phone_number" %>
+    </div>
+    <div class="col-12 mt-2">
+      <%= form.label '備考', class: "form-label" %>
+      <%= form.text_area :message, class: "form-control", id: "message", placeholder: '' %>
+    </div>
+    <div class="col-2 mt-4">
+      <%= form.check_box :admin, class: "form-check-input", id: "check_admin" %>
+      <%= form.label :admin, "この人は管理者です", class: "form-check-label", for: "check_admin" %>
+    </div>
+    <div id='admin_mail_address_group' class="col-2 mt-4 d-none">
+      <%= form.label '管理者メールアドレス', class: "form-label" %>
+      <%= form.email_field :admin_mail_address, class: "form-control", id: "admin_mail_address" %>
+    </div>
+    <div class="col-12 mt-4 mb-2 text-center">
+      <%= form.submit "送信", class: "btn btn-primary px-5" %>
+    </div>
+  </div>
+<% end %>

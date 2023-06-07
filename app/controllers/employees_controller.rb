@@ -1,42 +1,47 @@
-class Api::EmployeesController < ApplicationController
+class EmployeesController < ApplicationController
+  before_action :authenticate_company!
+
   def index
-    # TODO: ログインユーザーの情報から会社に絞って社員を取得する(関係ない会社の社員まで取得するとSQL的に無駄な処理が多い)
-    @employees = Employee.all
+    @employees = Employee.where(company_id: current_company.id)
     search_condition
-
-    render json: @employees
-  end
-
-  def show
-    @employee = Employee.find(params[:id])
-    render json: @employee
-  rescue ActiveRecord::RecordNotFound
-    render json: { error: '社員が見つかりませんでした' }, status: :not_found
   end
 
   def create
     @employee = Employee.new(employee_params)
-    if @employee.save
-      render json: @employee
+    @employee.company_id = current_company.id
+
+    if @employee.invalid?
+      flash[:danger] = @employee.errors.full_messages.join('、')
+    elsif @employee.save
+      flash[:success] = '社員を登録しました'
     else
-      render json: @employee.errors, status: :unprocessable_entity
+      flash[:danger] = '社員の登録に失敗しました'
     end
+
+    redirect_to employees_path
   end
 
   def update
     @employee = Employee.find(params[:id])
-    @employee.update(employee_params)
-    render json: @employee
-  rescue ActiveRecord::RecordNotFound
-    render json: { error: '社員が見つかりませんでした' }, status: :not_found
+
+    if @employee.update(employee_params)
+      flash[:success] = '社員情報を更新しました'
+    else
+      flash[:danger] = '社員情報の更新に失敗しました'
+    end
+    redirect_to employees_path
   end
 
   def destroy
     @employee = Employee.find(params[:id])
-    @employee.destroy
-    render json: @employee
-  rescue ActiveRecord::RecordNotFound
-    render json: { error: '社員が見つかりませんでした' }, status: :not_found
+    @name = @employee.name
+
+    if @employee.destroy
+      flash[:success] = "#{@name}さんを削除しました"
+    else
+      flash[:danger] = "#{@name}さんの削除に失敗しました"
+    end
+    redirect_to employees_path
   end
 
   private

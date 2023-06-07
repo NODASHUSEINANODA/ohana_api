@@ -53,6 +53,9 @@ group :development, :test do
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
   gem "rspec-rails", "~> 4.0.1"
   gem 'dotenv-rails' # envファイルを使用する
+
+  gem 'pry-rails'
+  gem 'pry-byebug'
 end
 
 group :test do
@@ -75,6 +78,8 @@ gem "romaji","0.2.4"
 # ログイン関連のgem追加
 # Devise
 gem 'devise'
+# deviseの日本語化
+gem 'devise-i18n'
 # HTTP通信
 gem 'rack-cors'
 
@@ -92,3 +97,6 @@ gem 'bootstrap', '~> 5.0.2'
 
 #jquery
 gem 'jquery-rails'
+
+# エラーメッセージの日本語化
+gem 'rails-i18n'
