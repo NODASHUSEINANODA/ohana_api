@@ -78,6 +78,8 @@ gem "romaji","0.2.4"
 # ログイン関連のgem追加
 # Devise
 gem 'devise'
+# deviseの日本語化
+gem 'devise-i18n'
 # HTTP通信
 gem 'rack-cors'
 
