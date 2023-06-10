@@ -73,7 +73,10 @@ Rails.application.configure do
   config.action_mailer.default_options = { from: ENV['EMAIL_ADDRESS'] }
   # hostにはデフォルトでlocalhost3000になっているので、Railsのポート番号である3000に変更する。
   config.action_mailer.default_url_options = { host: 'localhost:3000' }
-  config.action_mailer.delivery_method = :smtp
+
+  # NOTE : 実際に送信して検証したい際は :letter_opener_web をコメントアウトして、:smtp のコメントアウトをはずしてください
+  # config.action_mailer.delivery_method = :smtp
+  config.action_mailer.delivery_method = :letter_opener_web
   config.action_mailer.smtp_settings = {
     address: 'smtp.gmail.com',
     port: 587,
