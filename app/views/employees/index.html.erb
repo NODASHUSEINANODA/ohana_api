@@ -25,8 +25,7 @@
           <li class='nav-item text-center border-start'><%= current_company.name %></li>
         </div>
         <div class='col-4'>
-          <%# TODO: 設定画面を作成したら変更 %>
-          <li class='nav-link text-center border-start border-end py-0' href="#">設定</li>
+          <%= link_to "設定", edit_company_registration_path, class: "nav-link text-center border-start border-end py-0" %>
         </div>
       </ul>
     </div>
