@@ -2,8 +2,8 @@
 
 class AddAssociateToCompany < ActiveRecord::Migration[7.0]
   def change
-    change_table :flower_shops do |t|
-      t.references :company, foreign_key: true
+    change_table :companies do |t|
+      t.references :flower_shop, foreign_key: true
     end
   end
 end

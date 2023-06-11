@@ -1,6 +1,6 @@
 class FlowerShop < ApplicationRecord
     has_many :histories
-    belongs_to :company
+    has_many :company
 
     validates :name, :email, presence: true
 end

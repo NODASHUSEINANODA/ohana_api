@@ -1,6 +1,6 @@
 class Company < ApplicationRecord
   has_many :employees, dependent: :destroy
-  has_one :flower_shop
+  belongs_to :flower_shop
 
   validates :name, presence: true, length: { maximum: 20, allow_blank: true }
   validates :address, presence: true, length: { maximum: 20, allow_blank: true }
