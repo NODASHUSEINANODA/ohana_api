@@ -23,3 +23,15 @@ end
     company_id: Random.rand(1..3)
   )
 end
+
+# company_idはcompanyのデータが作成されていることが前提、順番変えるとうまくいかない
+
+3.times do |n|
+  FlowerShop.create!(
+    name: Gimei.name.last.kanji.concat('花屋'),
+    email: "flower#{n + 1}@example.com",
+    created_at: Time.current,
+    updated_at: Time.current,
+    company_id: Company.find_by(id: n + 1).id
+  )
+end
