@@ -9,8 +9,8 @@ class Company < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :confirmable
 
-  def current_month_order_to_flower_shop
-    members = self.birthday_in_current_month_members
+  def next_month_order_to_flower_shop
+    members = self.birthday_in_next_month_members
 
     CompanyMailer.with(
       company_name: self.name,
@@ -23,9 +23,9 @@ class Company < ApplicationRecord
 
   private
 
-  def birthday_in_current_month_members
-    current_month = Time.zone.now.strftime("%m")
-    birthday_in_current_month_condition = Employee.arel_table[:birthday].extract('month').eq(current_month)
-    employees.where(birthday_in_current_month_condition)
+  def birthday_in_next_month_members
+    next_month = Time.zone.now.next_month.strftime("%m")
+    birthday_in_next_month_condition = Employee.arel_table[:birthday].extract('month').eq(next_month)
+    employees.where(birthday_in_next_month_condition)
   end
 end
