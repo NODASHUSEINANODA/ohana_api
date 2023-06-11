@@ -8,6 +8,20 @@
         <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "w-100" %>
       </div>
 
+      <div class="col-12 mt-2 mb-4">
+        <%= f.label :address %><br />
+        <%= f.text_field :address, autofocus: true, autocomplete: "address", class: "w-100" %>
+      </div>
+
+      <div class="col-12 mt-2 mb-4">
+        <%= f.label :flower_shop_id %><br />
+        <%= f.collection_select(
+          :flower_shop_id, FlowerShop.all, :id, :name,
+          {prompt: "選択してください"},
+          {class: "w-100 py-1"})
+        %>
+      </div>
+
       <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
         <div>確認中: <%= resource.unconfirmed_email %></div>
       <% end %>
@@ -27,7 +41,7 @@
       </div>
 
       <div class="col-12 mt-2 mb-4">
-        <%= f.label :current_password %> <i>(変更内容を確認するために、現在のパスワードが必要です)</i><br />
+        <%= f.label :current_password %> <i class="text-danger">(必須)</i><br />
         <%= f.password_field :current_password, autocomplete: "current-password", class: "w-100" %>
       </div>
 

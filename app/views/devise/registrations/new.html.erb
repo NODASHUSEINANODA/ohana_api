@@ -7,14 +7,26 @@
         <%= f.label :name %><br />
         <%= f.text_field :name, autofocus: true, autocomplete: "name", class: "w-100" %>
       </div>
+
       <div class="col-12 mt-2 mb-4">
         <%= f.label :address %><br />
         <%= f.text_field :address, autofocus: true, autocomplete: "address", class: "w-100" %>
       </div>
+
       <div class="col-12 mt-2 mb-4">
         <%= f.label :email %><br />
         <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "w-100" %>
       </div>
+
+      <div class="col-12 mt-2 mb-4">
+        <%= f.label :flower_shop_id %><br />
+        <%= f.collection_select(
+          :flower_shop_id, FlowerShop.all, :id, :name,
+          {prompt: "選択してください"},
+          {class: "w-100 py-1"})
+        %>
+      </div>
+
       <div class="col-12 mt-2 mb-4">
         <%= f.label :password %>
         <% if @minimum_password_length %>
@@ -22,6 +34,7 @@
         <% end %><br />
         <%= f.password_field :password, autocomplete: "new-password", class: "w-100" %>
       </div>
+
       <div class="col-12 mt-2 mb-4">
         <%= f.label :password_confirmation %><br />
         <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "w-100" %>
