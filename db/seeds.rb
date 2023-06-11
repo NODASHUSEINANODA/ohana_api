@@ -9,8 +9,8 @@
 end
 
 50.times do |n|
-  s1 = Date.parse('2000/06/1')
-  s2 = Date.parse('2000/06/30')
+  s1 = Date.parse('2000/07/1')
+  s2 = Date.parse('2000/07/30')
   s = Random.rand(s1..s2)
   Employee.create!(
     name: Gimei.unique.name.kanji,
