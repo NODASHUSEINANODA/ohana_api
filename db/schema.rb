@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_06_125952) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_07_160525) do
   create_table "companies", charset: "utf8mb4", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -25,7 +25,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_06_125952) do
     t.string "address", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "flower_shop_id"
     t.index ["email"], name: "index_companies_on_email", unique: true
+    t.index ["flower_shop_id"], name: "index_companies_on_flower_shop_id"
     t.index ["reset_password_token"], name: "index_companies_on_reset_password_token", unique: true
   end
 
@@ -80,6 +82,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_06_125952) do
     t.index ["manager_id"], name: "index_temporaries_on_manager_id"
   end
 
+  add_foreign_key "companies", "flower_shops"
   add_foreign_key "employees", "companies"
   add_foreign_key "histories", "employees"
   add_foreign_key "histories", "flower_shops"

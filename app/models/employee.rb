@@ -12,6 +12,11 @@ class Employee < ApplicationRecord
         birthday.strftime('%Y年%m月%d日')
     end
 
+    # MM月DD日の形式で誕生日を返す
+    def birthday_format_mm_dd
+        birthday.strftime('%m月%d日')
+    end
+
     def age
         now = Date.today.year
         now - birthday.year

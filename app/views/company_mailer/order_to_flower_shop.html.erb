@@ -1,0 +1,24 @@
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h3><%= @flower_shop_name %> 様</h3>
+
+    <p>以下で指定された住所と日付にお花を送ってください。</p>
+
+    <ul>
+      <% @birthday_members.each do |member| %>
+        <%# TODO: メニューのところは社長専用ページの操作結果から動的に変更できるようにする %>
+        <li><%= member.name %> <%= member.birthday_format_mm_dd %> <%= member.address %> バラセット 10000円</li>
+      <% end %>
+    </ul>
+
+    <div class="my-3">
+      <p>このメールはシステムから自動送信されています。</p>
+      <p>ご不明な点がございましたら、お手数おかけしますがご返信お願いします。</p>
+    </div>
+
+    <h3><%= @company_name %></h3>
+  </body>
+</html>
