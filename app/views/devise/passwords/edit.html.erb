@@ -7,15 +7,15 @@
       <%= f.hidden_field :reset_password_token %>
 
       <div class="col-12 mt-2 mb-4">
-        <%= f.label :password, "New password" %><br />
+        <%= f.label :password, "新しいパスワード" %>
         <% if @minimum_password_length %>
-          <em>(<%= @minimum_password_length %> characters minimum)</em><br />
+          <em>(<%= @minimum_password_length %>文字以上)</em><br />
         <% end %>
         <%= f.password_field :password, autofocus: true, autocomplete: "new-password", class: "w-100" %>
       </div>
 
       <div class="col-12 mt-2 mb-4">
-        <%= f.label :password_confirmation, "Confirm new password" %><br />
+        <%= f.label :password_confirmation, "新しいパスワード（確認用)" %><br />
         <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "w-100" %>
       </div>
 
