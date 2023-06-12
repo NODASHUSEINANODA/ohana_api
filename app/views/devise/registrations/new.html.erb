@@ -3,19 +3,32 @@
 
   <div class="mt-2 mb-4 px-5 py-3 rounded shadow bg-white">
     <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: "mb-3" }) do |f| %>
+
+      <% if @company.errors.any? %>
+      <% end %>
+
       <div class="col-12 mt-2 mb-4">
         <%= f.label :name %><br />
         <%= f.text_field :name, autofocus: true, autocomplete: "name", class: "w-100" %>
+        <% if @company.errors.include?(:name) %>
+          <p style="color: red;"><%= @company.errors.full_messages_for(:name).first %>
+        <% end %>
       </div>
 
       <div class="col-12 mt-2 mb-4">
         <%= f.label :address %><br />
         <%= f.text_field :address, autofocus: true, autocomplete: "address", class: "w-100" %>
+        <% if @company.errors.include?(:address) %>
+          <p style="color: red;"><%= @company.errors.full_messages_for(:address).first %>
+        <% end %>
       </div>
 
       <div class="col-12 mt-2 mb-4">
         <%= f.label :email %><br />
         <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "w-100" %>
+        <% if @company.errors.include?(:email) %>
+          <p style="color: red;"><%= @company.errors.full_messages_for(:email).first %>
+        <% end %>
       </div>
 
       <div class="col-12 mt-2 mb-4">
@@ -25,6 +38,9 @@
           {prompt: "選択してください"},
           {class: "w-100 py-1"})
         %>
+        <% if @company.errors.include?(:flower_shop_id) %>
+          <p style="color: red;"><%= @company.errors.full_messages_for(:flower_shop_id).first %>
+        <% end %>
       </div>
 
       <div class="col-12 mt-2 mb-4">
@@ -33,11 +49,17 @@
         <em>(<%= @minimum_password_length %>文字以上)</em>
         <% end %><br />
         <%= f.password_field :password, autocomplete: "new-password", class: "w-100" %>
+        <% if @company.errors.include?(:password) %>
+          <p style="color: red;"><%= @company.errors.full_messages_for(:password).first %>
+        <% end %>
       </div>
 
       <div class="col-12 mt-2 mb-4">
         <%= f.label :password_confirmation %><br />
         <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "w-100" %>
+        <% if @company.errors.include?(:password_confirmation) %>
+          <p style="color: red;"><%= @company.errors.full_messages_for(:password_confirmation).first %>
+        <% end %>
       </div>
 
       <div class="actions text-center">
