@@ -3,5 +3,6 @@ class Manager < ApplicationRecord
     has_many :histories
     has_many :temporaries
 
-    validates :mail, :status, presence: true
+    validates :email, presence: true
+    validates :status, inclusion: [true, false]
 end
