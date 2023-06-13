@@ -4,5 +4,5 @@ class Manager < ApplicationRecord
     has_many :temporaries
 
     validates :email, presence: true
-    validates :status, inclusion: [true, false]
+    validates :is_president, inclusion: [true, false]
 end

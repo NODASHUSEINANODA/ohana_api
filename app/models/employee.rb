@@ -7,10 +7,10 @@ class Employee < ApplicationRecord
     validates :name, :sex, :birthday, :address, :joined_at, :phone_number, :company_id, presence: true
     validates :phone_number, format: { with: /\A\d{10,11}\z/ } # 電話番号は10桁or11桁の数字のみ
 
-    def save_with_manager(email, status)
+    def save_with_manager(email, is_president)
         transaction do
             save!
-            manager = Manager.new(employee_id: self.id, email: email, status: status)
+            manager = Manager.new(employee_id: self.id, email: email, is_president: is_president)
             manager.save!
         end
     end
