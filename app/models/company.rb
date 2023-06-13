@@ -23,8 +23,6 @@ class Company < ApplicationRecord
     ).order_to_flower_shop.deliver_now
   end
 
-  private
-
   def birthday_in_next_month_members
     next_month = Time.zone.now.next_month.strftime('%m')
     birthday_in_next_month_condition = Employee.arel_table[:birthday].extract('month').eq(next_month)
