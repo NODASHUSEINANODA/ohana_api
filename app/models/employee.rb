@@ -7,6 +7,14 @@ class Employee < ApplicationRecord
     validates :name, :sex, :birthday, :address, :joined_at, :phone_number, :company_id, presence: true
     validates :phone_number, format: { with: /\A\d{10,11}\z/ } # 電話番号は10桁or11桁の数字のみ
 
+    def save_with_manager(email, status)
+        transaction do
+            save!
+            manager = Manager.new(employee_id: self.id, email: email, status: status)
+            manager.save!
+        end
+    end
+
     # YYYY年MM月DD日の形式で誕生日を返す
     def birthday_format_yyyy_mm_dd
         birthday.strftime('%Y年%m月%d日')
