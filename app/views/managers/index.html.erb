@@ -11,12 +11,11 @@
         <th>住所</th>
         <th>勤続年数</th>
         <th>送り先</th>
-        <th>オプション</th>
+        <th>メニュー</th>
         <th>退職・転職済み</th>
       </tr>
     </thead>
     <tbody>
-      <%# TODO:  %>
       <% @birthday_in_next_month_members.each do |employee| %>
         <tr>
           <td class='align-middle small'><%= employee.name %></td>
@@ -26,11 +25,11 @@
           <td class='align-middle small'><%= employee.address %></td>
           <td class='align-middle small'><%= employee.working_years %>年</td>
           <td class='align-middle small'>
-            <%= select("dummy", "dummy_method", ["自宅", "会社"], {}, {class: "form-select w-75"}) %>
+            <%= select("dummy", "dummy_method", ["自宅", "会社"], {}, {class: "form-select w-100"}) %>
           </td>
           <td class='align-middle small'>
-            <%# TODO: 初期値の設定 %>
-            <%= select("dummy", "dummy_method", ["バームクーヘン"], { include_blank: "なし" }, {class: "form-select w-75"}) %>
+            <%# TODO: DBから値を取得する %>
+            <%= select("dummy", "dummy_method", ["ライトプラン(3000円)", "スタンダードプラン(5000円)", "プレミアムプラン(8000円)"], {}, {class: "form-select"}) %>
           </td>
           <td class='align-middle small'>
             <%= check_box 'dummy', 'dummy_method', {class: "form-check w-75 text-center"}, true, false %>
