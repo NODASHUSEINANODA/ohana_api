@@ -1,5 +1,5 @@
 class ManagersController < ApplicationController
   def index
-    @birthday_in_next_month_members = current_company.birthday_in_next_month_members
+    @employees_with_birthdays_next_month = current_company.employees_with_birthdays_next_month
   end
 end
