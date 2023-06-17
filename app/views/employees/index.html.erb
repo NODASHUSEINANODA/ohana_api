@@ -2,35 +2,22 @@
 <%= render "delete_modal" %>
 <%= render "edit_modal" %>
 
-<nav class="navbar navbar-expand-lg navbar-light rounded-pill m-2 bg-white">
-  <div class="container-fluid">
-    <a class="navbar-brand px-5" href="#">ここにアイコン</a>
-    <div class="row w-50" id="navbarNav">
-      <!-- 上列 -->
-      <ul class='navbar-nav row mt-1'>
-        <div class='col h-75'>
-          <li class='nav-item text-center border-start'>USER ID</li>
-        </div>
-        <div class='col'>
-          <%= link_to "ログアウト", companies_sign_out_path, class: "nav-link text-center border-start border-end py-0" %>
-        </div>
-      </ul>
-      <!-- 下列 -->
-      <ul class='navbar-nav row my-1'>
-        <div class='col-4'>
-          <%# TODO: 日付を動的に変更 %>
-          <li class='nav-item text-center border-start'>2023-01-01 ~ 2023-12-31</li>
-        </div>
-        <div class='col-4'>
-          <li class='nav-item text-center border-start'><%= current_company.name %></li>
-        </div>
-        <div class='col-4'>
-          <%= link_to "設定", edit_company_registration_path, class: "nav-link text-center border-start border-end py-0" %>
-        </div>
-      </ul>
-    </div>
-  </div>
-</nav>
+<div class="navbar navbar-expand-lg navbar-light sticky-top bg-light">
+  <nav class="rounded-pill bg-white shadow container-fluid mx-2 mb-1 py-3">
+    <p class="px-5 h3 m-0">One Step Gift</p>
+    <ul class='navbar-nav row w-50 my-1' id="navbarNav">
+      <div class='col-4'>
+        <li class='nav-item text-center border-start'><%= current_company.name %></li>
+      </div>
+      <div class='col-4'>
+        <%= link_to "ログアウト", companies_sign_out_path, class: "nav-link text-center border-start py-0" %>
+      </div>
+      <div class='col-4'>
+        <%= link_to "設定", edit_company_registration_path, class: "nav-link text-center border-start border-end py-0" %>
+      </div>
+    </ul>
+  </nav>
+</div>
 
 <div class="container">
   <%= render "new", employee: @employee%>
