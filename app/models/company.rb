@@ -1,5 +1,8 @@
+# frozen_string_literal: true
+
 class Company < ApplicationRecord
   has_many :employees, dependent: :destroy
+  has_many :managers, dependent: :destroy
   belongs_to :flower_shop
 
   validates :name, presence: true, length: { maximum: 20, allow_blank: true }
@@ -8,6 +11,10 @@ class Company < ApplicationRecord
   # この:validatableはpasswordとemailしか検証してくれない
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :confirmable
+
+  def president
+    managers.find_by(status: true)
+  end
 
   def next_month_order_to_flower_shop
     members = employees_with_birthdays_next_month
