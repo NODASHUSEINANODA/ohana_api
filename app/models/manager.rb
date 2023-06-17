@@ -18,5 +18,10 @@ class Manager < ApplicationRecord
     errors.add(:base, '社長は1人しか登録できません')
   end
 
-    validates :mail, :status, presence: true
+  def remind_to_president
+    ManagerMailer.with(
+      president_name: employee.name,
+      president_email: email
+    ).remind_to_president.deliver_now
+  end
 end
