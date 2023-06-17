@@ -1,11 +1,11 @@
 // 管理者権限チェックボックスのチェック状態によって管理者メールアドレス入力欄を表示する
-$("#is_president").change(function () {
+$(document).on('change', "#is_president", function () {
   const isAdmin = $(this).prop('value')
   const adminMailAddress = $('#admin_mail_address_group')
 
   if (isAdmin) { return adminMailAddress.removeClass('d-none') }
   adminMailAddress.addClass('d-none')
-});
+})
 
 
 // 編集モーダルのDOM操作
