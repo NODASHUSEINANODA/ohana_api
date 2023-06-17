@@ -6,7 +6,6 @@ class Companies::RegistrationsController < Devise::RegistrationsController
 
   # GET /resource/sign_up
   def new
-    # @flower_shops = FlowerShop.pluck(:name, :id)
     @flower_shops = FlowerShop.all
     super
   end
