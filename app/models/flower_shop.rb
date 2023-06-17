@@ -1,6 +1,8 @@
-class FlowerShop < ApplicationRecord
-    has_many :histories
-    has_many :company
+# frozen_string_literal: true
 
-    validates :name, :email, presence: true
+class FlowerShop < ApplicationRecord
+  has_many :histories
+  has_many :company
+
+  validates :name, :email, presence: true
 end
