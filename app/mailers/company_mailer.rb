@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CompanyMailer < ApplicationMailer
   def order_to_flower_shop
     @company_name = params[:company_name]
@@ -9,7 +11,7 @@ class CompanyMailer < ApplicationMailer
     mail(
       to: @flower_shop_email,
       from: @company_email,
-      subject: "注文依頼",
+      subject: '注文依頼'
     )
   end
 end

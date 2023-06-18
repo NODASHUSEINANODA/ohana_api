@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Company < ApplicationRecord
   has_many :employees, dependent: :destroy
   belongs_to :flower_shop
