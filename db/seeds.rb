@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 3.times do |n|
   FlowerShop.create!(
     name: Gimei.name.last.kanji.concat('花屋'),
@@ -40,7 +42,7 @@ end
   )
 end
 
-50.times do |n|
+50.times do |_n|
   s1 = Date.parse('2000/07/1')
   s2 = Date.parse('2000/07/30')
   s = Random.rand(s1..s2)

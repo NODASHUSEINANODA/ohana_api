@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class EmployeesController < ApplicationController
   before_action :authenticate_company!
 
@@ -48,15 +50,15 @@ class EmployeesController < ApplicationController
 
   def search_condition
     @employees = @employees
-      .where(name_condition)
-      .where(sex_condition)
-      .where(birthday_condition)
-      .where(address_condition)
-      .where(joined_at_condition)
-      .where(phone_number_condition)
-      .where(message_condition)
-      .where(company_condition)
-      .distinct
+                 .where(name_condition)
+                 .where(sex_condition)
+                 .where(birthday_condition)
+                 .where(address_condition)
+                 .where(joined_at_condition)
+                 .where(phone_number_condition)
+                 .where(message_condition)
+                 .where(company_condition)
+                 .distinct
   end
 
   def name_condition
@@ -113,5 +115,4 @@ class EmployeesController < ApplicationController
   def employee_params
     params.require(:employee).permit(:name, :sex, :birthday, :address, :joined_at, :phone_number, :message, :company_id)
   end
-
 end

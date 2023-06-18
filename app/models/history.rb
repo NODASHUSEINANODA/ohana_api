@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class History < ApplicationRecord
-    belongs_to :employee
-    belongs_to :manager
-    belongs_to :flower_shop
+  belongs_to :employee
+  belongs_to :manager
+  belongs_to :flower_shop
 end
