@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_17_035138) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_18_055437) do
   create_table "companies", charset: "utf8mb4", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -83,6 +83,17 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_17_035138) do
     t.index ["flower_shop_id"], name: "index_menus_on_flower_shop_id"
   end
 
+  create_table "orders", charset: "utf8mb4", force: :cascade do |t|
+    t.bigint "company_id", null: false
+    t.bigint "flower_shop_id", null: false
+    t.integer "total_amount"
+    t.datetime "ordered_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["company_id"], name: "index_orders_on_company_id"
+    t.index ["flower_shop_id"], name: "index_orders_on_flower_shop_id"
+  end
+
   create_table "temporaries", charset: "utf8mb4", force: :cascade do |t|
     t.string "temporary_key", null: false
     t.bigint "manager_id", null: false
@@ -100,4 +111,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_17_035138) do
   add_foreign_key "histories", "managers"
   add_foreign_key "managers", "employees"
   add_foreign_key "menus", "flower_shops"
+  add_foreign_key "orders", "companies"
+  add_foreign_key "orders", "flower_shops"
 end

@@ -4,6 +4,7 @@ class FlowerShop < ApplicationRecord
   has_many :histories
   has_many :company
   has_many :menus
+  has_many :orders
 
   validates :name, :email, presence: true
 end
