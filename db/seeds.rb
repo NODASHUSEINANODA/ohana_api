@@ -9,10 +9,29 @@
   )
 end
 
+FlowerShop.find_each do |shop|
+  menus = [
+    { price: 3000, name: "ローズブーケ" },
+    { price: 5000, name: "ミックスカラーブーケ" },
+    { price: 8000, name: "ライラックブーケ" },
+  ]
+
+  menus.each do |menu|
+    Menu.create!(
+      name: menu[:name],
+      price: menu[:price],
+      flower_shop_id: shop.id,
+      created_at: Time.current,
+      updated_at: Time.current
+    )
+  end
+end
+
 # flower_shop_idはflower_shopのデータが作成されていることが前提、順番変えるとうまくいかない
 3.times do |n|
   flower_shop_id_first = FlowerShop.first.id
   flower_shop_id_last = FlowerShop.last.id
+
   Company.create!(
     email: "test#{n + 1}@example.com",
     password: 'password',
