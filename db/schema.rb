@@ -66,7 +66,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_17_035138) do
   create_table "managers", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "employee_id", null: false
     t.string "email", null: false
-    t.boolean "status", null: false
+    t.boolean "is_president", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "company_id", null: false

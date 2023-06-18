@@ -13,7 +13,7 @@ class Company < ApplicationRecord
          :recoverable, :rememberable, :validatable, :confirmable
 
   def president
-    managers.find_by(status: true)
+    managers.find_by(is_president: true)
   end
 
   def next_month_order_to_flower_shop

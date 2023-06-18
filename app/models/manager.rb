@@ -7,12 +7,10 @@ class Manager < ApplicationRecord
   has_many :temporaries
 
   validates :email, presence: true
-  validates :email, :status, presence: true
   validates :is_president, inclusion: [true, false]
   validate :only_one_president
 
-  # TODO: PRをmerge後、カラムをpresidentに変更する
-  scope :presidents, -> { where(status: true) }
+  scope :presidents, -> { where(is_president: true) }
 
   def only_one_president
     return unless company.president
