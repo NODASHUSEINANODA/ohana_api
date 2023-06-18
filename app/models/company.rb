@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Company < ApplicationRecord
   has_many :employees, dependent: :destroy
   belongs_to :flower_shop
@@ -10,7 +12,7 @@ class Company < ApplicationRecord
          :recoverable, :rememberable, :validatable, :confirmable
 
   def next_month_order_to_flower_shop
-    members = birthday_in_next_month_members
+    members = employees_with_birthdays_next_month
 
     return unless members.present?
 
@@ -23,11 +25,7 @@ class Company < ApplicationRecord
     ).order_to_flower_shop.deliver_now
   end
 
-  private
-
-  def birthday_in_next_month_members
-    next_month = Time.zone.now.next_month.strftime('%m')
-    birthday_in_next_month_condition = Employee.arel_table[:birthday].extract('month').eq(next_month)
-    employees.where(birthday_in_next_month_condition)
+  def employees_with_birthdays_next_month
+    employees.birthdays_in_next_month
   end
 end

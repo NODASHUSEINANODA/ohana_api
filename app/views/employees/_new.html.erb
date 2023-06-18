@@ -31,8 +31,8 @@
       <%= form.text_area :message, class: "form-control", id: "message", placeholder: '' %>
     </div>
     <div class="col-2 mt-4">
-      <%= form.check_box :admin, class: "form-check-input", id: "check_admin" %>
-      <%= form.label :admin, "この人は管理者です", class: "form-check-label", for: "check_admin" %>
+      <%= form.label '管理者権限', class: "form-label" %>
+      <%= form.select :is_president, [["社員(なし)", nil], ["管理者", false], ["社長", true]], {}, class: "form-select", aria: {label: "is_president"}, id: "is_president" %>
     </div>
     <div id='admin_mail_address_group' class="col-2 mt-4 d-none">
       <%= form.label '管理者メールアドレス', class: "form-label" %>

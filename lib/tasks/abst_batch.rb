@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Tasks::AbstBatch
   def self.logger
     Rails.application.config.batch_logger

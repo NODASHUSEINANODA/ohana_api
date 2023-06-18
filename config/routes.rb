@@ -12,6 +12,8 @@ Rails.application.routes.draw do
 
   root to: 'employees#index'
 
+  resources :managers, only: [:index]
+
   devise_scope :company do
     get '/companies/sign_out' => 'devise/sessions#destroy'
   end
