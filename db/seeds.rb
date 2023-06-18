@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
-3.times do |n|
+COMPANY_COUNT = 3
+FLOWER_SHOP_COUNT = 3
+EMPLOYEE_COUNT = 50
+
+FLOWER_SHOP_COUNT.times do |n|
   FlowerShop.create!(
     name: Gimei.name.last.kanji.concat('花屋'),
     email: "flower#{n + 1}@example.com",
@@ -9,18 +13,18 @@
   )
 end
 
-FlowerShop.find_each do |shop|
+FLOWER_SHOP_COUNT.times do |n|
   menus = [
-    { price: 3000, name: "ローズブーケ" },
-    { price: 5000, name: "ミックスカラーブーケ" },
-    { price: 8000, name: "ライラックブーケ" },
+    { price: 3000, name: 'ローズブーケ' },
+    { price: 5000, name: 'ミックスカラーブーケ' },
+    { price: 8000, name: 'ライラックブーケ' }
   ]
 
   menus.each do |menu|
     Menu.create!(
       name: menu[:name],
       price: menu[:price],
-      flower_shop_id: shop.id,
+      flower_shop_id: n + 1,
       created_at: Time.current,
       updated_at: Time.current
     )
@@ -28,7 +32,7 @@ FlowerShop.find_each do |shop|
 end
 
 # flower_shop_idはflower_shopのデータが作成されていることが前提、順番変えるとうまくいかない
-3.times do |n|
+COMPANY_COUNT.times do |n|
   flower_shop_id_first = FlowerShop.first.id
   flower_shop_id_last = FlowerShop.last.id
 
@@ -42,7 +46,7 @@ end
   )
 end
 
-50.times do |_n|
+EMPLOYEE_COUNT.times do |_n|
   s1 = Date.parse('2000/07/1')
   s2 = Date.parse('2000/07/30')
   s = Random.rand(s1..s2)
@@ -59,7 +63,7 @@ end
 end
 
 # 1つの会社に社長を1人、管理者を2人作成
-3.times do |n|
+COMPANY_COUNT.times do |n|
   company_id = Company.find(n + 1).id
 
   Manager.create!(
