@@ -12,9 +12,9 @@ class EmployeesController < ApplicationController
     @employee = Employee.new(employee_params)
     @employee.company_id = current_company.id
 
-    if @employee.invalid?
+    if @employee.invalid? || admin_invalid?
       flash[:danger] = @employee.errors.full_messages.join('、')
-    elsif @employee.save
+    elsif is_manager? ? @employee.save_with_manager(params[:employee][:admin_mail_address], params[:employee][:is_president]) : @employee.save
       flash[:success] = '社員を登録しました'
     else
       flash[:danger] = '社員の登録に失敗しました'
@@ -47,6 +47,20 @@ class EmployeesController < ApplicationController
   end
 
   private
+
+  # 管理者権限がある かつ 管理者用アドレスが空 の場合、invalid とする
+  def admin_invalid?
+    return false unless is_manager?
+    return false if params[:employee][:admin_mail_address].present?
+
+    @employee.errors.add(:base, '管理者のメールアドレスを入力してください')
+    true
+  end
+
+  def is_manager?
+    return false if ActiveRecord::Type::Boolean.new.cast(params[:employee][:is_president]).nil?
+    true
+  end
 
   def search_condition
     @employees = @employees
