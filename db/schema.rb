@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_18_055437) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_18_061928) do
   create_table "companies", charset: "utf8mb4", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -83,6 +83,18 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_18_055437) do
     t.index ["flower_shop_id"], name: "index_menus_on_flower_shop_id"
   end
 
+  create_table "order_details", charset: "utf8mb4", force: :cascade do |t|
+    t.bigint "order_id", null: false
+    t.bigint "employee_id", null: false
+    t.integer "deliver_to", default: 0, null: false
+    t.bigint "menu_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["employee_id"], name: "index_order_details_on_employee_id"
+    t.index ["menu_id"], name: "index_order_details_on_menu_id"
+    t.index ["order_id"], name: "index_order_details_on_order_id"
+  end
+
   create_table "orders", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "company_id", null: false
     t.bigint "flower_shop_id", null: false
@@ -111,6 +123,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_18_055437) do
   add_foreign_key "histories", "managers"
   add_foreign_key "managers", "employees"
   add_foreign_key "menus", "flower_shops"
+  add_foreign_key "order_details", "employees"
+  add_foreign_key "order_details", "menus"
+  add_foreign_key "order_details", "orders"
   add_foreign_key "orders", "companies"
   add_foreign_key "orders", "flower_shops"
 end

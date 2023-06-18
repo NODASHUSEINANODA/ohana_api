@@ -5,6 +5,7 @@ class Employee < ApplicationRecord
   has_one :manager
   has_many :histories, dependent: :destroy
   has_many :temporaries, dependent: :destroy
+  has_many :order_details
 
   validates :name, :sex, :birthday, :address, :joined_at, :phone_number, :company_id, presence: true
   validates :phone_number, format: { with: /\A\d{10,11}\z/ } # 電話番号は10桁or11桁の数字のみ
