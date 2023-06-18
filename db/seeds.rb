@@ -57,3 +57,24 @@ end
     company_id: Random.rand(1..3)
   )
 end
+
+# 1つの会社に社長を1人、管理者を2人作成
+3.times do |n|
+  company_id = Company.find(n + 1).id
+
+  Manager.create!(
+    employee_id: Employee.where(company_id: company_id).first.id,
+    company_id: company_id,
+    email: "president#{n + 1}@#example.com",
+    is_president: true
+  )
+
+  2.times do |m|
+    Manager.create!(
+      employee_id: Employee.where(company_id: company_id)[m + 2].id,
+      company_id: company_id,
+      email: "manager#{m + 2}@#example.com",
+      is_president: false
+    )
+  end
+end
