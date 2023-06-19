@@ -2,6 +2,7 @@
 
 class EmployeesController < ApplicationController
   before_action :authenticate_company!
+  before_action :set_new_employee, only: [:create]
 
   def index
     @employees = Employee.where(company_id: current_company.id)
@@ -9,16 +10,24 @@ class EmployeesController < ApplicationController
   end
 
   def create
-    @employee = Employee.new(employee_params)
-    @employee.company_id = current_company.id
+    return redirect_to employees_path if add_flash_danger_if_invalid
 
-    if @employee.invalid? || admin_invalid?
-      flash[:danger] = @employee.errors.full_messages.join('、')
-    elsif is_manager? ? @employee.save_with_manager(params[:employee][:admin_mail_address], params[:employee][:is_president]) : @employee.save
-      flash[:success] = '社員を登録しました'
-    else
-      flash[:danger] = '社員の登録に失敗しました'
+    # 管理者権限がある場合(管理者 or 社長)
+    if is_manager?
+      return redirect_to employees_path if add_flash_danger_if_admin_invalid
+
+      begin
+        @employee.save_with_manager(params[:employee][:admin_mail_address], params[:employee][:is_president])
+        flash[:success] = '管理者の権限を持った社員を登録しました'
+      rescue ActiveRecord::RecordInvalid => e
+        flash[:danger] = e.record.errors.full_messages.join(", ")
+      ensure
+        return redirect_to employees_path
+      end
     end
+
+    # 社員のみの場合
+    @employee.save ? flash[:success] = '社員を登録しました' : flash[:danger] = '社員の登録に失敗しました'
 
     redirect_to employees_path
   end
@@ -47,6 +56,24 @@ class EmployeesController < ApplicationController
   end
 
   private
+
+  def set_new_employee
+    @employee = Employee.new(employee_params)
+    @employee.company_id = current_company.id
+  end
+
+  def add_flash_danger_if_invalid
+    return unless @employee.invalid?
+
+    flash[:danger] = @employee.errors.full_messages.join('、')
+  end
+
+  def add_flash_danger_if_admin_invalid
+    return unless admin_invalid?
+    # return unless @employee.invalid? || admin_invalid?
+
+    flash[:danger] = @employee.errors.full_messages.join('、')
+  end
 
   # 管理者権限がある かつ 管理者用アドレスが空 の場合、invalid とする
   def admin_invalid?
