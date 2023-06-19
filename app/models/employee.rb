@@ -18,7 +18,7 @@ class Employee < ApplicationRecord
   def save_with_manager(email, is_president)
     transaction do
       save!
-      manager = Manager.new(employee_id: id, email: email, is_president: is_president)
+      manager = Manager.new(employee_id: id, email: email, is_president: is_president, company_id: company_id)
       manager.save!
     end
   end
