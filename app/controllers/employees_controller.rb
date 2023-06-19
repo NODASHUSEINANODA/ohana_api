@@ -2,7 +2,9 @@
 
 class EmployeesController < ApplicationController
   before_action :authenticate_company!
+  before_action :set_employees, only: [:index]
   before_action :set_new_employee, only: [:create]
+  before_action :set_employee, only: [:update, :destroy]
 
   def index
     @employees = Employee.where(company_id: current_company.id)
@@ -33,8 +35,6 @@ class EmployeesController < ApplicationController
   end
 
   def update
-    @employee = Employee.find(params[:id])
-
     if @employee.update(employee_params)
       flash[:success] = '社員情報を更新しました'
     else
@@ -44,18 +44,25 @@ class EmployeesController < ApplicationController
   end
 
   def destroy
-    @employee = Employee.find(params[:id])
-    @name = @employee.name
+    name = @employee.name
 
-    if @employee.destroy
-      flash[:success] = "#{@name}さんを削除しました"
+    if @employee.manager ? @employee.destroy_with_manager : @employee.destroy
+      flash[:success] = "#{name}さんを削除しました"
     else
-      flash[:danger] = "#{@name}さんの削除に失敗しました"
+      flash[:danger] = "#{name}さんの削除に失敗しました"
     end
     redirect_to employees_path
   end
 
   private
+
+  def set_employees
+    @employees = Employee.where(company_id: current_company.id)
+  end
+
+  def set_employee
+    @employee = Employee.find(params[:id])
+  end
 
   def set_new_employee
     @employee = Employee.new(employee_params)

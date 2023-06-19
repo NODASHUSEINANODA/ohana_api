@@ -23,6 +23,13 @@ class Employee < ApplicationRecord
     end
   end
 
+  def destroy_with_manager
+    transaction do
+      manager.destroy!
+      destroy!
+    end
+  end
+
   # YYYY年MM月DD日の形式で誕生日を返す
   def birthday_format_yyyy_mm_dd
     birthday.strftime('%Y年%m月%d日')
