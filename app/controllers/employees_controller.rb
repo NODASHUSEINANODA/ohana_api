@@ -4,7 +4,7 @@ class EmployeesController < ApplicationController
   before_action :authenticate_company!
   before_action :set_employees, only: [:index]
   before_action :set_new_employee, only: [:create]
-  before_action :set_employee, only: [:update, :destroy]
+  before_action :set_employee, only: %i[update destroy]
 
   def index
     @employees = Employee.where(company_id: current_company.id)
@@ -15,21 +15,19 @@ class EmployeesController < ApplicationController
     return redirect_to employees_path if add_flash_danger_if_invalid
 
     # 管理者権限がある場合(管理者 or 社長)
-    if is_manager?
+    if manager?
       return redirect_to employees_path if add_flash_danger_if_admin_invalid
 
       begin
         @employee.save_with_manager(params[:employee][:admin_mail_address], params[:employee][:is_president])
         flash[:success] = '管理者の権限を持った社員を登録しました'
       rescue ActiveRecord::RecordInvalid => e
-        flash[:danger] = e.record.errors.full_messages.join(", ")
-      ensure
-        return redirect_to employees_path
+        flash[:danger] = e.record.errors.full_messages.join(', ')
       end
+    else
+      # 社員のみの場合
+      @employee.save ? flash[:success] = '社員を登録しました' : flash[:danger] = '社員の登録に失敗しました'
     end
-
-    # 社員のみの場合
-    @employee.save ? flash[:success] = '社員を登録しました' : flash[:danger] = '社員の登録に失敗しました'
 
     redirect_to employees_path
   end
@@ -77,6 +75,7 @@ class EmployeesController < ApplicationController
 
   def add_flash_danger_if_admin_invalid
     return unless admin_invalid?
+
     # return unless @employee.invalid? || admin_invalid?
 
     flash[:danger] = @employee.errors.full_messages.join('、')
@@ -84,15 +83,16 @@ class EmployeesController < ApplicationController
 
   # 管理者権限がある かつ 管理者用アドレスが空 の場合、invalid とする
   def admin_invalid?
-    return false unless is_manager?
+    return false unless manager?
     return false if params[:employee][:admin_mail_address].present?
 
     @employee.errors.add(:base, '管理者のメールアドレスを入力してください')
     true
   end
 
-  def is_manager?
+  def manager?
     return false if ActiveRecord::Type::Boolean.new.cast(params[:employee][:is_president]).nil?
+
     true
   end
 

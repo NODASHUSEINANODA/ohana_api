@@ -9,7 +9,7 @@ class Employee < ApplicationRecord
   validates :name, :sex, :birthday, :address, :joined_at, :phone_number, :company_id, presence: true
   validates :phone_number, format: { with: /\A\d{10,11}\z/ } # 電話番号は10桁or11桁の数字のみ
 
-  scope :birthdays_in_next_month, -> {
+  scope :birthdays_in_next_month, lambda {
     next_month = Time.zone.now.next_month.strftime('%m')
     birthday_in_next_month_condition = Employee.arel_table[:birthday].extract('month').eq(next_month)
     where(birthday_in_next_month_condition)
