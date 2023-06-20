@@ -6,4 +6,8 @@ class FlowerShop < ApplicationRecord
   has_many :orders
 
   validates :name, :email, presence: true
+
+  def cheapest_menu
+    menus.cheapest
+  end
 end

@@ -17,6 +17,13 @@ class Company < ApplicationRecord
     managers.find_by(is_president: true)
   end
 
+  def setup_next_order
+    birthday_employee_ids = employees_with_birthdays_next_month.pluck(:id)
+    default_menu_id = flower_shop.cheapest_menu.id
+
+    Order.setup_next_order(id, flower_shop.id, birthday_employee_ids, default_menu_id)
+  end
+
   def next_month_order_to_flower_shop
     members = employees_with_birthdays_next_month
 
