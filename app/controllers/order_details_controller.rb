@@ -32,7 +32,6 @@ class OrderDetailsController < ApplicationController
   private
 
   def set_latest_order_details
-    # 以下のordersの条件にordereda_atが空であることを追加する
-    @latest_order_details = current_company.orders.order(created_at: :desc).first.order_details
+    @latest_order_details = current_company.orders.where(ordered_at: nil).order(created_at: :desc).first.order_details
   end
 end
