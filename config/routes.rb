@@ -12,7 +12,8 @@ Rails.application.routes.draw do
 
   root to: 'employees#index'
 
-  resources :managers, only: [:index]
+  get '/next_order', to: 'order_details#edit'
+  put '/next_order', to: 'order_details#update'
 
   devise_scope :company do
     get '/companies/sign_out' => 'devise/sessions#destroy'
