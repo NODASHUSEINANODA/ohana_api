@@ -1,0 +1,6 @@
+ja:
+  enums:
+    order_detail:
+      deliver_to:
+        company: '会社'
+        home: '自宅'
