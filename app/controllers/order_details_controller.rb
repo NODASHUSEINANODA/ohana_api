@@ -15,9 +15,9 @@ class OrderDetailsController < ApplicationController
 
   def update
     @latest_order_details.each_with_index do |detail, i|
-      param = params[:details][(i + 1).to_s]
-      puts 'param'
-      puts param
+      # TODO: 強引に値を取得しているので、もっとスマートな方法があれば修正する
+      id = params[:details].to_unsafe_h.to_a[i].first
+      param = params[:details][id]
       detail.update(
         deliver_to: param[:deliver_to],
         menu_id: param[:menu_id].to_i,
