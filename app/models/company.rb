@@ -45,6 +45,8 @@ class Company < ApplicationRecord
       flower_shop_email: flower_shop.email,
       next_orders_info: next_orders_info
     ).order_to_flower_shop.deliver_now
+    
+    next_order.update(ordered_at: Time.zone.now)
   end
 
   def employees_with_birthdays_next_month
