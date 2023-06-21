@@ -11,6 +11,7 @@ class EmployeesController < ApplicationController
   def create
     @employee = Employee.new(employee_params)
     @employee.company_id = current_company.id
+    @employee.phone_number = ActiveRecord::Type::Boolean.new.cast(employee_params[:phone_number])
 
     if @employee.invalid? || admin_invalid?
       flash[:danger] = @employee.errors.full_messages.join('、')
