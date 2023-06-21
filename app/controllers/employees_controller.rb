@@ -2,6 +2,9 @@
 
 class EmployeesController < ApplicationController
   before_action :authenticate_company!
+  before_action :set_employees, only: [:index]
+  before_action :set_new_employee, only: [:create]
+  before_action :set_employee, only: %i[update destroy]
 
   def index
     @employees = Employee.where(company_id: current_company.id)
@@ -9,24 +12,27 @@ class EmployeesController < ApplicationController
   end
 
   def create
-    @employee = Employee.new(employee_params)
-    @employee.company_id = current_company.id
-    @employee.phone_number = ActiveRecord::Type::Boolean.new.cast(employee_params[:phone_number])
+    return redirect_to employees_path if add_flash_danger_if_invalid
 
-    if @employee.invalid? || admin_invalid?
-      flash[:danger] = @employee.errors.full_messages.join('、')
-    elsif is_manager? ? @employee.save_with_manager(params[:employee][:admin_mail_address], params[:employee][:is_president]) : @employee.save
-      flash[:success] = '社員を登録しました'
+    # 管理者権限がある場合(管理者 or 社長)
+    if manager?
+      return redirect_to employees_path if add_flash_danger_if_admin_invalid
+
+      begin
+        @employee.save_with_manager(params[:employee][:admin_mail_address], params[:employee][:is_president])
+        flash[:success] = '管理者の権限を持った社員を登録しました'
+      rescue ActiveRecord::RecordInvalid => e
+        flash[:danger] = e.record.errors.full_messages.join(', ')
+      end
     else
-      flash[:danger] = '社員の登録に失敗しました'
+      # 社員のみの場合
+      @employee.save ? flash[:success] = '社員を登録しました' : flash[:danger] = '社員の登録に失敗しました'
     end
 
     redirect_to employees_path
   end
 
   def update
-    @employee = Employee.find(params[:id])
-
     if @employee.update(employee_params)
       flash[:success] = '社員情報を更新しました'
     else
@@ -36,30 +42,58 @@ class EmployeesController < ApplicationController
   end
 
   def destroy
-    @employee = Employee.find(params[:id])
-    @name = @employee.name
+    name = @employee.name
 
-    if @employee.destroy
-      flash[:success] = "#{@name}さんを削除しました"
+    if @employee.manager ? @employee.destroy_with_manager : @employee.destroy
+      flash[:success] = "#{name}さんを削除しました"
     else
-      flash[:danger] = "#{@name}さんの削除に失敗しました"
+      flash[:danger] = "#{name}さんの削除に失敗しました"
     end
     redirect_to employees_path
   end
 
   private
 
+  def set_employees
+    @employees = Employee.where(company_id: current_company.id)
+  end
+
+  def set_employee
+    @employee = Employee.find(params[:id])
+  end
+
+  def set_new_employee
+    @employee = Employee.new(employee_params)
+    @employee.company_id = current_company.id
+    @employee.phone_number = ActiveRecord::Type::Boolean.new.cast(employee_params[:phone_number])
+  end
+
+  def add_flash_danger_if_invalid
+    return unless @employee.invalid?
+
+    flash[:danger] = @employee.errors.full_messages.join('、')
+  end
+
+  def add_flash_danger_if_admin_invalid
+    return unless admin_invalid?
+
+    # return unless @employee.invalid? || admin_invalid?
+
+    flash[:danger] = @employee.errors.full_messages.join('、')
+  end
+
   # 管理者権限がある かつ 管理者用アドレスが空 の場合、invalid とする
   def admin_invalid?
-    return false unless is_manager?
+    return false unless manager?
     return false if params[:employee][:admin_mail_address].present?
 
     @employee.errors.add(:base, '管理者のメールアドレスを入力してください')
     true
   end
 
-  def is_manager?
+  def manager?
     return false if ActiveRecord::Type::Boolean.new.cast(params[:employee][:is_president]).nil?
+
     true
   end
 

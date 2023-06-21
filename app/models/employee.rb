@@ -10,7 +10,7 @@ class Employee < ApplicationRecord
   validates :phone_number, format: { with: /\A\d{10,11}\z/ }, allow_nil: true # 電話番号は10桁or11桁の数字のみ
   validate :require_phune_number_if_address_exist
 
-  scope :birthdays_in_next_month, -> {
+  scope :birthdays_in_next_month, lambda {
     next_month = Time.zone.now.next_month.strftime('%m')
     birthday_in_next_month_condition = Employee.arel_table[:birthday].extract('month').eq(next_month)
     where(birthday_in_next_month_condition)
@@ -23,8 +23,15 @@ class Employee < ApplicationRecord
   def save_with_manager(email, is_president)
     transaction do
       save!
-      manager = Manager.new(employee_id: id, email: email, is_president: is_president)
+      manager = Manager.new(employee_id: id, email: email, is_president: is_president, company_id: company_id)
       manager.save!
+    end
+  end
+
+  def destroy_with_manager
+    transaction do
+      manager.destroy!
+      destroy!
     end
   end
 
