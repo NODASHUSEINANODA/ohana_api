@@ -24,17 +24,26 @@ class Company < ApplicationRecord
     Order.setup_next_order(id, flower_shop.id, birthday_employee_ids, default_menu_id)
   end
 
-  def next_month_order_to_flower_shop
-    members = employees_with_birthdays_next_month
+  def next_order
+    orders.where(ordered_at: nil).order(created_at: :desc).first
+  end
 
-    return unless members.present?
+  def next_order_details
+    next_order.order_details.kept
+  end
+
+  def next_month_order_to_flower_shop
+    next_orders_info = next_order_details.map(&:prepare_for_company_mailer)
+
+    # TODO: 注文がない時は、その旨を伝えるメールを花屋へ送る
+    return unless next_orders_info.count.positive?
 
     CompanyMailer.with(
       company_name: name,
       company_email: email,
       flower_shop_name: flower_shop.name,
       flower_shop_email: flower_shop.email,
-      members: members
+      next_orders_info: next_orders_info
     ).order_to_flower_shop.deliver_now
   end
 
