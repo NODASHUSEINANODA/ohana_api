@@ -1,5 +1,5 @@
 <% flash.each do |key, value| %>
-  <div class="alert alert-<%= bootstrap_alert(key) %> alert-dismissible fade show m-0">
+  <div class="alert alert-<%= key %> alert-dismissible fade show m-0">
     <span><%= value %></span>
   </div>
 <% end %>
