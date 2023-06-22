@@ -69,6 +69,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_21_140302) do
     t.boolean "is_president", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "company_id", null: false
+    t.index ["company_id"], name: "index_managers_on_company_id"
     t.index ["employee_id"], name: "index_managers_on_employee_id"
   end
 
