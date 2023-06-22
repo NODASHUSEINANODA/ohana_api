@@ -7,10 +7,6 @@ class OrderDetailsController < ApplicationController
   def edit
     @menus = current_company.flower_shop.menus
     @deliver_to = OrderDetail.deliver_tos_i18n.invert
-
-    return if @next_order_details.present?
-
-    redirect_to root_path, alert: '次回の注文データが作成されていません。'
   end
 
   def update
@@ -32,6 +28,10 @@ class OrderDetailsController < ApplicationController
   private
 
   def set_next_order_details
-    @next_order_details = current_company.orders.where(ordered_at: nil).order(created_at: :desc).first.order_details
+    next_order = current_company.orders.where(ordered_at: nil).order(created_at: :desc).first
+
+    return redirect_to root_path, alert: '次回の注文データが作成されていません。' unless next_order.present?
+
+    @next_order_details = next_order.order_details
   end
 end
