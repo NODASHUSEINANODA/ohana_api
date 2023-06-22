@@ -50,13 +50,15 @@ EMPLOYEE_COUNT.times do |_n|
   s1 = Date.parse('2000/07/1')
   s2 = Date.parse('2000/07/30')
   s = Random.rand(s1..s2)
+  address = Random.rand(1..2) % 2 == 0 ? Gimei.unique.address : nil
+
   Employee.create!(
     name: Gimei.unique.name.kanji,
     sex: Random.rand(1..2) == 2 ? '男性' : '女性',
     birthday: s,
-    address: Gimei.unique.address,
+    address: address,
     joined_at: s,
-    phone_number: '09011112222',
+    phone_number: address ? '09011112222' : nil,
     message: Random.rand(1..2) == 2 ? '情熱的' : '落ち着いている',
     company_id: Random.rand(1..3)
   )
