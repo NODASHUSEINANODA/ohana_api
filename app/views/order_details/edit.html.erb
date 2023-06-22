@@ -17,7 +17,7 @@
         </tr>
       </thead>
       <tbody>
-        <% @latest_order_details.each_with_index do |details| %>
+        <% @next_order_details.each_with_index do |details| %>
           <%= fields_for 'details[]', details do |detail| %>
             <tr>
               <td class='align-middle small'><%= detail.object.employee.name %></td>
