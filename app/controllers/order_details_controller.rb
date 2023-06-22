@@ -2,19 +2,19 @@
 
 class OrderDetailsController < ApplicationController
   before_action :authenticate_company!
-  before_action :set_latest_order_details, only: %i[edit update]
+  before_action :set_next_order_details, only: %i[edit update]
 
   def edit
     @menus = current_company.flower_shop.menus
     @deliver_to = OrderDetail.deliver_tos_i18n.invert
 
-    return if @latest_order_details.present?
+    return if @next_order_details.present?
 
     redirect_to root_path, alert: '次回の注文データが作成されていません。'
   end
 
   def update
-    @latest_order_details.each_with_index do |detail, i|
+    @next_order_details.each_with_index do |detail, i|
       # TODO: 強引に値を取得しているので、もっとスマートな方法があれば修正する
       id = params[:details].to_unsafe_h.to_a[i].first
       param = params[:details][id]
@@ -31,7 +31,7 @@ class OrderDetailsController < ApplicationController
 
   private
 
-  def set_latest_order_details
-    @latest_order_details = current_company.orders.where(ordered_at: nil).order(created_at: :desc).first.order_details
+  def set_next_order_details
+    @next_order_details = current_company.orders.where(ordered_at: nil).order(created_at: :desc).first.order_details
   end
 end
