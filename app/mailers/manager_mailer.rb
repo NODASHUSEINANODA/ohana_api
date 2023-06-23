@@ -11,9 +11,8 @@ class ManagerMailer < ApplicationMailer
     # TODO: 仮で値を置いている。後で変更する
     @deadline = 15
 
-    # TODO: 環境に応じてドメインを変更する
-    @next_order_link = 'http://localhost:3000/managers'
-    @delete_employee_link = 'http://localhost:3000/employees'
+    @next_order_link = next_order_url
+    @delete_employee_link = root_url
 
     mail(
       to: @president_email,
