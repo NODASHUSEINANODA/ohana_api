@@ -13,7 +13,8 @@ class Employee < ApplicationRecord
   scope :birthdays_in_next_month, lambda {
     next_month = Time.zone.now.next_month.strftime('%m')
     birthday_in_next_month_condition = Employee.arel_table[:birthday].extract('month').eq(next_month)
-    where(birthday_in_next_month_condition)
+
+    where(birthday_in_next_month_condition).order(birthday: :asc)
   }
 
   def require_phune_number_if_address_exist
