@@ -34,8 +34,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_22_003403) do
   create_table "employees", charset: "utf8mb4", force: :cascade do |t|
     t.string "name", null: false
     t.string "sex", null: false
-    t.string "address", null: false
-    t.string "phone_number", null: false
+    t.string "address"
+    t.string "phone_number"
     t.text "message"
     t.bigint "company_id", null: false
     t.datetime "created_at", null: false

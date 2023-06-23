@@ -6,14 +6,19 @@ class Employee < ApplicationRecord
   has_many :temporaries, dependent: :destroy
   has_many :order_details
 
-  validates :name, :sex, :birthday, :address, :joined_at, :phone_number, :company_id, presence: true
-  validates :phone_number, format: { with: /\A\d{10,11}\z/ } # 電話番号は10桁or11桁の数字のみ
+  validates :name, :sex, :birthday, :joined_at, :company_id, presence: true
+  validates :phone_number, format: { with: /\A\d{10,11}\z/ }, allow_nil: true # 電話番号は10桁or11桁の数字のみ
+  validate :require_phune_number_if_address_exist
 
   scope :birthdays_in_next_month, lambda {
     next_month = Time.zone.now.next_month.strftime('%m')
     birthday_in_next_month_condition = Employee.arel_table[:birthday].extract('month').eq(next_month)
     where(birthday_in_next_month_condition)
   }
+
+  def require_phune_number_if_address_exist
+    errors.add(:phone_number, 'を入力してください') if address.present? && phone_number.blank?
+  end
 
   def save_with_manager(email, is_president)
     transaction do
