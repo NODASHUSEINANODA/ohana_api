@@ -29,7 +29,7 @@ class Company < ApplicationRecord
   end
 
   def next_order_details
-    next_order.order_details.kept
+    next_order.order_details.kept.order_by_birthday
   end
 
   def next_month_order_to_flower_shop

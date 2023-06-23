@@ -7,6 +7,8 @@ class OrderDetail < ApplicationRecord
   belongs_to :employee
   belongs_to :menu
 
+  scope :order_by_birthday, -> { joins(:employee).order('employees.birthday asc') }
+
   enum deliver_to: { company: 0, home: 1 }
 
   class << self
