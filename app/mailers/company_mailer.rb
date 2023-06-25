@@ -11,7 +11,7 @@ class CompanyMailer < ApplicationMailer
     mail(
       to: @flower_shop_email,
       from: @company_email,
-      subject: '注文依頼'
+      subject: '【ONE-STEP-GIFT】来月の注文依頼'
     )
   end
 end
