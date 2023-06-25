@@ -32,21 +32,24 @@ class Company < ApplicationRecord
     next_order.order_details.kept.order_by_birthday
   end
 
-  def next_month_order_to_flower_shop
-    next_orders_info = next_order_details.map(&:prepare_for_company_mailer)
-
-    # TODO: 注文がない時は、その旨を伝えるメールを花屋へ送る
-    return unless next_orders_info.count.positive?
-
+  # formatted_next_ordersは、OrderDetailのprepare_for_company_mailerメソッドの返り値を指定
+  def order_to_flower_shop(formatted_next_orders)
     CompanyMailer.with(
       company_name: name,
       company_email: email,
       flower_shop_name: flower_shop.name,
       flower_shop_email: flower_shop.email,
-      next_orders_info: next_orders_info
+      next_orders_info: formatted_next_orders
     ).order_to_flower_shop.deliver_now
-    
-    next_order.update(ordered_at: Time.zone.now)
+  end
+
+  def no_order_to_flower_shop
+    CompanyMailer.with(
+      company_name: name,
+      company_email: email,
+      flower_shop_name: flower_shop.name,
+      flower_shop_email: flower_shop.email
+    ).no_order_to_flower_shop.deliver_now
   end
 
   def employees_with_birthdays_next_month
