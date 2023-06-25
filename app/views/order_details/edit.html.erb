@@ -27,11 +27,19 @@
               <td class='align-middle small'><%= detail.object.employee.address %></td>
               <td class='align-middle small'><%= detail.object.employee.working_years %>年</td>
               <td class='align-middle small'>
-                <%= detail.select :deliver_to,
-                    options_for_select(@deliver_to, selected: detail.object.deliver_to),
-                    {},
-                    {class: "form-select w-100"}
-                %>
+                <% if detail.object.employee.address %>
+                  <%= detail.select :deliver_to,
+                      options_for_select(@deliver_to, selected: detail.object.deliver_to),
+                      {},
+                      {class: "form-select w-100"}
+                  %>
+                <% else %>
+                  <%= detail.select :deliver_to,
+                      options_for_select(@deliver_to, selected: @deliver_to['会社'], disabled: @deliver_to['自宅']),
+                      {},
+                      {class: "form-select w-100"}
+                  %>
+                <% end %>
               </td>
               <td class='align-middle small'>
                 <%= detail.select :menu_id,
