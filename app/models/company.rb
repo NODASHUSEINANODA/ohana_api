@@ -3,6 +3,7 @@
 class Company < ApplicationRecord
   has_many :employees, dependent: :destroy
   has_many :managers, dependent: :destroy
+  has_many :orders
   belongs_to :flower_shop
 
   validates :name, presence: true, length: { maximum: 20, allow_blank: true }
@@ -16,18 +17,36 @@ class Company < ApplicationRecord
     managers.find_by(is_president: true)
   end
 
-  def next_month_order_to_flower_shop
-    members = employees_with_birthdays_next_month
+  def setup_next_order
+    birthday_employee_ids = employees_with_birthdays_next_month.pluck(:id)
+    default_menu_id = flower_shop.cheapest_menu.id
 
-    return unless members.present?
+    Order.setup_next_order(id, flower_shop.id, birthday_employee_ids, default_menu_id)
+  end
+
+  def next_order
+    orders.where(ordered_at: nil).order(created_at: :desc).first
+  end
+
+  def next_order_details
+    next_order.order_details.kept.order_by_birthday
+  end
+
+  def next_month_order_to_flower_shop
+    next_orders_info = next_order_details.map(&:prepare_for_company_mailer)
+
+    # TODO: 注文がない時は、その旨を伝えるメールを花屋へ送る
+    return unless next_orders_info.count.positive?
 
     CompanyMailer.with(
       company_name: name,
       company_email: email,
       flower_shop_name: flower_shop.name,
       flower_shop_email: flower_shop.email,
-      members: members
+      next_orders_info: next_orders_info
     ).order_to_flower_shop.deliver_now
+    
+    next_order.update(ordered_at: Time.zone.now)
   end
 
   def employees_with_birthdays_next_month

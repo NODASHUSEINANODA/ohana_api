@@ -101,3 +101,9 @@ gem 'jquery-rails'
 
 # エラーメッセージの日本語化
 gem 'rails-i18n'
+
+# enumを日本語化
+gem 'enum_help'
+
+# 論理削除(注文のしない方向け)
+gem 'discard', '~> 1.2'

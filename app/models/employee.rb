@@ -3,8 +3,8 @@
 class Employee < ApplicationRecord
   belongs_to :company
   has_one :manager
-  has_many :histories, dependent: :destroy
   has_many :temporaries, dependent: :destroy
+  has_many :order_details
 
   validates :name, :sex, :birthday, :joined_at, :company_id, presence: true
   validates :phone_number, format: { with: /\A\d{10,11}\z/ }, allow_nil: true # 電話番号は10桁or11桁の数字のみ
@@ -13,7 +13,8 @@ class Employee < ApplicationRecord
   scope :birthdays_in_next_month, lambda {
     next_month = Time.zone.now.next_month.strftime('%m')
     birthday_in_next_month_condition = Employee.arel_table[:birthday].extract('month').eq(next_month)
-    where(birthday_in_next_month_condition)
+
+    where(birthday_in_next_month_condition).order(birthday: :asc)
   }
 
   def require_phune_number_if_address_exist

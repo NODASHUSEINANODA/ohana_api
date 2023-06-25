@@ -8,9 +8,8 @@
     <p>以下で指定された住所と日付にお花を送ってください。</p>
 
     <ul>
-      <% @birthday_members.each do |member| %>
-        <%# TODO: メニューのところは社長専用ページの操作結果から動的に変更できるようにする %>
-        <li><%= member.name %> <%= member.birthday_format_mm_dd %> <%= member.address %> バラセット 10000円</li>
+      <% @next_orders_info.each do |info| %>
+        <li><%= info[:employee_name] %> <%= info[:employee_birthday] %> <%= info[:delivery_address] %> <%= info[:menu_name_with_price] %></li>
       <% end %>
     </ul>
 

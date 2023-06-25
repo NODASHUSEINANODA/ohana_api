@@ -2,5 +2,5 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Managers', type: :request do
+RSpec.describe 'OrderDetails', type: :request do
 end

@@ -52,17 +52,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_22_003403) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "histories", charset: "utf8mb4", force: :cascade do |t|
-    t.bigint "employee_id", null: false
-    t.bigint "manager_id", null: false
-    t.bigint "flower_shop_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["employee_id"], name: "index_histories_on_employee_id"
-    t.index ["flower_shop_id"], name: "index_histories_on_flower_shop_id"
-    t.index ["manager_id"], name: "index_histories_on_manager_id"
-  end
-
   create_table "managers", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "employee_id", null: false
     t.string "email", null: false
@@ -83,6 +72,31 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_22_003403) do
     t.index ["flower_shop_id"], name: "index_menus_on_flower_shop_id"
   end
 
+  create_table "order_details", charset: "utf8mb4", force: :cascade do |t|
+    t.bigint "order_id", null: false
+    t.bigint "employee_id", null: false
+    t.integer "deliver_to", default: 0, null: false
+    t.bigint "menu_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.datetime "discarded_at"
+    t.index ["discarded_at"], name: "index_order_details_on_discarded_at"
+    t.index ["employee_id"], name: "index_order_details_on_employee_id"
+    t.index ["menu_id"], name: "index_order_details_on_menu_id"
+    t.index ["order_id"], name: "index_order_details_on_order_id"
+  end
+
+  create_table "orders", charset: "utf8mb4", force: :cascade do |t|
+    t.bigint "company_id", null: false
+    t.bigint "flower_shop_id", null: false
+    t.integer "total_amount"
+    t.datetime "ordered_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["company_id"], name: "index_orders_on_company_id"
+    t.index ["flower_shop_id"], name: "index_orders_on_flower_shop_id"
+  end
+
   create_table "temporaries", charset: "utf8mb4", force: :cascade do |t|
     t.string "temporary_key", null: false
     t.bigint "manager_id", null: false
@@ -95,9 +109,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_22_003403) do
 
   add_foreign_key "companies", "flower_shops"
   add_foreign_key "employees", "companies"
-  add_foreign_key "histories", "employees"
-  add_foreign_key "histories", "flower_shops"
-  add_foreign_key "histories", "managers"
   add_foreign_key "managers", "employees"
   add_foreign_key "menus", "flower_shops"
+  add_foreign_key "order_details", "employees"
+  add_foreign_key "order_details", "menus"
+  add_foreign_key "order_details", "orders"
+  add_foreign_key "orders", "companies"
+  add_foreign_key "orders", "flower_shops"
 end

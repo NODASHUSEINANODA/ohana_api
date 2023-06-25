@@ -6,7 +6,7 @@ class CompanyMailer < ApplicationMailer
     @company_email = params[:company_email]
     @flower_shop_name = params[:flower_shop_name]
     @flower_shop_email = params[:flower_shop_email]
-    @birthday_members = params[:members]
+    @next_orders_info = params[:next_orders_info]
 
     mail(
       to: @flower_shop_email,
