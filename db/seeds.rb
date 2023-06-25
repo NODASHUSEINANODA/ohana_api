@@ -84,3 +84,6 @@ COMPANY_COUNT.times do |n|
     )
   end
 end
+
+# 次回の注文データを作成
+Company.all.each(&:setup_next_order)
