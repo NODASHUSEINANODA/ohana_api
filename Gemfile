@@ -107,3 +107,6 @@ gem 'enum_help'
 
 # 論理削除(注文のしない方向け)
 gem 'discard', '~> 1.2'
+
+# 定数管理
+gem 'config'
