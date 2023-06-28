@@ -14,6 +14,7 @@ class Tasks::SendMail::ToFlowerShop < Tasks::AbstBatch
         end
 
         company.next_order.update(ordered_at: Time.zone.now)
+        company.setup_next_order
       end
     end
   end
