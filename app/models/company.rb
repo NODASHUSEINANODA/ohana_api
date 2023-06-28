@@ -38,15 +38,18 @@ class Company < ApplicationRecord
     # TODO: 注文がない時は、その旨を伝えるメールを花屋へ送る
     return unless next_orders_info.count.positive?
 
-    CompanyMailer.with(
-      company_name: name,
-      company_email: email,
-      flower_shop_name: flower_shop.name,
-      flower_shop_email: flower_shop.email,
-      next_orders_info: next_orders_info
-    ).order_to_flower_shop.deliver_now
-    
-    next_order.update(ordered_at: Time.zone.now)
+    transaction do
+      CompanyMailer.with(
+        company_name: name,
+        company_email: email,
+        flower_shop_name: flower_shop.name,
+        flower_shop_email: flower_shop.email,
+        next_orders_info: next_orders_info
+      ).order_to_flower_shop.deliver_now
+
+      next_order.update(ordered_at: Time.zone.now)
+      setup_next_order
+    end
   end
 
   def employees_with_birthdays_next_month
