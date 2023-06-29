@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'pry'
+
 class EmployeesController < ApplicationController
   before_action :authenticate_company!
   before_action :set_employees, only: [:index]
@@ -8,6 +10,7 @@ class EmployeesController < ApplicationController
 
   def index
     @employees = Employee.where(company_id: current_company.id)
+    binding.pry
     search_condition
   end
 
@@ -126,7 +129,7 @@ class EmployeesController < ApplicationController
   def birthday_condition
     return nil if params[:birthday].blank?
 
-    { birthday: params[:birthday] }
+    { 'MONTH(birthday) = ?' => params[:birthday].to_i }
   end
 
   def address_condition
