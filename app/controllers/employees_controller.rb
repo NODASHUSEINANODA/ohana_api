@@ -10,7 +10,6 @@ class EmployeesController < ApplicationController
 
   def index
     @employees = Employee.where(company_id: current_company.id)
-    binding.pry
     search_condition
   end
 
@@ -129,7 +128,7 @@ class EmployeesController < ApplicationController
   def birthday_condition
     return nil if params[:birthday].blank?
 
-    { 'MONTH(birthday) = ?' => params[:birthday].to_i }
+    Employee.arel_table[:birthday].extract('month').eq(params[:birthday].to_i)
   end
 
   def address_condition
