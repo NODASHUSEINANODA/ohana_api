@@ -22,7 +22,8 @@
       </div>
       <div class="col-2">
         <%= form.label '入社日' , class: "form-label" %>
-          <%= form.date_field :joined_at, class: "form-control" , id: "joined_at" %>
+          <%= form.select 'joined_at[year]', options_for_select([["年", "invalid"]] + (1960..Time.now.year).map { |m| [m.to_s + "年", m] } ), {}, {class: "form-select"} %>
+          <%= form.select 'joined_at[month]', options_for_select([['月', "invalid"]] + (1..12).map { |m| [m.to_s + "月", m] } ), {}, {class: "form-select"} %>
       </div>
       <div class="col-2">
         <%= form.label '電話番号' , class: "form-label" %>

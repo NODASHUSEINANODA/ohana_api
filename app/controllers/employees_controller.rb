@@ -139,7 +139,16 @@ class EmployeesController < ApplicationController
   def joined_at_condition
     return nil if params[:joined_at].blank?
 
-    { joined_at: params[:joined_at] }
+    year = params[:joined_at][:year]
+    month = params[:joined_at][:month]
+
+    return Employee.arel_table[:joined_at].extract('month').eq(month.to_i) if year.nil?
+    return Employee.arel_table[:joined_at].extract('year').eq(year.to_i) if month.nil?
+
+    year_matches = Employee.arel_table[:joined_at].extract('year').eq(year.to_i)
+    month_matches = Employee.arel_table[:joined_at].extract('month').eq(month.to_i)
+
+    year_matches.and(month_matches)
   end
 
   def phone_number_condition
