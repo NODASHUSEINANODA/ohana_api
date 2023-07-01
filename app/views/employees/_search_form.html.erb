@@ -13,8 +13,8 @@
             class: "form-select" , aria: {label: "sex" }, id: "sex" %>
       </div>
       <div class="col-2">
-        <%= form.label '誕生日月' , class: "form-label" %>
-        <%= form.date_select :birthday, { prompt: "---", order: [:month], use_month_names: [nil, '1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'] }, { class: "form-select", id: "birthday", name: "birthday" } %>
+        <%= form.label '誕生月' , class: "form-label" %>
+          <%= form.select :birthday, options_for_select((1..12).map { |m| [m.to_s + "月", m]}), {}, { class: "form-select", id: "birthday", name: "birthday" } %>
       </div>
       <div class="col-3">
         <%= form.label '住所' , class: "form-label" %>

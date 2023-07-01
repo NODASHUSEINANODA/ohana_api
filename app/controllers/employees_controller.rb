@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'pry'
-
 class EmployeesController < ApplicationController
   before_action :authenticate_company!
   before_action :set_employees, only: [:index]
