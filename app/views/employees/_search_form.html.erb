@@ -13,8 +13,8 @@
             class: "form-select" , aria: {label: "sex" }, id: "sex" %>
       </div>
       <div class="col-2">
-        <%= form.label 'お誕生日' , class: "form-label" %>
-          <%= form.date_field :birthday, class: "form-control" , id: "birthday" %>
+        <%= form.label '誕生月' , class: "form-label" %>
+          <%= form.select :birthday, options_for_select((1..12).map { |m| [m.to_s + "月", m] }), { prompt: "--選択--" }, { class: "form-select", id: "birthday", name: "birthday" } %>
       </div>
       <div class="col-3">
         <%= form.label '住所' , class: "form-label" %>
