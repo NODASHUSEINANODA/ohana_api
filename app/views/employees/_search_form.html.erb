@@ -3,29 +3,37 @@
 
   <%= form_with(url: employees_path , method: :get, remote: true, local: true) do |form| %>
     <div class="row mt-2 mb-4 py-3 container rounded shadow bg-white">
-      <div class="col-2">
+      <%# 上列 %>
+      <div class="col-4 mb-3">
         <%= form.label '名前' , class: "form-label" %>
           <%= form.text_field :name, value: "" , class: "form-control" , id: "name" %>
       </div>
-      <div class="col-1">
+      <div class="col-4 mb-3">
         <%= form.label '性別' , class: "form-label" %>
           <%= form.select :sex, [["--選択--", "invalid" ], ["男性", "男性" ], ["女性", "女性" ], ["無回答", "無回答" ]], {},
             class: "form-select" , aria: {label: "sex" }, id: "sex" %>
       </div>
-      <div class="col-2">
+      <div class="col-4 mb-3">
         <%= form.label 'お誕生日' , class: "form-label" %>
           <%= form.date_field :birthday, class: "form-control" , id: "birthday" %>
       </div>
-      <div class="col-3">
+      <%# 下列 %>
+      <div class="col-4 mb-3">
         <%= form.label '住所' , class: "form-label" %>
           <%= form.text_field :address, class: "form-control" , id: "address" %>
       </div>
-      <div class="col-2">
-        <%= form.label '入社日' , class: "form-label" %>
+      <div class="col-4 mb-3 row mx-0">
+        <div class="col-12 px-0">
+          <%= form.label '入社日' , class: "form-label" %>
+        </div>
+        <div class="col-7 p-0">
           <%= form.select 'joined_at[year]', options_for_select([["年", "invalid"]] + (1960..Time.now.year).map { |m| [m.to_s + "年", m] } ), {}, {class: "form-select"} %>
+        </div>
+        <div class="col-5 p-0">
           <%= form.select 'joined_at[month]', options_for_select([['月', "invalid"]] + (1..12).map { |m| [m.to_s + "月", m] } ), {}, {class: "form-select"} %>
+        </div>
       </div>
-      <div class="col-2">
+      <div class="col-4 mb-3">
         <%= form.label '電話番号' , class: "form-label" %>
           <%= form.text_field :phone_number, class: "form-control" , id: "phone_number" %>
       </div>
