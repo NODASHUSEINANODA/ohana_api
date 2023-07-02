@@ -15,7 +15,7 @@
       </div>
       <div class="col-4 mb-3">
         <%= form.label 'お誕生日' , class: "form-label" %>
-          <%= form.date_field :birthday, class: "form-control" , id: "birthday" %>
+          <%= form.select :birthday, options_for_select((1..12).map { |m| [m.to_s + "月", m] }), { prompt: "--選択--" }, { class: "form-select", id: "birthday", name: "birthday" } %>
       </div>
       <%# 下列 %>
       <div class="col-4 mb-3">

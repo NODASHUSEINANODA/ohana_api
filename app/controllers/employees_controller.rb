@@ -126,7 +126,7 @@ class EmployeesController < ApplicationController
   def birthday_condition
     return nil if params[:birthday].blank?
 
-    { birthday: params[:birthday] }
+    Employee.arel_table[:birthday].extract('month').eq(params[:birthday].to_i)
   end
 
   def address_condition
