@@ -95,14 +95,15 @@ Rails.application.configure do
   config.middleware.use Rack::MethodOverride
 
   # herokuのaddonsであるmailgunの設定
-  config.action_mailer.raise_delivery_errors = true
-  ActionMailer::Base.delivery_method = :smtp
+  host = 'one-step-gift-app-e4ebd1941fff.herokuapp.com'
+  config.action_mailer.default_url_options = { host: host }
   ActionMailer::Base.smtp_settings = {
-    :port           => ENV['MAILGUN_SMTP_PORT'],
-    :address        => ENV['MAILGUN_SMTP_SERVER'],
-    :user_name      => ENV['MAILGUN_SMTP_LOGIN'],
-    :password       => ENV['MAILGUN_SMTP_PASSWORD'],
-    :domain         => 'one-step-gift-app-e4ebd1941fff.herokuapp.com',
-    :authentication => :plain,
+    port: ENV['MAILGUN_SMTP_PORT'],
+    address: ENV['MAILGUN_SMTP_SERVER'],
+    user_name: ENV['MAILGUN_SMTP_LOGIN'],
+    password: ENV['MAILGUN_SMTP_PASSWORD'],
+    domain: host,
+    authentication: :plain
   }
+  ActionMailer::Base.delivery_method = :smtp
 end
