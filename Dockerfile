@@ -2,6 +2,8 @@ FROM ruby:2.7.6
 
 ARG RUBYGEMS_VERSION=3.3.20
 
+ENV RAILS_ENV=production
+
 RUN apt-get update -qq && \
     apt-get install -y vim nodejs \
     --no-install-recommends && \
@@ -23,7 +25,8 @@ COPY . /app
 COPY entrypoint.sh /usr/bin/entrypoint.sh
 RUN chmod +x /usr/bin/entrypoint.sh
 ENTRYPOINT ["entrypoint.sh"]
-EXPOSE 3000
+ENV PORT 3000
+EXPOSE $PORT
 
 # Rails サーバ起動
 CMD ["rails", "server", "-b", "0.0.0.0"]
