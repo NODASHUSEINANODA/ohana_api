@@ -1,18 +1,34 @@
 <html>
   <head>
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
   </head>
-  <body>
+  <body style="background-color: white;">
     <h3><%= @flower_shop_name %> 様</h3>
 
-    <p>以下で指定された住所と日付にお花を送ってください。</p>
+    <p>来月の注文内容は以下になります。よろしくお願いします。</p>
 
-    <ul>
-      <% @birthday_members.each do |member| %>
-        <%# TODO: メニューのところは社長専用ページの操作結果から動的に変更できるようにする %>
-        <li><%= member.name %> <%= member.birthday_format_mm_dd %> <%= member.address %> バラセット 10000円</li>
-      <% end %>
-    </ul>
+    <table class="table table-striped table-hover">
+      <thead>
+        <tr>
+          <th>名前</th>
+          <th>到着日付</th>
+          <th>宛先</th>
+          <th>メニュー</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @next_orders_info.each do |info| %>
+          <tr>
+              <td class='align-middle small'><%= info[:employee_name] %></td>
+              <td class='align-middle small'><%= info[:employee_birthday] %></td>
+              <td class='align-middle small'><%= info[:delivery_address] %></td>
+              <td class='align-middle small'><%= info[:menu_name_with_price] %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
 
     <div class="my-3">
       <p>このメールはシステムから自動送信されています。</p>

@@ -171,6 +171,9 @@ Style/StringChars: # new in 1.12
   Enabled: true
 Style/SwapValues: # new in 1.1
   Enabled: true
+# モジュールの宣言時のnestを許容 ex) class SampleClass::SampleModule
+Style/ClassAndModuleChildren:
+  Enabled: false
 
 # Missing top-level documentation comment for の警告が出ないようにする
 Style/Documentation:
