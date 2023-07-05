@@ -1,5 +1,9 @@
 <div class="container my-2">
-  <p class="h2 text-center">次回の注文確認</p>
+  <% if @next_order_details.empty? %>
+    <p class="h2 text-center text-danger">次回の注文はありません</p>
+  <% else %>
+    <p class="h2 text-center">次回の注文確認</p>
+  <% end %>
 
   <%= form_with(path: next_order_path, method: :put, local: true) do |form| %>
     <table class="table table-striped table-hover">
