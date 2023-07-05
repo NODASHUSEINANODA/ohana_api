@@ -13,7 +13,13 @@ class Tasks::SendMail::ToFlowerShop < Tasks::AbstBatch
           company.no_order_to_flower_shop
         end
 
-        company.next_order.update(ordered_at: Time.zone.now)
+        total_amount = 0
+        company.next_order.order_details.each do |detail|
+          menu = detail.menu_id
+          total_amount += Menu.find(menu).price
+        end
+
+        company.next_order.update(total_amount: total_amount, ordered_at: Time.zone.now)
         company.setup_next_order
       end
     end
