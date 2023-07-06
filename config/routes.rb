@@ -6,10 +6,6 @@ Rails.application.routes.draw do
 
   devise_for :companies, controllers: { registrations: 'companies/registrations' }
 
-  namespace 'api' do
-    get '/healthcheck', to: 'healthcheck#index'
-  end
-
   resources :employees
 
   root to: 'employees#index'
