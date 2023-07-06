@@ -19,4 +19,8 @@ class Order < ApplicationRecord
       end
     end
   end
+
+  def calc_amount
+    order_details.kept.map { |detail| detail.menu.price }.sum
+  end
 end
