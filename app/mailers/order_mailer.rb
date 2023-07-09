@@ -3,19 +3,21 @@ class OrderMailer < ApplicationMailer
 
   default from: Settings[:SYSTEM_MAIL_ADDRESS]
 
+  SUBJECT = '【ONE-STEP-GIFT】注文完了のお知らせ'
+
   def shipping_confirmation_to_president
     @next_orders_info = params[:next_orders_info]
 
     mail(
       to: @president_email,
-      subject: '【ONE-STEP-GIFT】翌月の注文に関するリマインド'
+      subject: SUBJECT
     )
   end
 
   def no_shipping_confirmation_to_president
     mail(
       to: @president_email,
-      subject: '【ONE-STEP-GIFT】翌月の注文に関するリマインド'
+      subject: SUBJECT
     )
   end
 
