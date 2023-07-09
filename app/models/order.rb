@@ -40,7 +40,7 @@ class Order < ApplicationRecord
 
     OrderMailer.with(
       president_name: president.employee.name,
-      president_email: president.email,
+      president_email: president.email
     ).no_shipping_confirmation_to_president.deliver_now
   end
 end
