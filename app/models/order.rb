@@ -31,7 +31,8 @@ class Order < ApplicationRecord
     OrderMailer.with(
       president_name: president.employee.name,
       president_email: president.email,
-      next_orders_info: formatted_next_orders
+      next_orders_info: formatted_next_orders,
+      total_amount: calc_amount
     ).shipping_confirmation_to_president.deliver_now
   end
 

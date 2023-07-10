@@ -9,6 +9,7 @@ class OrderMailer < ApplicationMailer
 
   def shipping_confirmation_to_president
     @next_orders_info = params[:next_orders_info]
+    @total_amount = params[:total_amount]
 
     mail(
       to: @president_email,

@@ -8,6 +8,7 @@ class CompanyMailer < ApplicationMailer
 
   def order_to_flower_shop
     @next_orders_info = params[:next_orders_info]
+    @total_amount = params[:total_amount]
 
     mail(
       to: @flower_shop_email,
