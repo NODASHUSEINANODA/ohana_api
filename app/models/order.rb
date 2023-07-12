@@ -23,4 +23,25 @@ class Order < ApplicationRecord
   def calc_amount
     order_details.kept.map { |detail| detail.menu.price }.sum
   end
+
+  # formatted_next_ordersは、OrderDetailのprepare_for_company_mailerメソッドの返り値を指定
+  def shipping_confirmation_to_president(formatted_next_orders)
+    president = company.president
+
+    OrderMailer.with(
+      president_name: president.employee.name,
+      president_email: president.email,
+      next_orders_info: formatted_next_orders,
+      total_amount: calc_amount
+    ).shipping_confirmation_to_president.deliver_now
+  end
+
+  def no_shipping_confirmation_to_president
+    president = company.president
+
+    OrderMailer.with(
+      president_name: president.employee.name,
+      president_email: president.email
+    ).no_shipping_confirmation_to_president.deliver_now
+  end
 end
