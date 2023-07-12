@@ -7,7 +7,6 @@ class ManagerMailer < ApplicationMailer
     @president_name = params[:president_name]
     @president_email = params[:president_email]
 
-    # TODO: 仮で値を置いている。後で変更する
     @deadline = 15
 
     @next_order_link = next_order_url
