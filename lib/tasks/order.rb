@@ -1,16 +1,18 @@
 # frozen_string_literal: true
 
-class Tasks::SendMail::ToFlowerShop < Tasks::AbstBatch
+class Tasks::Order < Tasks::AbstBatch
   def self.exec
-    execute('花屋さんへメールを送信します') do
+    execute('注文を開始します') do
       Company.all.each do |company|
-        # TODO: each内の処理を`app/use_cases/company/send_mail_to_flower_shop.rb`で行う
+        # NOTE できればeach内の処理を`app/use_cases/company/send_mail_to_flower_shop.rb`を作成し、そこで行いたい
         formatted_next_orders = company.next_order_details.map(&:prepare_for_company_mailer)
 
         if formatted_next_orders.present?
           company.order_to_flower_shop(formatted_next_orders)
+          company.next_order.shipping_confirmation_to_president(formatted_next_orders)
         else
           company.no_order_to_flower_shop
+          company.next_order.no_shipping_confirmation_to_president
         end
 
         total_amount = company.next_order.calc_amount

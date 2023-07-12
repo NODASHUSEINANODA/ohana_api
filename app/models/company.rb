@@ -39,7 +39,8 @@ class Company < ApplicationRecord
       company_email: email,
       flower_shop_name: flower_shop.name,
       flower_shop_email: flower_shop.email,
-      next_orders_info: formatted_next_orders
+      next_orders_info: formatted_next_orders,
+      total_amount: next_order.calc_amount
     ).order_to_flower_shop.deliver_now
   end
 

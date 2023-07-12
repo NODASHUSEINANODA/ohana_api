@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class ManagerMailer < ApplicationMailer
-  # TODO: システムからの送信用アドレスにする or 他の送信用のアドレスを何するか決める
   default from: Settings[:SYSTEM_MAIL_ADDRESS]
 
   def remind_to_president

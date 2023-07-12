@@ -5,9 +5,11 @@
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
   </head>
   <body style="background-color: white;">
-    <h3><%= @flower_shop_name %> 様</h3>
+    <h3><%= @president_name %> 様</h3>
 
-    <p>来月の注文内容は以下になります。よろしくお願いします。</p>
+    <p>いつもお世話になっております。</p>
+    <p>本メールは、注文完了のお知らせでございます。</p>
+    <p>注文内容は以下です。</p>
 
     <table class="table table-striped table-hover">
       <thead>
@@ -33,10 +35,7 @@
     <p>合計 : <%= @total_amount %>円 </p>
 
     <div class="my-3">
-      <p>このメールはシステムから自動送信されています。</p>
-      <p>ご不明な点がございましたら、お手数おかけしますがご返信お願いします。</p>
+      <p>※このメールはシステムから自動送信されています。</p>
     </div>
-
-    <h3><%= @company_name %></h3>
   </body>
 </html>
