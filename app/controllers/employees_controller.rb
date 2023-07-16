@@ -24,9 +24,13 @@ class EmployeesController < ApplicationController
       rescue ActiveRecord::RecordInvalid => e
         flash[:danger] = e.record.errors.full_messages.join(', ')
       end
-    else
+    elsif @employee.save
       # 社員のみの場合
-      @employee.save ? flash[:success] = '社員を登録しました' : flash[:danger] = '社員の登録に失敗しました'
+      flash[:success] = '社員を登録しました'
+
+      update_order_detail if @employee.birthday_is_next_month?
+    else
+      flash[:danger] = '社員の登録に失敗しました'
     end
 
     redirect_to employees_path
@@ -53,6 +57,16 @@ class EmployeesController < ApplicationController
   end
 
   private
+
+  def update_order_detail
+    OrderDetail.create(
+      order_id: current_company.order_ids.last,
+      employee_id: @employee.id,
+      menu_id: current_company.flower_shop.menus.ids.first,
+      deliver_to: 0,
+      discarded_at: nil
+    ).save
+  end
 
   def set_employees
     @employees = Employee.where(company_id: current_company.id)

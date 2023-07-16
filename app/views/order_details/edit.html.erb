@@ -29,7 +29,7 @@
                 <td class='align-middle small'><%= detail.object.employee.address %></td>
                 <td class='align-middle small'><%= detail.object.employee.working_years %>年</td>
                 <td class='align-middle small'>
-                  <% if detail.object.employee.address %>
+                  <% if detail.object.employee.address.present? %>
                     <%= detail.select :deliver_to,
                         options_for_select(@deliver_to, selected: detail.object.deliver_to),
                         {},

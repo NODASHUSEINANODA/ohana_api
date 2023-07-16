@@ -62,4 +62,11 @@ class Employee < ApplicationRecord
 
     diff_years
   end
+
+  def birthday_is_next_month?
+    next_month = Time.zone.now.next_month.strftime('%m').to_i
+    return true if birthday.month == next_month
+
+    false
+  end
 end

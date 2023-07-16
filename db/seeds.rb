@@ -47,10 +47,10 @@ COMPANY_COUNT.times do |n|
 end
 
 EMPLOYEE_COUNT.times do |_n|
-  s1 = Date.parse('2000/07/1')
-  s2 = Date.parse('2000/07/30')
+  s1 = Date.parse('2000/08/1')
+  s2 = Date.parse('2000/08/30')
   s = Random.rand(s1..s2)
-  address = Random.rand(1..2).even? ? Gimei.unique.address : nil
+  address = Random.rand(1..2).even? ? Gimei.unique.address : ''
 
   Employee.create!(
     name: Gimei.unique.name.kanji,
