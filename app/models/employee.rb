@@ -29,6 +29,20 @@ class Employee < ApplicationRecord
     end
   end
 
+  def save_with_order_detail(current_company)
+    transaction do
+      save!
+      order_detail = OrderDetail.new(
+        order_id: current_company.next_order.id,
+        employee_id: id,
+        menu_id: current_company.flower_shop.cheapest_menu.id,
+        deliver_to: 0,
+        discarded_at: nil
+      )
+      order_detail.save!
+    end
+  end
+
   def destroy_with_manager
     transaction do
       manager.destroy!
