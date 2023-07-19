@@ -69,7 +69,8 @@ class EmployeesController < ApplicationController
   def set_new_employee
     @employee = Employee.new(employee_params)
     @employee.company_id = current_company.id
-    @employee.phone_number = ActiveRecord::Type::Boolean.new.cast(employee_params[:phone_number])
+    @employee.address = employee_params[:address].present? ? employee_params[:address] : nil
+    @employee.phone_number = employee_params[:phone_number].present? ? employee_params[:phone_number] : nil
   end
 
   def add_flash_danger_if_invalid
