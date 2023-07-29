@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 
 class Employee < ApplicationRecord
+  include Discard::Model
+  default_scope -> { kept }
   belongs_to :company
   has_one :manager
-  has_many :temporaries, dependent: :destroy
   has_many :order_details
 
   validates :name, :sex, :birthday, :joined_at, :company_id, presence: true
@@ -46,7 +47,7 @@ class Employee < ApplicationRecord
   def destroy_with_manager
     transaction do
       manager.destroy!
-      destroy!
+      discard!
     end
   end
 
