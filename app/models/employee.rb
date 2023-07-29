@@ -3,7 +3,6 @@
 class Employee < ApplicationRecord
   belongs_to :company
   has_one :manager
-  has_many :temporaries, dependent: :destroy
   has_many :order_details
 
   validates :name, :sex, :birthday, :joined_at, :company_id, presence: true
