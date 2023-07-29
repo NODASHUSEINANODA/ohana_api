@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_11_124220) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_29_052624) do
   create_table "companies", charset: "utf8mb4", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -42,7 +42,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_11_124220) do
     t.datetime "updated_at", null: false
     t.date "joined_at"
     t.date "birthday", null: false
+    t.datetime "discarded_at"
     t.index ["company_id"], name: "index_employees_on_company_id"
+    t.index ["discarded_at"], name: "index_employees_on_discarded_at"
   end
 
   create_table "flower_shops", charset: "utf8mb4", force: :cascade do |t|

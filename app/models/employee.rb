@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 class Employee < ApplicationRecord
+  include Discard::Model
+  default_scope -> { kept }
+
   belongs_to :company
   has_one :manager
   has_many :order_details
@@ -39,13 +42,6 @@ class Employee < ApplicationRecord
         discarded_at: nil
       )
       order_detail.save!
-    end
-  end
-
-  def destroy_with_manager
-    transaction do
-      manager.destroy!
-      destroy!
     end
   end
 

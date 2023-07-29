@@ -48,7 +48,7 @@ class EmployeesController < ApplicationController
   def destroy
     name = @employee.name
 
-    if @employee.manager ? @employee.destroy_with_manager : @employee.destroy
+    if @employee.discard
       flash[:success] = "#{name}さんを削除しました"
     else
       flash[:danger] = "#{name}さんの削除に失敗しました"
