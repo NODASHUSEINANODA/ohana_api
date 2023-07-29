@@ -1,5 +1,8 @@
-<p>Welcome <%= @email %>!</p>
+<p><%= @email %> 様</p>
+<p>この度は、弊社サービスへのユーザー登録をお申し込みいただき、誠にありがとうございます。</p>
 
-<p>You can confirm your account email through the link below:</p>
+<p>以下のリンクをクリックして、ユーザーアカウントを有効化してください。</p>
 
-<p><%= link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token) %></p>
+<p><%= link_to '有効化はこちら', confirmation_url(@resource, confirmation_token: @token) %></p>
+
+<p>もし心当たりがない場合は、このメールを破棄してください。</p>
