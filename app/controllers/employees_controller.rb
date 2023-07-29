@@ -24,9 +24,13 @@ class EmployeesController < ApplicationController
       rescue ActiveRecord::RecordInvalid => e
         flash[:danger] = e.record.errors.full_messages.join(', ')
       end
+    elsif @employee.birthday_is_next_month?
+      @employee.save_with_order_detail(current_company)
+      flash[:success] = '社員を登録しました'
+    elsif @employee.save!
+      flash[:success] = '社員を登録しました'
     else
-      # 社員のみの場合
-      @employee.save ? flash[:success] = '社員を登録しました' : flash[:danger] = '社員の登録に失敗しました'
+      flash[:danger] = '社員の登録に失敗しました'
     end
 
     redirect_to employees_path
@@ -65,7 +69,8 @@ class EmployeesController < ApplicationController
   def set_new_employee
     @employee = Employee.new(employee_params)
     @employee.company_id = current_company.id
-    @employee.phone_number = ActiveRecord::Type::Boolean.new.cast(employee_params[:phone_number])
+    @employee.address = employee_params[:address].present? ? employee_params[:address] : nil
+    @employee.phone_number = employee_params[:phone_number].present? ? employee_params[:phone_number] : nil
   end
 
   def add_flash_danger_if_invalid

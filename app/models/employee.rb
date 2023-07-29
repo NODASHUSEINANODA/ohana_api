@@ -28,6 +28,20 @@ class Employee < ApplicationRecord
     end
   end
 
+  def save_with_order_detail(current_company)
+    transaction do
+      save!
+      order_detail = OrderDetail.new(
+        order_id: current_company.next_order.id,
+        employee_id: id,
+        menu_id: current_company.flower_shop.cheapest_menu.id,
+        deliver_to: 0,
+        discarded_at: nil
+      )
+      order_detail.save!
+    end
+  end
+
   def destroy_with_manager
     transaction do
       manager.destroy!
@@ -60,5 +74,12 @@ class Employee < ApplicationRecord
     diff_years -= 1 if is_earlier_todays_date
 
     diff_years
+  end
+
+  def birthday_is_next_month?
+    next_month = Time.zone.now.next_month.strftime('%m').to_i
+    return true if birthday.month == next_month
+
+    false
   end
 end
