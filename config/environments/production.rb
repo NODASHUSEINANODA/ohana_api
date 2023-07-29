@@ -95,7 +95,7 @@ Rails.application.configure do
   config.middleware.use Rack::MethodOverride
 
   # herokuのaddonsであるmailgunの設定
-  host = 'one-step-gift-app-e4ebd1941fff.herokuapp.com'
+  host = 'www.one-step-gift.com'
   ActionMailer::Base.delivery_method = :smtp
   config.action_mailer.default_url_options = { host: host }
   config.action_mailer.smtp_settings = {
