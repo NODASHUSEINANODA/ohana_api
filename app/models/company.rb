@@ -2,7 +2,7 @@
 
 class Company < ApplicationRecord
   has_many :employees, dependent: :destroy
-  has_many :managers, dependent: :destroy
+  has_many :managers, through: :employees
   has_many :orders, dependent: :destroy
   belongs_to :flower_shop
 

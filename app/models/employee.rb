@@ -4,7 +4,7 @@ class Employee < ApplicationRecord
   include Discard::Model
   default_scope -> { kept }
   belongs_to :company
-  has_one :manager
+  has_one :manager, dependent: :destroy
   has_many :order_details
 
   validates :name, :sex, :birthday, :joined_at, :company_id, presence: true
