@@ -2,7 +2,6 @@
 
 class Manager < ApplicationRecord
   belongs_to :employee
-  belongs_to :company
 
   validates :email, presence: true
   validates :is_president, inclusion: [true, false]
@@ -11,7 +10,7 @@ class Manager < ApplicationRecord
   scope :presidents, -> { where(is_president: true) }
 
   def only_one_president
-    return unless company.president && is_president
+    return unless employee.company.president && is_president
 
     errors.add(:base, '社長は1人しか登録できません')
   end

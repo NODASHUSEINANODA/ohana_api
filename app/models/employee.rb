@@ -4,11 +4,11 @@ class Employee < ApplicationRecord
   include Discard::Model
   default_scope -> { kept }
   belongs_to :company
-  has_one :manager
+  has_one :manager, dependent: :destroy
   has_many :order_details
 
   validates :name, :sex, :birthday, :joined_at, :company_id, presence: true
-  validates :phone_number, format: { with: /\A\d{10,11}\z/ }, allow_nil: true # 電話番号は10桁or11桁の数字のみ
+  validates :phone_number, format: { with: /\A\d{10,11}\z/ }, allow_nil: true, allow_blank: true # 電話番号は10桁or11桁の数字のみ
   validate :require_phune_number_if_address_exist
 
   scope :birthdays_in_next_month, lambda {
@@ -25,7 +25,7 @@ class Employee < ApplicationRecord
   def save_with_manager(email, is_president)
     transaction do
       save!
-      manager = Manager.new(employee_id: id, email: email, is_president: is_president, company_id: company_id)
+      manager = Manager.new(employee_id: id, email: email, is_president: is_president)
       manager.save!
     end
   end

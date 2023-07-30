@@ -70,7 +70,6 @@ COMPANY_COUNT.times do |n|
 
   Manager.create!(
     employee_id: Employee.where(company_id: company_id).first.id,
-    company_id: company_id,
     email: "president#{n + 1}@#example.com",
     is_president: true
   )
@@ -78,7 +77,6 @@ COMPANY_COUNT.times do |n|
   2.times do |m|
     Manager.create!(
       employee_id: Employee.where(company_id: company_id)[m + 2].id,
-      company_id: company_id,
       email: "manager#{m + 2}@#example.com",
       is_president: false
     )
