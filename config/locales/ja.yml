@@ -4,3 +4,10 @@ ja:
       deliver_to:
         company: '会社'
         home: '自宅'
+  enumerize:
+    menu:
+      season:
+        spring: 春
+        summer: 夏
+        automn: 秋
+        winter: 冬
