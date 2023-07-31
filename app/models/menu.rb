@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Menu < ApplicationRecord
+  extend Enumerize
+
   has_many :order_details
   belongs_to :flower_shop
 
