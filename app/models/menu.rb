@@ -17,6 +17,22 @@ class Menu < ApplicationRecord
     winter: 4
   }, scope: true
 
+  def season_menu
+    month = Time.now.month
+
+    if [2, 3, 4].include?(month)
+      Menu.where(season: :spring)
+    elsif [5, 6, 7].include?(month)
+      Menu.where(season: :summer)
+    elsif [8, 9, 10].include?(month)
+      Menu.where(season: :automn)
+    elsif [11, 12, 1].include?(month)
+      Menu.where(season: :winter)
+    else
+      Menu.all
+    end
+  end
+
   def name_with_price
     "#{name}(#{price}円)"
   end

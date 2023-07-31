@@ -13,19 +13,17 @@ FlowerShop.create!(
 )
 
 csv_file_path = Rails.root.join('db', 'flowerlist.csv')
-csv_data = CSV.read(csv_file_path, headers: true)
+csv_data = CSV.read(csv_file_path)
 
-csv_data.each.with_index do |row, index|
-  if index > 1
-    Menu.create!(
-      name: row[0],
-      price: row[1],
-      flower_shop_id: 1,
-      season: row[2],
-      created_at: Time.current,
-      updated_at: Time.current
-    )
-  end
+csv_data.each do |row|
+  Menu.create!(
+    name: row[0],
+    price: row[1],
+    flower_shop_id: 1,
+    season: row[2],
+    created_at: Time.current,
+    updated_at: Time.current
+  )
 end
 
 # flower_shop_idはflower_shopのデータが作成されていることが前提、順番変えるとうまくいかない
