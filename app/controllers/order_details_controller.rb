@@ -5,7 +5,7 @@ class OrderDetailsController < ApplicationController
   before_action :set_next_order_details, only: %i[edit update]
 
   def edit
-    @menus = Menu.new.season_menu
+    @menus = Menu.season_menu
     @deliver_to = OrderDetail.deliver_tos_i18n.invert
   end
 
