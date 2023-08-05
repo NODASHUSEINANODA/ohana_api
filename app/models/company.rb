@@ -19,7 +19,7 @@ class Company < ApplicationRecord
 
   def setup_next_order
     birthday_employee_ids = employees_with_birthdays_next_month.pluck(:id)
-    default_menu_id = flower_shop.cheapest_menu.id
+    default_menu_id = flower_shop.cheapest_menu_of_the_season.id
 
     Order.setup_next_order(id, flower_shop.id, birthday_employee_ids, default_menu_id)
   end

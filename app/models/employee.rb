@@ -36,7 +36,7 @@ class Employee < ApplicationRecord
       order_detail = OrderDetail.new(
         order_id: current_company.next_order.id,
         employee_id: id,
-        menu_id: current_company.flower_shop.cheapest_menu.id,
+        menu_id: current_company.flower_shop.cheapest_menu_of_the_season.id,
         deliver_to: 0,
         discarded_at: nil
       )
