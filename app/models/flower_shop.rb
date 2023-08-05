@@ -7,7 +7,7 @@ class FlowerShop < ApplicationRecord
 
   validates :name, :email, presence: true
 
-  def cheapest_menu
-    menus.cheapest
+  def cheapest_menu_of_the_season
+    menus.season_menu.cheapest
   end
 end
