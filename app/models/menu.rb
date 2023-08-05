@@ -9,6 +9,7 @@ class Menu < ApplicationRecord
   validates :name, :price, :flower_shop_id, :season, presence: true
 
   scope :cheapest, -> { order(price: :asc).first }
+  scope :season_menu, -> { season_menus }
 
   enumerize :season, in: {
     spring: 1,
@@ -17,16 +18,21 @@ class Menu < ApplicationRecord
     winter: 4
   }, scope: true
 
-  def season_menu
+  def self.season_menus
     month = Time.now.month
+    spring_term = [2, 3, 4]
+    summer_term = [5, 6, 7]
+    automn_term = [8, 9, 10]
+    winter_term = [11, 12, 1]
 
-    if [2, 3, 4].include?(month)
+    case month
+    when *spring_term
       Menu.where(season: :spring)
-    elsif [5, 6, 7].include?(month)
+    when *summer_term
       Menu.where(season: :summer)
-    elsif [8, 9, 10].include?(month)
+    when *automn_term
       Menu.where(season: :automn)
-    elsif [11, 12, 1].include?(month)
+    when *winter_term
       Menu.where(season: :winter)
     else
       Menu.all
