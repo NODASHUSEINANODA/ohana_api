@@ -3,7 +3,7 @@
     <p class="px-5 h3 m-0">One Step Gift</p>
     <div class='navbar-nav row d-flex w-50 my-1 mx-3' id="navbarNav">
       <%= link_to current_company.name , root_path, class: "col nav-link text-center border-start py-0" %>
-      <%= link_to "お花一覧", "/FlowerList.pdf", class: "col nav-link text-center border-start py-0" %>
+      <%= link_to "お花一覧", "/お花一覧.pdf", target: :_blank, class: "col nav-link text-center border-start py-0" %>
       <%= link_to "次回の注文" , next_order_path, class: "col nav-link text-center border-start py-0" %>
       <%= link_to "ログアウト" , companies_sign_out_path, class: "col nav-link text-center border-start py-0" %>
       <%= link_to "設定" , edit_company_registration_path, class: "col nav-link text-center border-start py-0" %>
