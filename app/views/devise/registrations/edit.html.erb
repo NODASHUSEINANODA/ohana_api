@@ -12,7 +12,7 @@
         <% if @company.errors.include?(:email) %>
           <p style="color: red;"><%= @company.errors.full_messages_for(:email).first %>
         <% end %>
- 
+
       </div>
 
       <div class="col-12 mt-2 mb-4">
@@ -21,7 +21,7 @@
         <% if @company.errors.include?(:address) %>
           <p style="color: red;"><%= @company.errors.full_messages_for(:address).first %>
         <% end %>
- 
+
       </div>
 
       <div class="col-12 mt-2 mb-4">
@@ -34,7 +34,7 @@
         <% if @company.errors.include?(:flower_shop_id) %>
           <p style="color: red;"><%= @company.errors.full_messages_for(:flower_shop_id).first %>
         <% end %>
- 
+
       </div>
 
       <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
@@ -67,11 +67,11 @@
         <% if @company.errors.include?(:current_password) %>
           <p style="color: red;"><%= @company.errors.full_messages_for(:current_password).first %>
         <% end %>
- 
+
       </div>
 
       <div class="actions text-center">
-        <%= f.submit "編集", class: "btn btn-primary px-5" %>
+        <%= f.submit "更新", class: "btn btn-primary px-5" %>
       </div>
     <% end %>
 
