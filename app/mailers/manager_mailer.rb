@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
 class ManagerMailer < ApplicationMailer
-  default from: 'sample@one-step-gift.com'
-  # default from: Settings[:SYSTEM_MAIL_ADDRESS]
+  default from: Settings[:SYSTEM_MAIL_ADDRESS]
 
   def remind_to_president
     @president_name = params[:president_name]
