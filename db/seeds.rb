@@ -1,48 +1,40 @@
 # frozen_string_literal: true
 
+require 'csv'
+
 COMPANY_COUNT = 3
-FLOWER_SHOP_COUNT = 3
 EMPLOYEE_COUNT = 50
 
-FLOWER_SHOP_COUNT.times do |n|
-  FlowerShop.create!(
-    name: Gimei.name.last.kanji.concat('花屋'),
-    email: "flower#{n + 1}@example.com",
+FlowerShop.create!(
+  name: 'Florist SAKURA',
+  email: 'flower1@example.com',
+  created_at: Time.current,
+  updated_at: Time.current
+)
+
+csv_file_path = Rails.root.join('db', 'flowerlist.csv')
+csv_data = CSV.read(csv_file_path)
+
+csv_data.each do |row|
+  Menu.create!(
+    name: row[0],
+    price: row[1],
+    flower_shop_id: 1,
+    season: row[2],
     created_at: Time.current,
     updated_at: Time.current
   )
 end
 
-FLOWER_SHOP_COUNT.times do |n|
-  menus = [
-    { price: 3000, name: 'ローズブーケ' },
-    { price: 5000, name: 'ミックスカラーブーケ' },
-    { price: 8000, name: 'ライラックブーケ' }
-  ]
-
-  menus.each do |menu|
-    Menu.create!(
-      name: menu[:name],
-      price: menu[:price],
-      flower_shop_id: n + 1,
-      created_at: Time.current,
-      updated_at: Time.current
-    )
-  end
-end
-
 # flower_shop_idはflower_shopのデータが作成されていることが前提、順番変えるとうまくいかない
 COMPANY_COUNT.times do |n|
-  flower_shop_id_first = FlowerShop.first.id
-  flower_shop_id_last = FlowerShop.last.id
-
   Company.create!(
     email: "test#{n + 1}@example.com",
     password: 'password',
     name: "test#{n}株式会社",
     address: Gimei.unique.address,
     confirmed_at: Time.current,
-    flower_shop_id: Random.rand(flower_shop_id_first..flower_shop_id_last)
+    flower_shop_id: 1
   )
 end
 
