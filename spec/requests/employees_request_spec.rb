@@ -10,7 +10,7 @@ RSpec.describe 'Employees', type: :request do
   end
 
   describe 'GET index' do
-    let(:employee) { FactoryBot.create(:employee) }
+    let(:employee) { FactoryBot.create(:employee, company: company) }
     let(:get_index) { get '/', params: params }
     let(:params) { {} }
 
@@ -82,15 +82,15 @@ RSpec.describe 'Employees', type: :request do
   end
 
   describe 'PUT #update' do
-    let(:employee) { FactoryBot.create(:employee) }
+    let(:employee) { FactoryBot.create(:employee, name: 'before change', company: company) }
     let(:put_update) do
       put "/employees/#{employee.id}", params: {
-        employee: employee.attributes.merge({ name: name })
+        employee: employee.attributes.merge(employee_params)
       }
     end
 
     context '正常な値が入力された場合' do
-      let(:name) { 'new value' }
+      let(:employee_params) { { name: 'new value' } }
 
       it '更新すること' do
         put_update
