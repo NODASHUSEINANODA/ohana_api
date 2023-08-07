@@ -45,14 +45,14 @@ RSpec.describe 'Employees', type: :request do
       context '正しい入力値' do
         let(:employee_params) { FactoryBot.attributes_for(:employee) }
         it '社員の作成が成功すること' do
-          expect { post_create }.to change { @company.employees.count }.by(1)
+          expect { post_create }.to change { company.employees.count }.by(1)
         end
       end
 
       context '不正な入力値' do
         let(:employee_params) { FactoryBot.attributes_for(:employee, :invalid) }
         it '社員の作成が失敗すること' do
-          expect { post_create }.to change { @company.employees.count }.by(0)
+          expect { post_create }.to change { company.employees.count }.by(0)
         end
       end
     end
@@ -68,15 +68,14 @@ RSpec.describe 'Employees', type: :request do
 
       context '正しい入力値' do
         it '管理者の作成が成功すること' do
-          expect { post_create }.to change { @company.managers.count }.by(1)
+          expect { post_create }.to change { company.managers.count }.by(1)
         end
       end
 
       context '不正な入力値' do
         it '管理者の作成が失敗すること' do
-          employee_params[:is_president] = true
           employee_params[:admin_mail_address] = ''
-          expect { post_create }.to change { @company.managers.count }.by(0)
+          expect { post_create }.to change { company.managers.count }.by(0)
         end
       end
     end
