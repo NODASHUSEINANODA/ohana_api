@@ -11,14 +11,16 @@ RSpec.describe 'Employees', type: :request do
 
   describe 'GET index' do
     let(:employee) { FactoryBot.create(:employee) }
+    let(:get_index) { get '/', params: params }
+    let(:params) { {} }
 
     it '正常なレスポンスを返すこと' do
-      get '/'
+      get_index
       expect(response).to have_http_status :ok
     end
 
     it '社員が表示されていること' do
-      get '/'
+      get_index
       expect(response.body).to include(employee.name)
     end
 
@@ -26,8 +28,7 @@ RSpec.describe 'Employees', type: :request do
       employee1 = FactoryBot.create(:employee, name: 'test1', company: company)
       employee2 = FactoryBot.create(:employee, name: 'test2', company: company)
 
-      sign_in company
-      get '/', params: { name: employee1.name }
+        get_index
 
       expect(response.body).to include(employee1.name)
       expect(response.body).not_to include(employee2.name)
@@ -35,7 +36,7 @@ RSpec.describe 'Employees', type: :request do
   end
 
   describe 'POST create' do
-    subject(:post_create) { post '/employees', params: { employee: employee_params } }
+    let(:post_create) { post '/employees', params: { employee: employee_params } }
 
     context '社員の作成' do
       context '正しい入力値' do
@@ -107,11 +108,14 @@ RSpec.describe 'Employees', type: :request do
   end
 
   describe 'DELETE #destroy' do
+    let(:delete_destory) { delete "/employees/#{employee.id}", params: {} }
+
     context '社員のみ' do
       let(:employee) { FactoryBot.create(:employee) }
 
       it '論理削除されること' do
-        delete "/employees/#{employee.id}"
+        delete_destory
+
         expect(employee.discard).to be_truthy
       end
     end
@@ -120,12 +124,12 @@ RSpec.describe 'Employees', type: :request do
       let(:employee) { FactoryBot.create(:employee, :with_manager) }
 
       it '社員データが論理削除されること' do
-        delete "/employees/#{employee.id}"
+        delete_destory
         expect(employee.discard).to be_truthy
       end
 
       it '管理者データが削除されること' do
-        delete "/employees/#{employee.id}"
+        delete_destory
         expect(Manager.count).to eq(0)
       end
     end
