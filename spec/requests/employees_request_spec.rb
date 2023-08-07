@@ -3,24 +3,26 @@
 require 'rails_helper'
 
 RSpec.describe 'Employees', type: :request do
+  let(:company) { FactoryBot.create(:company) }
+
+  before do
+    sign_in company
+  end
+
   describe 'GET index' do
-    let(:company) { FactoryBot.create(:company) }
     let(:employee) { FactoryBot.create(:employee) }
 
     it '正常なレスポンスを返すこと' do
-      sign_in company
       get '/'
       expect(response).to have_http_status :ok
     end
 
     it '社員が表示されていること' do
-      sign_in employee.company
       get '/'
       expect(response.body).to include(employee.name)
     end
 
     it '検索機能が機能していること' do
-      company = FactoryBot.create(:company)
       employee1 = FactoryBot.create(:employee, name: 'test1', company: company)
       employee2 = FactoryBot.create(:employee, name: 'test2', company: company)
 
@@ -34,10 +36,6 @@ RSpec.describe 'Employees', type: :request do
 
   describe 'POST create' do
     subject(:post_create) { post '/employees', params: { employee: employee_params } }
-    before do
-      @company = FactoryBot.create(:company)
-      sign_in @company
-    end
 
     context '社員の作成' do
       context '正しい入力値' do
@@ -76,10 +74,6 @@ RSpec.describe 'Employees', type: :request do
   end
 
   describe 'PUT #update' do
-    before do
-      @company = FactoryBot.create(:company)
-      sign_in @company
-    end
     let(:employee) { FactoryBot.create(:employee) }
     let(:put_update) do
       put "/employees/#{employee.id}", params: {
@@ -115,9 +109,6 @@ RSpec.describe 'Employees', type: :request do
   describe 'DELETE #destroy' do
     context '社員のみ' do
       let(:employee) { FactoryBot.create(:employee) }
-      before do
-        sign_in employee.company
-      end
 
       it '論理削除されること' do
         delete "/employees/#{employee.id}"
@@ -127,9 +118,6 @@ RSpec.describe 'Employees', type: :request do
 
     context '管理者' do
       let(:employee) { FactoryBot.create(:employee, :with_manager) }
-      before do
-        sign_in employee.company
-      end
 
       it '社員データが論理削除されること' do
         delete "/employees/#{employee.id}"
