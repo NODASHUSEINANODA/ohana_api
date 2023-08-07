@@ -24,14 +24,17 @@ RSpec.describe 'Employees', type: :request do
       expect(response.body).to include(employee.name)
     end
 
-    it '検索機能が機能していること' do
-      employee1 = FactoryBot.create(:employee, name: 'test1', company: company)
-      employee2 = FactoryBot.create(:employee, name: 'test2', company: company)
+    context '検索機能が機能していること' do
+      let(:employee1) { FactoryBot.create(:employee, name: 'test1', company: company) }
+      let(:employee2) { FactoryBot.create(:employee, name: 'test2', company: company) }
+      let(:params) { { name: employee1.name } }
 
+      it 'nameカラムで検索' do
         get_index
 
-      expect(response.body).to include(employee1.name)
-      expect(response.body).not_to include(employee2.name)
+        expect(response.body).to include(employee1.name)
+        expect(response.body).not_to include(employee2.name)
+      end
     end
   end
 
@@ -55,11 +58,16 @@ RSpec.describe 'Employees', type: :request do
     end
 
     context '管理者の作成' do
-      let(:employee_params) { FactoryBot.attributes_for(:employee) }
+      let(:employee_params) {
+        FactoryBot.attributes_for(
+          :employee,
+          is_president: true,
+          admin_mail_address: 'manager@example.com'
+        )
+      }
+
       context '正しい入力値' do
         it '管理者の作成が成功すること' do
-          employee_params[:is_president] = true
-          employee_params[:admin_mail_address] = 'manager@example.com'
           expect { post_create }.to change { @company.managers.count }.by(1)
         end
       end
@@ -97,12 +105,11 @@ RSpec.describe 'Employees', type: :request do
     end
 
     context '無効な値が入力された場合' do
-      let(:name) { '' }
+      let(:employee_params) { { name: '' } }
 
       it '更新しないこと' do
         put_update
-        old_value = employee.name
-        expect(employee.reload.name).to eq old_value
+        expect(employee.reload.name).to eq 'before change'
       end
     end
   end
