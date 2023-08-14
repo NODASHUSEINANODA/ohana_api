@@ -99,11 +99,11 @@ Rails.application.configure do
   ActionMailer::Base.delivery_method = :smtp
   config.action_mailer.default_url_options = { host: host }
   config.action_mailer.smtp_settings = {
-    :address              => ENV.fetch("MAILERTOGO_SMTP_HOST"),
-    :port                 => ENV.fetch("MAILERTOGO_SMTP_PORT", 587),
-    :user_name            => ENV.fetch("MAILERTOGO_SMTP_USER"),
-    :password             => ENV.fetch("MAILERTOGO_SMTP_PASSWORD"),
-    :domain               => ENV.fetch("MAILERTOGO_DOMAIN", "mydomain.com"),
+    :address              => "mail12.onamae.ne.jp",
+    :domain               => "ne.jp",
+    :port                 => 465,
+    :user_name            => "no-reply@one-step-gift.com",
+    :password             => ENV.fetch("ONAMAE_MAIL_SMTP_PASSWORD"),
     :authentication       => :plain,
     :enable_starttls_auto => true,
   }
