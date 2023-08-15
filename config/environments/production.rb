@@ -99,9 +99,9 @@ Rails.application.configure do
   ActionMailer::Base.delivery_method = :smtp
   config.action_mailer.default_url_options = { host: host }
   config.action_mailer.smtp_settings = {
-    :address              => "mail12.onamae.ne.jp",
-    :domain               => "ne.jp",
-    :port                 => 587,
+    :address              => ENV.fetch("ONAMAE_MAIL_SMTP_ADDRESS"),
+    :domain               => ENV.fetch("ONAMAE_MAIL_SMTP_DOMAIN"),
+    :port                 => ENV.fetch("ONAMAE_MAIL_SMTP_PORT"),
     :user_name            => Settings[:SYSTEM_MAIL_ADDRESS],
     :password             => ENV.fetch("ONAMAE_MAIL_SMTP_PASSWORD"),
     :authentication       => :plain,
