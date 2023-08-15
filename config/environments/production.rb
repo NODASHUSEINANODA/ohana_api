@@ -100,7 +100,7 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { host: host }
   config.action_mailer.smtp_settings = {
     :address              => "mail12.onamae.ne.jp",
-    :domain               => "onamae.ne.jp",
+    :domain               => "ne.jp",
     :port                 => 465,
     :user_name            => "no-reply@one-step-gift.com",
     :password             => ENV.fetch("ONAMAE_MAIL_SMTP_PASSWORD"),
