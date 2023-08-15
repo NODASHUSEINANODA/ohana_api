@@ -102,7 +102,7 @@ Rails.application.configure do
     :address              => "mail12.onamae.ne.jp",
     :domain               => "ne.jp",
     :port                 => 587,
-    :user_name            => "no-reply@one-step-gift.com",
+    :user_name            => Settings[:SYSTEM_MAIL_ADDRESS],
     :password             => ENV.fetch("ONAMAE_MAIL_SMTP_PASSWORD"),
     :authentication       => :plain,
     :enable_starttls_auto => false,
