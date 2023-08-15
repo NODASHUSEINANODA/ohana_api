@@ -94,7 +94,6 @@ Rails.application.configure do
   # 通常モードの初期値には無かったから消すかも
   config.middleware.use Rack::MethodOverride
 
-  # herokuのaddonsであるmailgunの設定
   host = 'www.one-step-gift.com'
   ActionMailer::Base.delivery_method = :smtp
   config.action_mailer.default_url_options = { host: host }
