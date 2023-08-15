@@ -98,11 +98,10 @@ Rails.application.configure do
   host = 'www.one-step-gift.com'
   ActionMailer::Base.delivery_method = :smtp
   config.action_mailer.default_url_options = { host: host }
-  # https://titch.dev/rails-smtp-onamae のやり方で設定
   config.action_mailer.smtp_settings = {
-    :address              => "smtp20.gmoserver.jp",
-    :domain               => "gmoserver.jp",
-    :port                 => 587,
+    :address              => "mail12.onamae.ne.jp",
+    :domain               => "onamae.ne.jp",
+    :port                 => 465,
     :user_name            => "no-reply@one-step-gift.com",
     :password             => ENV.fetch("ONAMAE_MAIL_SMTP_PASSWORD"),
     :authentication       => :login,
