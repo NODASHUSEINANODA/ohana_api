@@ -127,7 +127,6 @@ class EmployeesController < ApplicationController
     { sex: params[:sex] }
   end
 
-  # TODO: 日付単体で検索するユースケースはないと思うので、範囲検索にした方が良いかも(front側では月のみをintで渡す)
   def birthday_condition
     return nil if params[:birthday].blank?
 
@@ -140,7 +139,6 @@ class EmployeesController < ApplicationController
     Employee.arel_table[:address].matches("%#{params[:address]}%")
   end
 
-  # TODO: 日付単体で検索するユースケースはないと思う。こちらもユースケースに応じた検索方法に変更した方が良いかも(現時点では日付で検索)
   def joined_at_condition
     return nil if params[:joined_at].blank?
 
