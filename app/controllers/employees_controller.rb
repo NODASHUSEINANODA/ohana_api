@@ -104,15 +104,15 @@ class EmployeesController < ApplicationController
 
   def search_condition
     @employees = @employees
-                 .where(name_condition)
-                 .where(sex_condition)
-                 .where(birthday_condition)
-                 .where(address_condition)
-                 .where(joined_at_condition)
-                 .where(phone_number_condition)
-                 .where(message_condition)
-                 .where(company_condition)
-                 .distinct
+                  .where(name_condition)
+                  .where(sex_condition)
+                  .where(birthday_condition)
+                  .where(address_condition)
+                  .where(joined_at_condition)
+                  .where(phone_number_condition)
+                  .where(message_condition)
+                  .where(company_condition)
+                  .order_manager_is_president_desc
   end
 
   def name_condition
