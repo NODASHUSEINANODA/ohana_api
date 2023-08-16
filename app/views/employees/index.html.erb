@@ -12,7 +12,10 @@
       <p class="h2">メンバー 一覧</p>
     </div>
     <div class="col-1">
-      <p class="align-text-bottom">現在 <%= @employees.count %>名</p>
+      <p class="align-text-bottom">現在 <%= @employees.size %>名</p>
+    </div>
+    <div class="col-2">
+      <p class="align-text-bottom">※ ☆は社長, ○は管理者です</p>
     </div>
   </div>
   <table class="table table-striped table-hover">
@@ -31,7 +34,15 @@
     <tbody>
       <% @employees.each do |employee| %>
         <tr>
-          <td class='align-middle small'><%= employee.name %></td>
+          <td class='align-middle small'>
+            <% if employee.manager.present? && employee.manager.is_president %>
+              <%= "☆#{employee.name}" %>
+            <% elsif employee.manager.present? %>
+              <%= "○#{employee.name}" %>
+            <% else %>
+              <%= employee.name %>
+            <% end %>
+          </td>
           <td class='align-middle small'><%= employee.sex %></td>
           <td class='align-middle small'><%= employee.birthday_format_yyyy_mm_dd %></td>
           <td class='align-middle small'><%= employee.age %>歳</td>
