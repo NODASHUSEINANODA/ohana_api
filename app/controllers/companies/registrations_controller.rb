@@ -11,11 +11,6 @@ class Companies::RegistrationsController < Devise::RegistrationsController
   end
 
   # POST /resource
-  def create
-    super
-
-    Order.create(company_id: resource.id, flower_shop_id: resource.flower_shop_id, total_amount: nil, ordered_at: nil)
-  end
 
   # GET /resource/edit
 
