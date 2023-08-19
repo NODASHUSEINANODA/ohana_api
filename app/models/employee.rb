@@ -18,6 +18,10 @@ class Employee < ApplicationRecord
     where(birthday_in_next_month_condition).order(birthday: :asc)
   }
 
+  scope :order_manager_is_president_desc, lambda {
+    left_joins(:manager).order('managers.is_president DESC')
+  }
+
   def require_phune_number_if_address_exist
     errors.add(:phone_number, 'を入力してください') if address.present? && phone_number.blank?
   end

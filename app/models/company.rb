@@ -13,6 +13,8 @@ class Company < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :confirmable
 
+  before_save :create_initial_order, if: :will_save_change_to_confirmed_at?
+
   def president
     managers.find_by(is_president: true)
   end
@@ -55,5 +57,11 @@ class Company < ApplicationRecord
 
   def employees_with_birthdays_next_month
     employees.birthdays_in_next_month
+  end
+
+  private
+
+  def create_initial_order
+    Order.create(company_id: id, flower_shop_id: flower_shop_id, total_amount: nil, ordered_at: nil)
   end
 end

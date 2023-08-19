@@ -94,17 +94,16 @@ Rails.application.configure do
   # 通常モードの初期値には無かったから消すかも
   config.middleware.use Rack::MethodOverride
 
-  # herokuのaddonsであるmailgunの設定
   host = 'www.one-step-gift.com'
   ActionMailer::Base.delivery_method = :smtp
   config.action_mailer.default_url_options = { host: host }
   config.action_mailer.smtp_settings = {
-    :address              => ENV.fetch("MAILERTOGO_SMTP_HOST"),
-    :port                 => ENV.fetch("MAILERTOGO_SMTP_PORT", 587),
-    :user_name            => ENV.fetch("MAILERTOGO_SMTP_USER"),
-    :password             => ENV.fetch("MAILERTOGO_SMTP_PASSWORD"),
-    :domain               => ENV.fetch("MAILERTOGO_DOMAIN", "mydomain.com"),
+    :address              => ENV.fetch("ONAMAE_MAIL_SMTP_ADDRESS"),
+    :domain               => ENV.fetch("ONAMAE_MAIL_SMTP_DOMAIN"),
+    :port                 => ENV.fetch("ONAMAE_MAIL_SMTP_PORT"),
+    :user_name            => Settings[:SYSTEM_MAIL_ADDRESS],
+    :password             => ENV.fetch("ONAMAE_MAIL_SMTP_PASSWORD"),
     :authentication       => :plain,
-    :enable_starttls_auto => true,
+    :enable_starttls_auto => false,
   }
 end
