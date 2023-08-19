@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
 class CompanyMailer < ApplicationMailer
-  before_action :set_company_name_and_email
+  default from: Settings[:SYSTEM_MAIL_ADDRESS]
+
+  before_action :set_company_name_and_email, only: %i[order_to_flower_shop no_order_to_flower_shop]
   before_action :set_flower_shop_name_and_email, only: %i[order_to_flower_shop no_order_to_flower_shop]
 
   SUBJECT_TO_FLOWER_SHOP = '【ONE-STEP-GIFT】来月の注文依頼'
@@ -12,7 +14,6 @@ class CompanyMailer < ApplicationMailer
 
     mail(
       to: @flower_shop_email,
-      from: @company_email,
       subject: SUBJECT_TO_FLOWER_SHOP
     )
   end
@@ -20,7 +21,6 @@ class CompanyMailer < ApplicationMailer
   def no_order_to_flower_shop
     mail(
       to: @flower_shop_email,
-      from: @company_email,
       subject: SUBJECT_TO_FLOWER_SHOP
     )
   end
