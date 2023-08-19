@@ -5,7 +5,7 @@ class Employee < ApplicationRecord
   default_scope -> { kept }
   belongs_to :company
   has_one :manager, dependent: :destroy
-  has_many :order_details
+  has_many :order_details, dependent: :destroy
 
   validates :name, :sex, :birthday, :joined_at, :company_id, presence: true
   validates :phone_number, format: { with: /\A\d{10,11}\z/ }, allow_nil: true, allow_blank: true # 電話番号は10桁or11桁の数字のみ
