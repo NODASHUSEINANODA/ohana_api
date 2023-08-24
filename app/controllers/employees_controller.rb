@@ -49,6 +49,11 @@ class EmployeesController < ApplicationController
     name = @employee.name
 
     if @employee.manager ? @employee.destroy_with_manager : @employee.discard
+      next_order = current_company.next_order
+      if next_order.order_details.exists?(employee_id: @employee.id)
+        next_order.order_details.where(employee_id: @employee.id).destroy_all
+      end
+
       flash[:success] = "#{name}さんを削除しました"
     else
       flash[:danger] = "#{name}さんの削除に失敗しました"
@@ -104,15 +109,15 @@ class EmployeesController < ApplicationController
 
   def search_condition
     @employees = @employees
-                  .where(name_condition)
-                  .where(sex_condition)
-                  .where(birthday_condition)
-                  .where(address_condition)
-                  .where(joined_at_condition)
-                  .where(phone_number_condition)
-                  .where(message_condition)
-                  .where(company_condition)
-                  .order_manager_is_president_desc
+                 .where(name_condition)
+                 .where(sex_condition)
+                 .where(birthday_condition)
+                 .where(address_condition)
+                 .where(joined_at_condition)
+                 .where(phone_number_condition)
+                 .where(message_condition)
+                 .where(company_condition)
+                 .order_manager_is_president_desc
   end
 
   def name_condition

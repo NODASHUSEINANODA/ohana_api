@@ -21,39 +21,41 @@
         <tbody>
           <% @next_order_details.each_with_index do |details| %>
             <%= fields_for 'details[]', details do |detail| %>
-              <tr>
-                <td class='align-middle small'><%= detail.object.employee.name %></td>
-                <td class='align-middle small'><%= detail.object.employee.sex %></td>
-                <td class='align-middle small'><%= detail.object.employee.birthday_format_mm_dd %></td>
-                <td class='align-middle small'><%= detail.object.employee.age %>歳</td>
-                <td class='align-middle small'><%= detail.object.employee.address %></td>
-                <td class='align-middle small'><%= detail.object.employee.working_years %>年</td>
-                <td class='align-middle small'>
-                  <% if detail.object.employee.address.present? %>
-                    <%= detail.select :deliver_to,
-                        options_for_select(@deliver_to, selected: detail.object.deliver_to),
+              <% if detail.object.employee.present? %>
+                <tr>
+                  <td class='align-middle small'><%= detail.object.employee.name %></td>
+                  <td class='align-middle small'><%= detail.object.employee.sex %></td>
+                  <td class='align-middle small'><%= detail.object.employee.birthday_format_mm_dd %></td>
+                  <td class='align-middle small'><%= detail.object.employee.age %>歳</td>
+                  <td class='align-middle small'><%= detail.object.employee.address %></td>
+                  <td class='align-middle small'><%= detail.object.employee.working_years %>年</td>
+                  <td class='align-middle small'>
+                    <% if detail.object.employee.address.present? %>
+                      <%= detail.select :deliver_to,
+                          options_for_select(@deliver_to, selected: detail.object.deliver_to),
+                          {},
+                          {class: "form-select w-100"}
+                      %>
+                    <% else %>
+                      <%= detail.select :deliver_to,
+                          options_for_select(@deliver_to, selected: @deliver_to['会社'], disabled: @deliver_to['自宅']),
+                          {},
+                          {class: "form-select w-100"}
+                      %>
+                    <% end %>
+                  </td>
+                  <td class='align-middle small'>
+                    <%= detail.select :menu_id,
+                        options_from_collection_for_select(@menus, "id", "name_with_price", detail.object.menu_id),
                         {},
                         {class: "form-select w-100"}
                     %>
-                  <% else %>
-                    <%= detail.select :deliver_to,
-                        options_for_select(@deliver_to, selected: @deliver_to['会社'], disabled: @deliver_to['自宅']),
-                        {},
-                        {class: "form-select w-100"}
-                    %>
-                  <% end %>
-                </td>
-                <td class='align-middle small'>
-                  <%= detail.select :menu_id,
-                      options_from_collection_for_select(@menus, "id", "name_with_price", detail.object.menu_id),
-                      {},
-                      {class: "form-select w-100"}
-                  %>
-                </td>
-                <td class='align-middle small'>
-                  <%= detail.check_box :discard ,{checked: detail.object.discarded?, class: "form-check w-75 text-center"}, true, false %>
-                </td>
-              </tr>
+                  </td>
+                  <td class='align-middle small'>
+                    <%= detail.check_box :discard ,{checked: detail.object.discarded?, class: "form-check w-75 text-center"}, true, false %>
+                  </td>
+                </tr>
+              <% end %>
             <% end %>
           <% end %>
         </tbody>
