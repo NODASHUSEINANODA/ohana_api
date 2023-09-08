@@ -62,3 +62,5 @@ rails runner Tasks::Order.exec
 - [heroku](https://dashboard.heroku.com/apps/one-step-gift-app)
 - [Google Drive](https://drive.google.com/drive/u/0/folders/13ehpUNUTKgzfgBoOInEibuvr4ExCjoku)
 - [UIデザイン](https://www.figma.com/file/8hCVnFM22M6ljUX7u8HobU/ohana?type=design&node-id=0-1&mode=design)
+- [お名前メール(メールサーバー)](https://cp.onamae.ne.jp/)
+- [お名前メール(webメール)](https://webmail12.onamae.ne.jp/?_task=mail&_mbox=INBOX)
