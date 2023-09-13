@@ -114,7 +114,15 @@ RSpec.describe 'Employees', type: :request do
   end
 
   describe 'DELETE #destroy' do
+    let(:next_order) { FactoryBot.create(:order, company: company) }
+    let(:order_detail) { FactoryBot.create(:order_detail, order: next_order) }
+
     let(:delete_destory) { delete "/employees/#{employee.id}", params: {} }
+
+    before do
+      next_order
+      order_detail
+    end
 
     context '社員のみ' do
       let(:employee) { FactoryBot.create(:employee) }
