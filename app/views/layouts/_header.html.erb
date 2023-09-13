@@ -1,8 +1,13 @@
 <div class="navbar navbar-expand-lg navbar-light sticky-top bg-light">
   <nav class="rounded-pill bg-white shadow container-fluid mx-2 mb-1 py-3">
-    <p class="px-5 h3 m-0">One Step Gift</p>
+    <div class="row">
+      <div class="col">
+        <p class="h3 m-0 text-center px-5">One Step Gift</p>
+        <p class="h6 m-0 text-center px-5 pt-1">ようこそ <%= current_company.name %> 様</p>
+      </div>
+    </div>
     <div class='navbar-nav row d-flex w-50 my-1 mx-3' id="navbarNav">
-      <%= link_to current_company.name , root_path, class: "col nav-link text-center border-start py-0" %>
+      <%= link_to "ダッシュボード" , root_path, class: "col nav-link text-center border-start py-0" %>
       <%= link_to "お花一覧", "/お花一覧.pdf", target: :_blank, class: "col nav-link text-center border-start py-0" %>
       <%= link_to "次回の注文" , next_order_path, class: "col nav-link text-center border-start py-0" %>
       <%= link_to "ログアウト" , companies_sign_out_path, class: "col nav-link text-center border-start py-0" %>
