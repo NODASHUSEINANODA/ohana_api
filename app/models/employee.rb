@@ -70,6 +70,15 @@ class Employee < ApplicationRecord
     now - birthday.year
   end
 
+  def age_after_birthday
+    age + 1
+  end
+
+  # 30歳、40歳、50歳、60歳、70歳...などの節目の年の場合、trueを返す
+  def is_milestone_birthday
+    age_after_birthday % 10 == 0
+  end
+
   # 勤続年数を返す(joined_atから現在までの年数)
   def working_years
     now = Date.today

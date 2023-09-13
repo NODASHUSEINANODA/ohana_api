@@ -26,7 +26,15 @@
                   <td class='align-middle small'><%= detail.object.employee.name %></td>
                   <td class='align-middle small'><%= detail.object.employee.sex %></td>
                   <td class='align-middle small'><%= detail.object.employee.birthday_format_mm_dd %></td>
-                  <td class='align-middle small'><%= detail.object.employee.age %>歳</td>
+                  <% if detail.object.employee.is_milestone_birthday %>
+                    <td class='align-middle small text-danger fw-bold'>
+                      <%= "☆#{detail.object.employee.age_after_birthday}歳" %>
+                    </td>
+                  <% else %>
+                    <td class='align-middle small'>
+                      <%= "#{detail.object.employee.age_after_birthday}歳" %>
+                    </td>
+                  <% end %>
                   <td class='align-middle small'><%= detail.object.employee.address %></td>
                   <td class='align-middle small'><%= detail.object.employee.working_years %>年</td>
                   <td class='align-middle small'>
