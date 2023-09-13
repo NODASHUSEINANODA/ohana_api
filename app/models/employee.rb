@@ -48,6 +48,26 @@ class Employee < ApplicationRecord
     end
   end
 
+  def update_with_order_detail(employee_params, current_company)
+    transaction do
+      update!(employee_params)
+      if birthday_is_next_month?
+        order_detail = OrderDetail.new(
+          order_id: current_company.next_order.id,
+          employee_id: id,
+          menu_id: current_company.flower_shop.cheapest_menu_of_the_season.id,
+          deliver_to: 0,
+          discarded_at: nil
+        )
+        order_detail.save!
+      elsif OrderDetail.find_by(order_id: current_company.next_order.id, employee_id: id).present?
+        OrderDetail.find_by(order_id: current_company.next_order.id, employee_id: id).destroy!
+      else
+        true
+      end
+    end
+  end
+
   def destroy_with_manager
     transaction do
       manager.destroy!

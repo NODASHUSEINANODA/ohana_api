@@ -37,7 +37,7 @@ class EmployeesController < ApplicationController
   end
 
   def update
-    if @employee.update(employee_params)
+    if @employee.update_with_order_detail(employee_params, current_company)
       flash[:success] = '社員情報を更新しました'
     else
       flash[:danger] = '社員情報の更新に失敗しました'
