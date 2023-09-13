@@ -51,7 +51,7 @@ class Employee < ApplicationRecord
   def update_with_order_detail(employee_params, current_company)
     transaction do
       update!(employee_params)
-      if birthday_is_next_month?
+      if birthday_is_next_month? && OrderDetail.find_by(order_id: current_company.next_order.id, employee_id: id).nil?
         order_detail = OrderDetail.new(
           order_id: current_company.next_order.id,
           employee_id: id,
@@ -60,8 +60,10 @@ class Employee < ApplicationRecord
           discarded_at: nil
         )
         order_detail.save!
-      elsif OrderDetail.find_by(order_id: current_company.next_order.id, employee_id: id).present?
-        OrderDetail.find_by(order_id: current_company.next_order.id, employee_id: id).destroy!
+      elsif !birthday_is_next_month? && OrderDetail.find_by(order_id: current_company.next_order.id,
+                                                            employee_id: id).present?
+        order_detail = OrderDetail.find_by(order_id: current_company.next_order.id, employee_id: id)
+        order_detail.destroy!
       else
         true
       end
