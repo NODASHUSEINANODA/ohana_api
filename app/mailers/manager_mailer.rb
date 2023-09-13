@@ -6,6 +6,7 @@ class ManagerMailer < ApplicationMailer
   def remind_to_president
     @president_name = params[:president_name]
     @president_email = params[:president_email]
+    @manager_emails = params[:manager_emails]
 
     @deadline = 15
     # deadlineの5日前かを判別
@@ -16,6 +17,7 @@ class ManagerMailer < ApplicationMailer
 
     mail(
       to: @president_email,
+      cc: @manager_emails,
       subject: '【ONE-STEP-GIFT】翌月の注文に関するリマインド'
     )
   end
