@@ -51,7 +51,11 @@ class Employee < ApplicationRecord
   def update_with_order_detail(employee_params, current_company)
     transaction do
       update!(employee_params)
-      if birthday_is_next_month? && OrderDetail.find_by(order_id: current_company.next_order.id, employee_id: id).nil?
+
+      my_next_order_detail = OrderDetail.find_by(order_id: current_company.next_order.id, employee_id: id)
+
+      # 誕生日が次回注文の範囲内 かつ 来月のオーダーにまだオーダーがない場合
+      if is_birthday_within_next_order_term? && my_next_order_detail.nil?
         order_detail = OrderDetail.new(
           order_id: current_company.next_order.id,
           employee_id: id,
@@ -60,10 +64,10 @@ class Employee < ApplicationRecord
           discarded_at: nil
         )
         order_detail.save!
-      elsif !birthday_is_next_month? && OrderDetail.find_by(order_id: current_company.next_order.id,
-                                                            employee_id: id).present?
-        order_detail = OrderDetail.find_by(order_id: current_company.next_order.id, employee_id: id)
-        order_detail.destroy!
+
+      # 誕生日が次回注文の範囲内 かつ 来月のオーダーにオーダーがある場合
+      elsif !is_birthday_within_next_order_term? && my_next_order_detail.present?
+        my_next_order_detail.destroy!
       else
         true
       end
@@ -104,9 +108,21 @@ class Employee < ApplicationRecord
     diff_years
   end
 
-  def birthday_is_next_month?
+  def is_birthday_within_next_order_term?
+    deadline = Time.new(Time.zone.now.year, Time.zone.now.month, Order.order_date, 9, 0, 0)
+
     next_month = Time.zone.now.next_month.strftime('%m').to_i
-    return true if birthday.month == next_month
+    two_months_later = Time.zone.now.next_month.next_month.strftime('%m').to_i
+
+    is_birthday_next_month = birthday.month == next_month
+    is_birthday_two_months_later = birthday.month == two_months_later
+
+    is_current_time_before_deadline = Time.zone.now <= deadline
+
+    # 条件① : 誕生日が翌月 かつ 現在時刻が15日 08:59以内
+    return true if is_birthday_next_month && is_current_time_before_deadline
+    # 条件② : 誕生日が翌々月 かつ 15日 09:00以降
+    return true if is_birthday_two_months_later && !is_current_time_before_deadline
 
     false
   end

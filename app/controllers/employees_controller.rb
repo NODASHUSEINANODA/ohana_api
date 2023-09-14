@@ -24,7 +24,7 @@ class EmployeesController < ApplicationController
       rescue ActiveRecord::RecordInvalid => e
         flash[:danger] = e.record.errors.full_messages.join(', ')
       end
-    elsif @employee.birthday_is_next_month?
+    elsif @employee.is_birthday_within_next_order_term?
       @employee.save_with_order_detail(current_company)
       flash[:success] = '社員を登録しました'
     elsif @employee.save!
