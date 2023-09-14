@@ -2,7 +2,15 @@
   <% if @next_order_details.empty? %>
     <p class="h2 text-center text-danger my-5">次回の注文はありません</p>
   <% else %>
-    <p class="h2 text-center">次回の注文確認</p>
+    <div class="row d-flex align-items-end">
+      <div class="col-4"></div>
+      <div class="col-4">
+        <p class="h2 text-center align-text-bottom">次回の注文確認</p>
+      </div>
+      <div class="col-4">
+        <p class="text-center align-text-bottom">※ ☆マークは節目の誕生日の人( 例: 30歳,40歳...)</p>
+      </div>
+    </div>
     <%= form_with(path: next_order_path, method: :put, local: true) do |form| %>
       <table class="table table-striped table-hover">
         <thead class='bg-white'>
@@ -23,10 +31,18 @@
             <%= fields_for 'details[]', details do |detail| %>
               <% if detail.object.employee.present? %>
                 <tr>
-                  <td class='align-middle small'><%= detail.object.employee.name %></td>
+                  <% if detail.object.employee.is_milestone_birthday %>
+                    <td class='align-middle small text-danger fw-bold'>
+                      <%= "☆#{detail.object.employee.name}" %>
+                    </td>
+                  <% else %>
+                    <td class='align-middle small'>
+                      <%= "#{detail.object.employee.name}" %>
+                    </td>
+                  <% end %>
                   <td class='align-middle small'><%= detail.object.employee.sex %></td>
                   <td class='align-middle small'><%= detail.object.employee.birthday_format_mm_dd %></td>
-                  <td class='align-middle small'><%= detail.object.employee.age %>歳</td>
+                  <td class='align-middle small'><%= detail.object.employee.age_after_birthday %>歳</td>
                   <td class='align-middle small'><%= detail.object.employee.address %></td>
                   <td class='align-middle small'><%= detail.object.employee.working_years %>年</td>
                   <td class='align-middle small'>
