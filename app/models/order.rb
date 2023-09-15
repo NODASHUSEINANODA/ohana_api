@@ -18,6 +18,11 @@ class Order < ApplicationRecord
         end
       end
     end
+
+    # NOTE 今の仕様では全ての会社で同じ日付で注文するので、クラスメソッドとして定義
+    def order_date
+      return 15
+    end
   end
 
   def calc_amount
