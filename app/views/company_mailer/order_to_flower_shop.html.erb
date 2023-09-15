@@ -13,6 +13,7 @@
       <thead>
         <tr>
           <th>名前</th>
+          <th>誕生日メッセージ</th>
           <th>到着日付</th>
           <th>宛先</th>
           <th>メニュー</th>
@@ -22,6 +23,7 @@
         <% @next_orders_info.each do |info| %>
           <tr>
               <td class='align-middle small'><%= info[:employee_name] %></td>
+              <td class='align-middle small'><%= info[:birthday_message] %></td>
               <td class='align-middle small'><%= info[:employee_birthday] %></td>
               <td class='align-middle small'><%= info[:delivery_address] %></td>
               <td class='align-middle small'><%= info[:menu_name_with_price] %></td>
