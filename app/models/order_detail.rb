@@ -13,12 +13,14 @@ class OrderDetail < ApplicationRecord
 
   class << self
     def setup_next_order_detail(order_id, employee_id, menu_id)
+      employee_name = Employee.find(employee_id).name
       OrderDetail.create(
         order_id: order_id,
         employee_id: employee_id,
         menu_id: menu_id,
         deliver_to: 0,
-        discarded_at: nil
+        discarded_at: nil,
+        birthday_message: "#{employee_name}さん、お誕生日おめでとうございます！"
       )
     end
   end
