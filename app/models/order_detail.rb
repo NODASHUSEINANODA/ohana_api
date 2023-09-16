@@ -30,7 +30,8 @@ class OrderDetail < ApplicationRecord
       employee_name: employee.name,
       employee_birthday: employee.birthday_format_mm_dd,
       delivery_address: delivery_address,
-      menu_name_with_price: menu.name_with_price
+      menu_name_with_price: menu.name_with_price,
+      birthday_message: birthday_message
     }
   end
 
