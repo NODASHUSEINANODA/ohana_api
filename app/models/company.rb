@@ -7,7 +7,7 @@ class Company < ApplicationRecord
   belongs_to :flower_shop
 
   validates :name, presence: true, length: { maximum: 100, allow_blank: true }
-  validates :address, presence: true, length: { maximum: 40, allow_blank: true }
+  validates :address, presence: true, length: { maximum: 100, allow_blank: true }
 
   # この:validatableはpasswordとemailしか検証してくれない
   devise :database_authenticatable, :registerable,
