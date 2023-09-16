@@ -28,6 +28,7 @@ class OrderDetail < ApplicationRecord
   def prepare_for_company_mailer
     {
       employee_name: employee.name,
+      employee_age: employee.age_after_birthday,
       employee_birthday: employee.birthday_format_mm_dd,
       delivery_address: delivery_address,
       menu_name_with_price: menu.name_with_price,
