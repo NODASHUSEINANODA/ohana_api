@@ -39,7 +39,9 @@
                   <% end %>
                   <td class='align-middle small'><%= detail.object.employee.age_after_birthday %>歳</td>
                   <td class='align-middle small'>
-                    <%= detail.text_area :birthday_message %>
+                    <textarea class='w-100'>
+                      <%= detail.object.birthday_message %>
+                    </textarea>
                   </td>
                   <td class='align-middle small'>
                     <% if detail.object.employee.address.present? %>
