@@ -17,7 +17,8 @@ class OrderDetailsController < ApplicationController
       detail.update(
         deliver_to: param[:deliver_to],
         menu_id: param[:menu_id].to_i,
-        discarded_at: param[:discard].present? ? Time.zone.now : nil
+        discarded_at: param[:discard].present? ? Time.zone.now : nil,
+        birthday_message: param[:birthday_message]
       )
     end
 
