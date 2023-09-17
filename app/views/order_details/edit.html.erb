@@ -16,11 +16,8 @@
         <thead class='bg-white'>
           <tr>
             <th>名前</th>
-            <th>性別</th>
-            <th>誕生日</th>
-            <th>年齢</th>
-            <th>住所</th>
-            <th>勤続年数</th>
+            <th>年齢(誕生日当日)</th>
+            <th>メッセージ</th>
             <th>送り先</th>
             <th>メニュー</th>
             <th>今回は送らない</th>
@@ -40,11 +37,10 @@
                       <%= "#{detail.object.employee.name}" %>
                     </td>
                   <% end %>
-                  <td class='align-middle small'><%= detail.object.employee.sex %></td>
-                  <td class='align-middle small'><%= detail.object.employee.birthday_format_mm_dd %></td>
                   <td class='align-middle small'><%= detail.object.employee.age_after_birthday %>歳</td>
-                  <td class='align-middle small'><%= detail.object.employee.address %></td>
-                  <td class='align-middle small'><%= detail.object.employee.working_years %>年</td>
+                  <td class='align-middle small'>
+                    <%= detail.text_area :birthday_message, class: 'w-100' %>
+                  </td>
                   <td class='align-middle small'>
                     <% if detail.object.employee.address.present? %>
                       <%= detail.select :deliver_to,

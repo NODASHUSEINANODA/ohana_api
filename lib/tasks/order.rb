@@ -4,7 +4,7 @@ class Tasks::Order < Tasks::AbstBatch
   def self.exec
     execute('注文を開始します') do
       Company.all.each do |company|
-        # NOTE できればeach内の処理を`app/use_cases/company/send_mail_to_flower_shop.rb`を作成し、そこで行いたい
+        # NOTE: できればeach内の処理を`app/use_cases/company/send_mail_to_flower_shop.rb`を作成し、そこで行いたい
         formatted_next_orders = company.next_order_details.map(&:prepare_for_company_mailer)
 
         if formatted_next_orders.present?
