@@ -27,6 +27,7 @@
         <th>年齢</th>
         <th>住所</th>
         <th>勤続年数</th>
+        <th>管理者メモ</th>
         <th></th>
         <th></th>
       </tr>
@@ -46,8 +47,9 @@
           <td class='align-middle small'><%= employee.sex %></td>
           <td class='align-middle small'><%= employee.birthday_format_yyyy_mm_dd %></td>
           <td class='align-middle small'><%= employee.age %>歳</td>
-          <td class='align-middle small'><%= employee.address %></td>
+          <td class='align-middle small w-25'><%= employee.address %></td>
           <td class='align-middle small'><%= employee.working_years %>年</td>
+          <td class='align-middle small w-25 text-break'><%= employee.message %></td>
           <td>
             <button
               type="button"
