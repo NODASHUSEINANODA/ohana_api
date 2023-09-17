@@ -6,8 +6,8 @@ class Company < ApplicationRecord
   has_many :orders, dependent: :destroy
   belongs_to :flower_shop
 
-  validates :name, presence: true, length: { maximum: 20, allow_blank: true }
-  validates :address, presence: true, length: { maximum: 40, allow_blank: true }
+  validates :name, presence: true, length: { maximum: 100, allow_blank: true }
+  validates :address, presence: true, length: { maximum: 100, allow_blank: true }
 
   # この:validatableはpasswordとemailしか検証してくれない
   devise :database_authenticatable, :registerable,
