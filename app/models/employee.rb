@@ -42,7 +42,8 @@ class Employee < ApplicationRecord
         employee_id: id,
         menu_id: current_company.flower_shop.cheapest_menu_of_the_season.id,
         deliver_to: 0,
-        discarded_at: nil
+        discarded_at: nil,
+        birthday_message: "#{name}さん、お誕生日おめでとうございます！"
       )
       order_detail.save!
     end
@@ -61,7 +62,8 @@ class Employee < ApplicationRecord
           employee_id: id,
           menu_id: current_company.flower_shop.cheapest_menu_of_the_season.id,
           deliver_to: 0,
-          discarded_at: nil
+          discarded_at: nil,
+          birthday_message: "#{name}さん、お誕生日おめでとうございます！"
         )
         order_detail.save!
 
