@@ -6,7 +6,7 @@ class CompanyMailer < ApplicationMailer
   before_action :set_company_name_and_email, only: %i[order_to_flower_shop no_order_to_flower_shop]
   before_action :set_flower_shop_name_and_email, only: %i[order_to_flower_shop no_order_to_flower_shop]
 
-  SUBJECT_TO_FLOWER_SHOP = '【ONE-STEP-GIFT】来月の注文依頼'
+  SUBJECT_TO_FLOWER_SHOP = '【Thanks Gift】来月の注文依頼'
 
   def order_to_flower_shop
     @next_orders_info = params[:next_orders_info]
