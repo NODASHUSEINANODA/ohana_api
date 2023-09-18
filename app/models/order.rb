@@ -21,8 +21,8 @@ class Order < ApplicationRecord
 
     # 運営会社へ今月の注文から会社名と合計金額を取得し送信
     def amount_of_sales_to_operating_company
-      orders_info = orders_info_for_operating_company
-      total_amount = total_amount_for_operating_company
+      orders_info = Company.next_orders_company_name_and_amount
+      total_amount = Company.next_orders_total_amount
 
       OrderMailer.with(
         orders_info: orders_info,
@@ -59,24 +59,5 @@ class Order < ApplicationRecord
       president_name: president.employee.name,
       president_email: president.email
     ).no_shipping_confirmation_to_president.deliver_now
-  end
-
-  private
-
-  def orders_info_for_operating_company
-    Company.all.map do |company|
-      {
-        company_name: company.name,
-        total_amount: company.next_order.calc_amount
-      }
-    end
-  end
-
-  def total_amount_for_operating_company
-    total_amounts = Company.all.map do |company|
-      company.next_order.calc_amount
-    end
-
-    total_amounts.sum
   end
 end
