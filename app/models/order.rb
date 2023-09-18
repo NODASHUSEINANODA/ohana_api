@@ -19,7 +19,6 @@ class Order < ApplicationRecord
       end
     end
 
-    # NOTE 今の仕様では全ての会社で同じ日付で注文するので、クラスメソッドとして定義
     # 運営会社へ今月の注文から会社名と合計金額を取得し送信
     def amount_of_sales_to_operating_company
       orders_info = orders_info_for_operating_company
@@ -31,8 +30,9 @@ class Order < ApplicationRecord
       ).amount_of_sales_to_operating_company.deliver_now
     end
 
+    # NOTE: 今の仕様では全ての会社で同じ日付で注文するので、クラスメソッドとして定義
     def order_date
-      return 15
+      15
     end
   end
 
