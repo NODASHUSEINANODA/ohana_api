@@ -120,7 +120,7 @@ class Employee < ApplicationRecord
   end
 
   def is_birthday_within_next_order_term?
-    deadline = Time.new(Time.zone.now.year, Time.zone.now.month, Order.order_date, 9, 0, 0)
+    deadline = Time.new(Time.zone.now.year, Time.zone.now.month, Settings[:ORDER_DATE], 9, 0, 0)
 
     next_month = Time.zone.now.next_month.strftime('%m').to_i
     two_months_later = Time.zone.now.next_month.next_month.strftime('%m').to_i

@@ -25,8 +25,8 @@ class OrderMailer < ApplicationMailer
   end
 
   def amount_of_sales_to_operating_company
-    @operating_company_email = 'info@fpec.jp'
-    @operating_company_name = '株式会社FPEC'
+    @operating_company_email = Settings[:OPERATING_COMPANY_EMAIL]
+    @operating_company_name = Settings[:OPERATING_COMPANY_NAME]
     @orders_info = params[:orders_info]
     @total_amount = params[:total_amount]
 

@@ -29,11 +29,6 @@ class Order < ApplicationRecord
         total_amount: total_amount
       ).amount_of_sales_to_operating_company.deliver_now
     end
-
-    # NOTE: 今の仕様では全ての会社で同じ日付で注文するので、クラスメソッドとして定義
-    def order_date
-      15
-    end
   end
 
   def calc_amount
