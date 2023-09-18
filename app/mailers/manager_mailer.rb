@@ -18,7 +18,7 @@ class ManagerMailer < ApplicationMailer
     mail(
       to: @president_email,
       cc: @manager_emails,
-      subject: '【ONE-STEP-GIFT】翌月の注文に関するリマインド'
+      subject: '【Thanks Gift】翌月の注文に関するリマインド'
     )
   end
 end

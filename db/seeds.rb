@@ -3,7 +3,7 @@
 require 'csv'
 
 COMPANY_COUNT = 3
-EMPLOYEE_COUNT = 50
+EMPLOYEE_COUNT = 100
 
 FlowerShop.create!(
   name: 'Florist SAKURA',
@@ -38,18 +38,19 @@ COMPANY_COUNT.times do |n|
   )
 end
 
-EMPLOYEE_COUNT.times do |_n|
-  s1 = Date.parse('2000/08/1')
-  s2 = Date.parse('2000/08/30')
-  s = Random.rand(s1..s2)
+EMPLOYEE_COUNT.times do |n|
+  birthday_year = Random.rand(1960..2000)
+  birthday_month = (n % 12) + 1
+  birthday_date = Random.rand(1..28)
+  birthday = Date.parse("#{birthday_year}/#{birthday_month}/#{birthday_date}")
   address = Random.rand(1..2).even? ? Gimei.unique.address : ''
 
   Employee.create!(
     name: Gimei.unique.name.kanji,
     sex: Random.rand(1..2) == 2 ? '男性' : '女性',
-    birthday: s,
+    birthday: birthday,
     address: address,
-    joined_at: s,
+    joined_at: birthday,
     phone_number: address ? '09011112222' : nil,
     message: Random.rand(1..2) == 2 ? '情熱的' : '落ち着いている',
     company_id: Random.rand(1..3)

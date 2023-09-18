@@ -1,1 +1,8 @@
 SYSTEM_MAIL_ADDRESS: "no-reply@one-step-gift.com"
+
+# 運営会社の情報
+OPERATING_COMPANY_EMAIL: 'info@fpec.jp'
+OPERATING_COMPANY_NAME: '株式会社FPEC'
+
+# 注文情報
+ORDER_DATE: 15

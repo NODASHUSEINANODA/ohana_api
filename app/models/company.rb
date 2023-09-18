@@ -15,6 +15,31 @@ class Company < ApplicationRecord
 
   before_save :create_initial_order, if: :will_save_change_to_confirmed_at?
 
+  class << self
+    # 会社ごとの次回の注文情報(会社名と合計金額)
+    def next_orders_company_name_and_amount
+      Company.all.map do |company|
+        next unless company.next_order
+
+        {
+          company_name: company.name,
+          total_amount: company.next_order.calc_amount
+        }
+      end
+    end
+
+    # 次回の注文情報の合計金額
+    def next_orders_total_amount
+      total_amounts = Company.all.map do |company|
+        next unless company.next_order
+
+        company.next_order.calc_amount
+      end
+
+      total_amounts.sum
+    end
+  end
+
   def president
     managers.find_by(is_president: true)
   end
