@@ -1,0 +1,37 @@
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+  </head>
+  <body style="background-color: white;">
+    <h3><%= @operating_company_name %> 様</h3>
+
+    <p>いつもお世話になっております。</p>
+    <p>本メールは、今月の売り上げについてのお知らせでございます。</p>
+    <p>売上の詳細は以下です。</p>
+
+    <table class="table table-striped table-hover">
+      <thead>
+        <tr>
+          <th>会社名</th>
+          <th>売上</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @orders_info.each do |order_info| %>
+          <tr>
+            <td class='align-middle small'><%= order_info[:company_name] %></td>
+            <td class='align-middle small'><%= order_info[:total_amount] %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <p>合計 : <%= @total_amount %>円 </p>
+
+    <div class="my-3">
+      <p>※このメールはシステムから自動送信されています。</p>
+    </div>
+  </body>
+</html>

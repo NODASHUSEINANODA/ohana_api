@@ -24,6 +24,18 @@ class OrderMailer < ApplicationMailer
     )
   end
 
+  def amount_of_sales_to_operating_company
+    @operating_company_email = 'info@fpec.jp'
+    @operating_company_name = '株式会社FPEC'
+    @orders_info = params[:orders_info]
+    @total_amount = params[:total_amount]
+
+    mail(
+      to: @operating_company_email,
+      subject: '【Thanks Gift】今月の売上金額のお知らせ'
+    )
+  end
+
   def set_president_name_and_email
     @president_name = params[:president_name]
     @president_email = params[:president_email]
