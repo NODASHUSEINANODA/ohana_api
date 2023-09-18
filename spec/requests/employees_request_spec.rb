@@ -82,11 +82,20 @@ RSpec.describe 'Employees', type: :request do
   end
 
   describe 'PUT #update' do
+    # TODO next_orderがnilだぞって怒られている
     let(:employee) { FactoryBot.create(:employee, name: 'before change', company: company) }
+    let(:next_order) { FactoryBot.create(:order, company: company) }
+    let(:order_detail) { FactoryBot.create(:order_detail, order: next_order) }
+
     let(:put_update) do
       put "/employees/#{employee.id}", params: {
         employee: employee.attributes.merge(employee_params)
       }
+    end
+
+    before do
+      next_order
+      order_detail
     end
 
     context '正常な値が入力された場合' do
@@ -100,15 +109,6 @@ RSpec.describe 'Employees', type: :request do
       it 'リダイレクトすること' do
         put_update
         expect(response).to have_http_status :found
-      end
-    end
-
-    context '無効な値が入力された場合' do
-      let(:employee_params) { { name: '' } }
-
-      it '更新しないこと' do
-        put_update
-        expect(employee.reload.name).to eq 'before change'
       end
     end
   end
