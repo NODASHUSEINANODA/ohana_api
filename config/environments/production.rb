@@ -94,7 +94,7 @@ Rails.application.configure do
   # 通常モードの初期値には無かったから消すかも
   config.middleware.use Rack::MethodOverride
 
-  host = 'www.one-step-gift.com'
+  host = 'www.thanks-gift.cloud'
   ActionMailer::Base.delivery_method = :smtp
   config.action_mailer.default_url_options = { host: host }
   config.action_mailer.smtp_settings = {
