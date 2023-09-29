@@ -109,14 +109,8 @@ class Employee < ApplicationRecord
 
   # 勤続年数を返す(joined_atから現在までの年数)
   def working_years
-    now = Date.today
-    diff_years = now.year - joined_at.year
-
-    is_earlier_todays_date = now.month < joined_at.month || (now.month == joined_at.month && now.day < joined_at.day)
-
-    diff_years -= 1 if is_earlier_todays_date
-
-    diff_years
+    now = Time.now.utc.to_date
+    now.year - joined_at.year - (joined_at.change(year: now.year) > now ? 1 : 0)
   end
 
   def is_birthday_within_next_order_term?
