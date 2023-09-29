@@ -26,6 +26,7 @@ class OrderMailer < ApplicationMailer
 
   def amount_of_sales_to_operating_company
     @operating_company_email = Settings[:OPERATING_COMPANY_EMAIL]
+    @operating_company_name = Settings[:OPERATING_COMPANY_NAME]
     @operating_member_email = Settings[:OPERATING_MEMBER_EMAIL]
     @orders_info = params[:orders_info]
     @total_amount = params[:total_amount]
