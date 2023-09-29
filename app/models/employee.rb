@@ -94,8 +94,7 @@ class Employee < ApplicationRecord
   end
 
   def age
-    now = Time.now.utc.to_date
-    now.year - birthday.year - (birthday.change(year: now.year) > now ? 1 : 0)
+    calc_how_many_years_passed(birthday)
   end
 
   def age_after_birthday
@@ -109,8 +108,7 @@ class Employee < ApplicationRecord
 
   # 勤続年数を返す(joined_atから現在までの年数)
   def working_years
-    now = Time.now.utc.to_date
-    now.year - joined_at.year - (joined_at.change(year: now.year) > now ? 1 : 0)
+    calc_how_many_years_passed(joined_at)
   end
 
   def is_birthday_within_next_order_term?
@@ -130,5 +128,12 @@ class Employee < ApplicationRecord
     return true if is_birthday_two_months_later && !is_current_time_before_deadline
 
     false
+  end
+
+  private
+
+  def calc_how_many_years_passed(input_date)
+    now = Time.now.utc.to_date
+    now.year - input_date.year - (input_date.change(year: now.year) > now ? 1 : 0)
   end
 end
