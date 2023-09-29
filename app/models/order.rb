@@ -37,22 +37,35 @@ class Order < ApplicationRecord
 
   # formatted_next_ordersは、OrderDetailのprepare_for_company_mailerメソッドの返り値を指定
   def shipping_confirmation_to_president(formatted_next_orders)
-    president = company.president
+    president = my_president
+    manager_emails = my_managers.pluck(:email)
 
     OrderMailer.with(
       president_name: president.employee.name,
       president_email: president.email,
+      manager_emails: manager_emails,
       next_orders_info: formatted_next_orders,
       total_amount: calc_amount
     ).shipping_confirmation_to_president.deliver_now
   end
 
   def no_shipping_confirmation_to_president
-    president = company.president
+    president = my_president
+    manager_emails = my_managers.pluck(:email)
 
     OrderMailer.with(
       president_name: president.employee.name,
-      president_email: president.email
+      president_email: president.email,
+      manager_emails: manager_emails,
     ).no_shipping_confirmation_to_president.deliver_now
+  end
+
+  private
+  def my_president
+    company.president
+  end
+
+  def my_managers
+    my_president.employee.company.managers.not_presidents
   end
 end
