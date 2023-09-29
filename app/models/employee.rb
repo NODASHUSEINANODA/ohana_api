@@ -94,8 +94,8 @@ class Employee < ApplicationRecord
   end
 
   def age
-    now = Date.today.year
-    now - birthday.year
+    now = Time.now.utc.to_date
+    now.year - birthday.year - (birthday.change(year: now.year) > now ? 1 : 0)
   end
 
   def age_after_birthday
