@@ -12,7 +12,7 @@
       <%= link_to "次回の注文" , next_order_path, class: "col nav-link text-center border-start py-0" %>
       <%= link_to "ログアウト" , companies_sign_out_path, class: "col nav-link text-center border-start py-0" %>
       <%= link_to "設定" , edit_company_registration_path, class: "col nav-link text-center border-start py-0" %>
-      <%= link_to "アプリの使い方", "/お花一覧.pdf", target: :_blank, class: "col nav-link text-center border-start py-0" %>
+      <%= link_to "アプリの使い方", Settings[:THANKS_GIFT_MANUAL_LINK], target: :_blank, class: "col nav-link text-center border-start py-0" %>
     </div>
   </nav>
 </div>
