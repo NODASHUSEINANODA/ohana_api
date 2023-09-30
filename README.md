@@ -1,10 +1,10 @@
-# ONE-STEP-GIFT
+# Thanks Gift
 
 ワンステップで社員にお花を贈るWEBサービス
 
 ## 目次
 
-- [ONE-STEP-GIFT](#one-step-gift)
+- [Thanks Gift](#thanks-gift)
   - [目次](#目次)
   - [開発環境の構築](#開発環境の構築)
   - [機能](#機能)
@@ -58,8 +58,8 @@ rails runner Tasks::Order.exec
 ```
 
 ## 各種リンク
-- [本番環境](https://one-step-gift-app-e4ebd1941fff.herokuapp.com/)
-- [heroku](https://dashboard.heroku.com/apps/one-step-gift-app)
+- [本番環境](https://www.thanks-gift.cloud/)
+- [heroku](https://dashboard.heroku.com/apps/thanks-gift)
 - [Google Drive](https://drive.google.com/drive/u/0/folders/13ehpUNUTKgzfgBoOInEibuvr4ExCjoku)
 - [UIデザイン](https://www.figma.com/file/8hCVnFM22M6ljUX7u8HobU/ohana?type=design&node-id=0-1&mode=design)
 - [お名前メール(メールサーバー)](https://cp.onamae.ne.jp/)
