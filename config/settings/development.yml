@@ -1,0 +1,9 @@
+SYSTEM_MAIL_ADDRESS: "no-reply@example.com"
+
+# 運営会社の情報
+# NOTE 本番の送信専用に送信する
+OPERATING_COMPANY_EMAIL: 'operate_company@example.com'
+OPERATING_COMPANY_NAME: '株式会社DEVELOPMENT'
+
+# 注文情報
+ORDER_DATE: 15
