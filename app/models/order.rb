@@ -66,6 +66,6 @@ class Order < ApplicationRecord
   end
 
   def my_managers
-    my_president.employee.company.managers.not_presidents
+    company.managers.not_presidents
   end
 end
