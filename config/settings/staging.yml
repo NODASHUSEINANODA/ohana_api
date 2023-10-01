@@ -5,5 +5,9 @@ SYSTEM_MAIL_ADDRESS: "no-reply@one-step-gift.com"
 OPERATING_COMPANY_EMAIL: 'no-reply@thanks-gift.cloud'
 OPERATING_COMPANY_NAME: '株式会社STAGING'
 
+# 野田くんの情報
+OPERATING_MEMBER_EMAIL: 'noda.homey@example.com'
+OPERATING_MEMBER_NAME: '野田周生'
+
 # 注文情報
 ORDER_DATE: 15

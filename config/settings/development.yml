@@ -5,5 +5,9 @@ SYSTEM_MAIL_ADDRESS: "no-reply@example.com"
 OPERATING_COMPANY_EMAIL: 'operate_company@example.com'
 OPERATING_COMPANY_NAME: '株式会社DEVELOPMENT'
 
+# 野田くんの情報
+OPERATING_MEMBER_EMAIL: 'noda.homey@gmail.com'
+OPERATING_MEMBER_NAME: '野田周生'
+
 # 注文情報
 ORDER_DATE: 15
