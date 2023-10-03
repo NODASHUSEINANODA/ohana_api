@@ -17,13 +17,13 @@ class Menu < ApplicationRecord
 
     case Time.now.month
     when *spring_term
-      where(season: :spring)
+      where(season: %i[spring all_season])
     when *summer_term
-      where(season: :summer)
+      where(season: %i[summer all_season])
     when *automn_term
-      where(season: :automn)
+      where(season: %i[automn all_season])
     when *winter_term
-      where(season: :winter)
+      where(season: %i[winter all_season])
     else
       all
     end
@@ -33,7 +33,8 @@ class Menu < ApplicationRecord
     spring: 1,
     summer: 2,
     automn: 3,
-    winter: 4
+    winter: 4,
+    all_season: 0
   }, scope: true
 
   def name_with_price
