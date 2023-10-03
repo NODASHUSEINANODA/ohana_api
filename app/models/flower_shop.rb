@@ -8,6 +8,6 @@ class FlowerShop < ApplicationRecord
   validates :name, :email, presence: true
 
   def cheapest_menu_of_the_season
-    menus.season_menu.cheapest
+    menus.where(season: :all_season).cheapest
   end
 end
