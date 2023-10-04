@@ -1,0 +1,16 @@
+SYSTEM_MAIL_ADDRESS: "no-reply@one-step-gift.com"
+
+# 運営会社の情報
+# NOTE 本番の送信専用に送信する
+OPERATING_COMPANY_EMAIL: 'no-reply@thanks-gift.cloud'
+OPERATING_COMPANY_NAME: '株式会社STAGING'
+
+# 野田くんの情報
+OPERATING_MEMBER_EMAIL: 'noda.homey@example.com'
+OPERATING_MEMBER_NAME: '野田周生'
+
+# 注文情報
+ORDER_DATE: 15
+
+# アプリの使い方URL
+THANKS_GIFT_MANUAL_LINK: 'https://sites.google.com/view/thanks-gift/%E3%83%9B%E3%83%BC%E3%83%A0'
