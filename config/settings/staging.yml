@@ -11,3 +11,6 @@ OPERATING_MEMBER_NAME: '野田周生'
 
 # 注文情報
 ORDER_DATE: 15
+
+# アプリの使い方URL
+THANKS_GIFT_MANUAL_LINK: 'https://sites.google.com/view/thanks-gift/%E3%83%9B%E3%83%BC%E3%83%A0'
