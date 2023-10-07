@@ -10,6 +10,9 @@
   - [デプロイ手順](#デプロイ手順)
     - [注意事項](#注意事項)
     - [Production環境とStaging環境を`git remote`に設定する](#production環境とstaging環境をgit-remoteに設定する)
+    - [migrationに変更がある場合](#migrationに変更がある場合)
+      - [ローカルからDBのみリモートに接続する](#ローカルからdbのみリモートに接続する)
+      - [リモートのDBを更新](#リモートのdbを更新)
     - [Production環境へのデプロイ](#production環境へのデプロイ)
     - [Staging環境へのデプロイ](#staging環境へのデプロイ)
   - [各種タスク](#各種タスク)
@@ -51,6 +54,25 @@ production https://git.heroku.com/thanks-gift.git (fetch)
 production https://git.heroku.com/thanks-gift.git (push)
 staging https://git.heroku.com/thanks-gift-stg.git (fetch)
 staging https://git.heroku.com/thanks-gift-stg.git (push)
+```
+
+### migrationに変更がある場合
+migrationの変更がある場合、下のデプロイコマンドのみだとmigrateがされていないとエラーになる。
+なので、先にリモート(本番 or ステージング) のDBのテーブルを更新する必要がある。
+
+#### ローカルからDBのみリモートに接続する
+以下のコマンドをHerokuから対応する環境変数を取得して実行
+```
+docker compose run -e RAILS_ENV=staging or production APP_DATABASE=hoge -e APP_DATABASE_HOST=hoge -e APP_DATABASE_PASSWORD=hoge -e APP_DATABASE_USERNAME=hoge -e ONAMAE_MAIL_SMTP_ADDRESS=hoge -e ONAMAE_MAIL_SMTP_DOMAIN=hoge -e ONAMAE_MAIL_SMTP_PASSWORD=hoge -e ONAMAE_MAIL_SMTP_PORT=hoge -e SECRET_KEY_BASE=hoge web /bin/bash
+```
+
+#### リモートのDBを更新
+```
+# migrateの状態を確認
+rails db:migrate:status
+
+# 問題なければ
+rails db:migrate
 ```
 
 ### Production環境へのデプロイ
