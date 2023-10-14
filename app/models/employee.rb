@@ -122,9 +122,9 @@ class Employee < ApplicationRecord
 
     is_current_time_before_deadline = Time.zone.now <= deadline
 
-    # 条件① : 誕生日が翌月 かつ 現在時刻が15日 08:59以内
+    # 条件① : 誕生日が翌月 かつ 現在時刻が16日 08:59以内
     return true if is_birthday_next_month && is_current_time_before_deadline
-    # 条件② : 誕生日が翌々月 かつ 15日 09:00以降
+    # 条件② : 誕生日が翌々月 かつ 16日 09:00以降
     return true if is_birthday_two_months_later && !is_current_time_before_deadline
 
     false

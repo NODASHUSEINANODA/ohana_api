@@ -8,7 +8,7 @@ class ManagerMailer < ApplicationMailer
     @president_email = params[:president_email]
     @manager_emails = params[:manager_emails]
 
-    @deadline = 15
+    @deadline = 16
     # deadlineの5日前かを判別
     @is_ten_days_before_deadline = Time.zone.now.day == @deadline - 5
 
