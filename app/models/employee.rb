@@ -7,7 +7,7 @@ class Employee < ApplicationRecord
   has_one :manager, dependent: :destroy
   has_many :order_details, dependent: :destroy
 
-  validates :name, :sex, :birthday, :joined_at, :company_id, presence: true
+  validates :name, :sex, :birthday, :company_id, presence: true
   validates :phone_number, format: { with: /\A\d{10,11}\z/ }, allow_nil: true, allow_blank: true # 電話番号は10桁or11桁の数字のみ
   validate :require_phune_number_if_address_exist
 
@@ -133,6 +133,8 @@ class Employee < ApplicationRecord
   private
 
   def calc_how_many_years_passed(input_date)
+    return 0 if input_date.nil?
+
     now = Time.now.utc.to_date
     now.year - input_date.year - (input_date.change(year: now.year) > now ? 1 : 0)
   end
