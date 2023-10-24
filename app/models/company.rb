@@ -81,7 +81,7 @@ class Company < ApplicationRecord
   end
 
   def employees_with_birthdays_next_month
-    employees.birthdays_in_next_month
+    employees.birthday_within_two_months_later
   end
 
   private

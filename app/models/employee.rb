@@ -11,8 +11,8 @@ class Employee < ApplicationRecord
   validates :phone_number, format: { with: /\A\d{10,11}\z/ }, allow_nil: true, allow_blank: true # 電話番号は10桁or11桁の数字のみ
   validate :require_phune_number_if_address_exist
 
-  scope :birthdays_in_next_month, lambda {
-    next_month = Time.zone.now.next_month.strftime('%m')
+  scope :birthday_within_two_months_later, lambda {
+    next_month = Time.zone.now.since(2.month).strftime('%m')
     birthday_in_next_month_condition = Employee.arel_table[:birthday].extract('month').eq(next_month)
 
     where(birthday_in_next_month_condition).order(birthday: :asc)
