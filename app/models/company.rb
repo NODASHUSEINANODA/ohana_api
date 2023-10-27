@@ -45,7 +45,7 @@ class Company < ApplicationRecord
   end
 
   def setup_next_order
-    birthday_employee_ids = employees_with_birthdays_next_month.pluck(:id)
+    birthday_employee_ids = employees.birthday_within_two_months_later.pluck(:id)
     default_menu_id = flower_shop.cheapest_menu_of_the_season.id
 
     Order.setup_next_order(id, flower_shop.id, birthday_employee_ids, default_menu_id)
@@ -78,10 +78,6 @@ class Company < ApplicationRecord
       flower_shop_name: flower_shop.name,
       flower_shop_email: flower_shop.email
     ).no_order_to_flower_shop.deliver_now
-  end
-
-  def employees_with_birthdays_next_month
-    employees.birthday_within_two_months_later
   end
 
   private
