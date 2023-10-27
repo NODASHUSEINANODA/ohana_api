@@ -7,6 +7,7 @@
 - [Thanks Gift](#thanks-gift)
   - [目次](#目次)
   - [開発環境の構築](#開発環境の構築)
+  - [ログイン](#ログイン方法)
   - [デプロイ手順](#デプロイ手順)
     - [注意事項](#注意事項)
     - [Production環境とStaging環境を`git remote`に設定する](#production環境とstaging環境をgit-remoteに設定する)
@@ -26,7 +27,29 @@ docker compose exec rails db:create
 docker compose exec rails db:migrate
 docker compose exec rails db:seed
 ```
+## ログイン方法
+- production環境のログインは基本的に想定していません
+  - どうしてもログインが必要な際は、管理者に相談し、本番環境のDBを参照してください
+- staging環境のログインは以下のメールとパスワードでログインできます。(rails db:seedで初期データを作成している前提です)
+  ```
+  # 会社1　
+  メール : test1@example.com
+  パスワード : password
 
+  # 会社2
+  メール : test2@example.com
+  パスワード : password
+
+  # 会社3
+  メール : test3@example.com
+  パスワード : password
+  ```
+  - staging環境では、会社の登録は画面上からはできないため上記のいずれかの会社でログインしてください
+  - 万が一、ログインできなくなった場合は以下のコマンドでデータを初期化します。（全てのデータが初期化されるので十分に注意してください）
+  ```
+  rails db:migrate:reset
+  rails db:seed
+  ```
 ## デプロイ手順
 ### 注意事項
 ※ Production環境、Staging環境のいづれにおいても、Herokuのアクセス権限を保持していることを前提としています。アクセス権限を保持していない場合は、管理者より権限を付与していただいてください。
