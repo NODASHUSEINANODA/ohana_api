@@ -10,12 +10,12 @@ class Menu < ApplicationRecord
 
   scope :cheapest, -> { order(price: :asc).first }
   scope :season_menu, lambda {
-    spring_term = [2, 3, 4]
-    summer_term = [5, 6, 7]
-    automn_term = [8, 9, 10]
-    winter_term = [11, 12, 1]
+    spring_term = [3, 4, 5]
+    summer_term = [6, 7, 8]
+    automn_term = [9, 10, 11]
+    winter_term = [12, 1, 2]
 
-    case Time.now.month
+    case Time.zone.now.since(2.month).strftime('%m').to_i
     when *spring_term
       where(season: %i[spring all_season])
     when *summer_term
