@@ -44,6 +44,7 @@ class Order < ApplicationRecord
       president_name: president.employee.name,
       president_email: president.email,
       manager_emails: manager_emails,
+      company_email: company.email,
       next_orders_info: formatted_next_orders,
       total_amount: calc_amount
     ).shipping_confirmation_to_president.deliver_now
@@ -57,10 +58,12 @@ class Order < ApplicationRecord
       president_name: president.employee.name,
       president_email: president.email,
       manager_emails: manager_emails,
+      company_email: company.email
     ).no_shipping_confirmation_to_president.deliver_now
   end
 
   private
+
   def my_president
     company.president
   end
