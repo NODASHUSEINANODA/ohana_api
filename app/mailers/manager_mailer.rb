@@ -4,9 +4,13 @@ class ManagerMailer < ApplicationMailer
   default from: Settings[:SYSTEM_MAIL_ADDRESS]
 
   def remind_to_president
-    @president_name = params[:president_name]
-    @president_email = params[:president_email]
-    @manager_emails = params[:manager_emails]
+    @company_name = params[:company_name]
+    @company_email = params[:company_email]
+    president_email = params[:president_email]
+    manager_emails = params[:manager_emails]
+    @president_and_manager_emails = []
+    @president_and_manager_emails << president_email
+    @president_and_manager_emails << manager_emails
 
     @deadline = 16
     # deadlineの5日前かを判別
@@ -16,8 +20,8 @@ class ManagerMailer < ApplicationMailer
     @delete_employee_link = root_url
 
     mail(
-      to: @president_email,
-      cc: @manager_emails,
+      to: @company_email,
+      cc: @president_and_manager_emails,
       subject: '【Thanks Gift】翌月の注文に関するリマインド'
     )
   end

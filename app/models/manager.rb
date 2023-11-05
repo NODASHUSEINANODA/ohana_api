@@ -18,7 +18,8 @@ class Manager < ApplicationRecord
 
   def remind_to_president
     ManagerMailer.with(
-      president_name: employee.name,
+      company_name: employee.company.name,
+      company_email: employee.company.email,
       president_email: email,
       manager_emails: employee.company.managers.not_presidents.pluck(:email)
     ).remind_to_president.deliver_now
