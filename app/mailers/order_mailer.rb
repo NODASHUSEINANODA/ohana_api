@@ -12,16 +12,16 @@ class OrderMailer < ApplicationMailer
     @total_amount = params[:total_amount]
 
     mail(
-      to: @president_email,
-      cc: @company_and_manager_emails,
+      to: @company_email,
+      cc: @president_and_manager_emails,
       subject: SUBJECT
     )
   end
 
   def no_shipping_confirmation_to_president
     mail(
-      to: @president_email,
-      cc: @company_and_manager_emails,
+      to: @company_email,
+      cc: @president_and_manager_emails,
       subject: SUBJECT
     )
   end
@@ -41,10 +41,10 @@ class OrderMailer < ApplicationMailer
   end
 
   def set_president_name_and_email
-    @president_name = params[:president_name]
-    @president_email = params[:president_email]
-    @company_and_manager_emails = []
-    @company_and_manager_emails << params[:company_email]
-    @company_and_manager_emails << params[:manager_emails]
+    @company_name = params[:company_name]
+    @company_email = params[:company_email]
+    @president_and_manager_emails = []
+    @president_and_manager_emails << params[:president_email]
+    @president_and_manager_emails << params[:manager_emails]
   end
 end
