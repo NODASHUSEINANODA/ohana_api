@@ -41,7 +41,8 @@ class Order < ApplicationRecord
     manager_emails = my_managers.pluck(:email)
 
     OrderMailer.with(
-      president_name: president.employee.name,
+      company_name: company.name,
+      company_email: company.email,
       president_email: president.email,
       manager_emails: manager_emails,
       next_orders_info: formatted_next_orders,
@@ -54,13 +55,15 @@ class Order < ApplicationRecord
     manager_emails = my_managers.pluck(:email)
 
     OrderMailer.with(
-      president_name: president.employee.name,
-      president_email: president.email,
-      manager_emails: manager_emails,
+      company_name: company.name,
+      company_email: company.email,
+      pesident_email: president.email,
+      manager_emails: manager_emails
     ).no_shipping_confirmation_to_president.deliver_now
   end
 
   private
+
   def my_president
     company.president
   end
